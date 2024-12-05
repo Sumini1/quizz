@@ -25,9 +25,9 @@ const IntroTestSatu = () => {
         </p>
       </div>
       <div className="flex flex-col justify-center items-center">
-        <Link to={"/intro-test-dua"}>
+        <Link to={"/test-ilmu-islam-intro-page"}>
           <button className="bg-orange-600 text-white flex p-2 rounded-md mt-28 w-[350px]  items-center justify-center">
-            Lanjut
+            Uji pengetahuan ilmu islam
           </button>
         </Link>
       </div>
