@@ -4,9 +4,9 @@ import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "../../context/themeContext";
 
 
-const Home = () => {
+const Screen2 = () => {
+  const { theme } = useTheme();
   const location = useLocation();
-    const { theme } = useTheme();
 
   const getDotClass = (index) => {
     const currentScreen = ["/", "/screen2", "/screen3"];
@@ -29,32 +29,35 @@ const Home = () => {
 
   return (
     <div>
+      
       {/* Slider */}
       <div className="w-full h-[250px] rounded-lg p-20">
         <div>
           <img
-            src="/logoquiz.png"
+            src="/quiz2.png"
             alt="Logo 1"
-            className="w-full h-full object-cover mt-3"
+            className="w-full h-full object-cover"
           />
         </div>
       </div>
 
       {/* Teks informasi */}
-      <div className="flex mt-1 flex-col justify-center items-center mx-auto p-3">
-        <h1 className="text-xl font-semibold mt-16 p-3 ">
-          Perjalanan Menuntut Ilmu Mulai dari Sini
-        </h1>
-        <p className="text-sm -mt-3 p-3 ">
-          Komitmen kami memudahkan kaum muslimin untuk belajar agama dan bahasa
-          Arab dimanapun.
-        </p>
-        <div className="flex mt-28 mb-2 gap-3">
+      <div className="flex flex-col justify-center items-center mx-auto p-3">
+        <div>
+          <h1 className="text-xl font-semibold mt-16 p-3 ">
+            Perjalanan akan menyenangkan
+          </h1>
+          <p className="text-sm -mt-3 p-3 ">
+            Kami menyediakan sistem belajar yang menarik agar peserta merasa
+            senang
+          </p>
+        </div>
+        <div className="flex mt-36 mb-4 gap-3">
           <GoDotFill className={getDotClass(0)} />
           <GoDotFill className={getDotClass(1)} />
           <GoDotFill className={getDotClass(2)} />
         </div>
-        <Link to={"/screen2"}>
+        <Link to={"/screen3"}>
           <button
             className={`p-2 w-[350px] rounded-md ${
               theme === "dark"
@@ -66,7 +69,7 @@ const Home = () => {
                 : "bg-blue-700 text-white"
             }`}
           >
-            Lanjut
+            Lanjut  
           </button>
         </Link>
       </div>
@@ -74,4 +77,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Screen2;

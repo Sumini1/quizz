@@ -1,14 +1,18 @@
 import { useRoutes } from "react-router-dom";
 import { routes } from "./routes";
-// import Navbar from "./components/General/Navbar";
+import ThemeDropdown from "./components/Theme/ThemeDropdown";
 
 const App = () => {
   const element = useRoutes(routes);
 
   return (
     <>
-      {/* <Navbar /> */}
+     <div>
+      <div className="absolute top-4 right-4">
+        <ThemeDropdown />
+      </div>
       {element}
+    </div>
     </>
   );
 };

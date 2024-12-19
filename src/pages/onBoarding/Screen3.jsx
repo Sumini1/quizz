@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { GoDotFill } from "react-icons/go";
-import { Link, useLocation } from "react-router-dom";
+import { Link , useLocation} from "react-router-dom";
 import { useTheme } from "../../context/themeContext";
 
-
-const Home = () => {
-  const location = useLocation();
+const Screen3 = () => {
     const { theme } = useTheme();
+     const location = useLocation();
 
+   
   const getDotClass = (index) => {
     const currentScreen = ["/", "/screen2", "/screen3"];
     return currentScreen[index] === location.pathname
@@ -26,35 +26,35 @@ const Home = () => {
       ? "text-yellow-300"
       : "text-gray-200";
   };
-
   return (
-    <div>
+    <div
+    >
       {/* Slider */}
       <div className="w-full h-[250px] rounded-lg p-20">
         <div>
           <img
-            src="/logoquiz.png"
+            src="/quiz33.png"
             alt="Logo 1"
-            className="w-full h-full object-cover mt-3"
+            className="w-full h-full object-cover"
           />
         </div>
       </div>
 
       {/* Teks informasi */}
-      <div className="flex mt-1 flex-col justify-center items-center mx-auto p-3">
+      <div className="flex flex-col justify-center items-center mx-auto p-3">
         <h1 className="text-xl font-semibold mt-16 p-3 ">
-          Perjalanan Menuntut Ilmu Mulai dari Sini
+          Kamu Bisa Belajar Islam Sesuai Keinginanmu
         </h1>
         <p className="text-sm -mt-3 p-3 ">
-          Komitmen kami memudahkan kaum muslimin untuk belajar agama dan bahasa
-          Arab dimanapun.
+          Mau belajar dari dasar ? Ingin memperdalam berbagai cabang ilmu islam
+          seperti Fiqh Syafi’i ? atau mau memilih belajar tingkat lanjut ?
         </p>
-        <div className="flex mt-28 mb-2 gap-3">
+        <div className=" flex mt-24 mb-4  gap-3 ">
           <GoDotFill className={getDotClass(0)} />
           <GoDotFill className={getDotClass(1)} />
           <GoDotFill className={getDotClass(2)} />
         </div>
-        <Link to={"/screen2"}>
+        <Link to={"/login-register"}>
           <button
             className={`p-2 w-[350px] rounded-md ${
               theme === "dark"
@@ -74,4 +74,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Screen3;

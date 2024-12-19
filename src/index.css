@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+[data-theme="light"] {
+  --bg-color: white;
+  --text-color: black;
+  --h1-color: blue;
+}
+
+[data-theme="dark"] {
+  --bg-color: #1a202c;
+  --text-color: white;
+}
+
+[data-theme="cupcake"] {
+  --bg-color: #fdf4ff;
+  --text-color: #7d3eb5;
+}
+
+[data-theme="bumblebee"] {
+  --bg-color: #ffffe6;
+  --text-color: #f59e0b;
+  h1 {
+  color: var(--h1-color, var(--text-color)) !important;
+}
+
+p {
+  color: var(--p-color, var(--text-color)); /* Gunakan --p-color, fallback ke --text-color */
+}
+
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+
