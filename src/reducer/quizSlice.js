@@ -3,20 +3,17 @@ import { createSlice } from "@reduxjs/toolkit";
 const quiz = [
   {
     id: 1,
-    score: 0,
-    progress: 0,
-    endTime: null,
-    startTime: null,
     category: "Pemula",
     subCategory: [
       {
         id: 1,
-        name: "Aqidah",
+        name: "keimanan",
+        level: 1,
         questions: [
           {
             id: 1,
             question: "Apa kitab suci umat Islam?",
-            user_answer: false,
+            user_answer: null,
             correct_answer_id: 3,
             answers: [
               { id: 1, answer: "Kitab Suci" },
@@ -25,94 +22,108 @@ const quiz = [
               { id: 4, answer: "Dokumen Sejarah" },
             ],
           },
-          {
-            id: 2,
-            question: "Rukun Iman ada berapa?",
-            user_answer: false,
-            correct_answer_id: 4,
-            answers: [
-              { id: 1, answer: "3" },
-              { id: 2, answer: "4" },
-              { id: 3, answer: "5" },
-              { id: 4, answer: "6" },
-            ],
-          },
-          {
-            id: 3,
-            question: "Berapa jumlah malaikat yang wajib diketahui?",
-            user_answer: false,
-            correct_answer_id: 3,
-            answers: [
-              { id: 1, answer: "5" },
-              { id: 2, answer: "8" },
-              { id: 3, answer: "10" },
-              { id: 4, answer: "12" },
-            ],
-          },
-          {
-            id: 4,
-            question: "Apa itu zakat?",
-            user_answer: false,
-            correct_answer_id: 3,
-            answers: [
-              { id: 1, answer: "Sumbangan sukarela" },
-              { id: 2, answer: "Wajib haji" },
-              { id: 3, answer: "Zakat mal" },
-              { id: 4, answer: "Sedekah sunnah" },
-            ],
-          },
-          {
-            id: 5,
-            question: "Apa itu syahadat?",
-            user_answer: false,
-            correct_answer_id: 3,
-            answers: [
-              { id: 1, answer: "Ucapan pujian" },
-              { id: 2, answer: "Tantangan iman" },
-              { id: 3, answer: "Pernyataan keimanan" },
-              { id: 4, answer: "Zakat wajib" },
-            ],
-          },
-          {
-            id: 6,
-            question: "Apa itu zakat fitrah?",
-            user_answer: false,
-            correct_answer_id: 3,
-            answers: [
-              { id: 1, answer: "Sumbangan sukarela" },
-              { id: 2, answer: "Wajib haji" },
-              {
-                id: 3,
-                answer:
-                  "Zakat yang wajib dibayarkan oleh setiap muslim yang mampu pada bulan Ramadhan dan Idul Fitri",
-              },
-              { id: 4, answer: "Sedekah sunnah" },
-            ],
-          },
-
-          {
-            id: 7,
-            question: "Apa itu zakat maal?",
-            user_answer: false,
-            correct_answer_id: 3,
-            answers: [
-              { id: 1, answer: "Sumbangan sukarela" },
-              { id: 2, answer: "Wajib haji" },
-              {
-                id: 3,
-                answer:
-                  "zakat yang wajib dikeluarkan oleh umat Islam atas harta yang telah mencapai nisab dan haul ",
-              },
-              { id: 4, answer: "Sedekah sunnah" },
-            ],
-          },
+          // Tambahkan pertanyaan lainnya...
         ],
       },
     ],
   },
-  {
-    id: 2,
-    category: "Menengah",
-    subCategory: [], // Kategori lanjutan dapat ditambahkan di sini
-  },
 ];
+
+const quizSlice = createSlice({
+  name: "quiz",
+  initialState: {
+    quizzes: quiz,
+    currentQuizIndex: 0,
+    currentQuestionIndex: 0,
+    showResult: false,
+    score: 0,
+    totalQuestions: 0,
+    progress: 0,
+    startTime: null,
+    endTime: null,
+    userAnswers: [], // Menyimpan jawaban user
+  },
+  reducers: {
+    setCurrentQuizIndex: (state, action) => {
+      state.currentQuizIndex = action.payload;
+    },
+    setCurrentQuestionIndex: (state, action) => {
+      state.currentQuestionIndex = action.payload;
+    },
+    setShowResult: (state, action) => {
+      state.showResult = action.payload;
+    },
+    startQuiz: (state) => {
+      state.startTime = new Date().toISOString();
+      state.score = 0;
+      state.progress = 0;
+      state.userAnswers = [];
+      state.endTime = null;
+    },
+    endQuiz: (state) => {
+      state.endTime = new Date().toISOString();
+      state.showResult = true;
+    },
+    updateAnswer: (state, action) => {
+      const { quizId, questionId, answerId } = action.payload;
+      const quiz = state.quizzes.find((q) => q.id === quizId);
+      if (quiz) {
+        const question = quiz.subCategory[0].questions.find(
+          (q) => q.id === questionId
+        );
+        if (question) {
+          question.user_answer = answerId;
+
+          // Simpan jawaban user
+          const isCorrect = question.correct_answer_id === answerId;
+          state.userAnswers = [
+            ...state.userAnswers.filter((ans) => ans.questionId !== questionId),
+            { questionId, isCorrect },
+          ];
+
+          // Update skor jika benar
+          if (isCorrect) {
+            state.score += 1;
+          }
+          // Update progres
+          const totalQuestions =
+            quiz.subCategory[0].questions.length || state.totalQuestions;
+          state.progress = Math.round(
+            (state.userAnswers.length / totalQuestions) * 100
+          );
+        }
+      }
+    },
+    retryIncorrectAnswers: (state) => {
+      const quiz = state.quizzes[state.currentQuizIndex];
+      if (quiz) {
+        const incorrectAnswers = state.userAnswers.filter(
+          (ans) => !ans.isCorrect
+        );
+        const questionIds = incorrectAnswers.map((ans) => ans.questionId);
+        quiz.subCategory[0].questions = quiz.subCategory[0].questions.filter(
+          (q) => questionIds.includes(q.id)
+        );
+
+        // Reset progress untuk jawaban salah
+        state.progress = Math.round(
+          ((state.userAnswers.length - incorrectAnswers.length) /
+            state.totalQuestions) *
+            100
+        );
+      }
+    },
+  },
+});
+
+export const {
+  setCurrentQuizIndex,
+  setCurrentQuestionIndex,
+  setShowResult,
+  startQuiz,
+  endQuiz,
+  updateAnswer,
+  retryIncorrectAnswers,
+} = quizSlice.actions;
+
+export default quizSlice.reducer;

@@ -1,29 +1,15 @@
 import React, { useState } from "react";    
 import { Link, useLocation } from "react-router-dom";
-import { useTheme } from "../../context/themeContext";
+import { useTheme } from "../../context/ThemeContext";
 
 const Register = () => {
-  const { theme } = useTheme();
+  const { getButtonClass, getBorderClass,  } = useTheme();
 
-  const getBorderColor = () => {
-    switch (theme) {
-      case "dark":
-        return "border-gray-700";
-      case "cupcake":
-        return "border-pink-500";
-      case "bumblebee":
-        return "border-yellow-500";
-      default:
-        return "border-blue-700";
-    }
-  };
   return (
-    <div
-      
-    >
+    <div className="flex flex-col justify-center items-center">
       {/* Slider */}
       <div className="w-full h-[250px] rounded-lg p-20">
-        <div>
+        <div className="w-full  h-[280px] flex justify-center items-center">
           <img
             src="/quiz33.png"
             alt="Logo 1"
@@ -33,34 +19,24 @@ const Register = () => {
       </div>
 
       {/* Teks informasi */}
-      <div className="flex flex-col justify-center items-center  p-3 mt-32">
-        <h1 className="text-xl font-semibold mt-10 p-3 ">
-          Sebelum belajar, Daftar atau Login terlebih dahulu ya
-        </h1>
+      <div className="flex flex-col   mt-44">
+        <h2 className="text-xl font-medium mt-12 mb-7  ">
+          Terdapat dua pilihan pendaftaran
+        </h2>
 
-        <div className="flex flex-col gap-5 mt-10">
+        <div className="flex flex-col gap-3 mt-3">
           <Link to={"/register-email"}>
             <button
-              className={`p-2 w-[350px] rounded-lg ${
-                theme === "dark"
-                  ? "bg-gray-800 text-white"
-                  : theme === "cupcake"
-                  ? "bg-pink-500 text-white"
-                  : theme === "bumblebee"
-                  ? "bg-yellow-500 text-white"
-                  : "bg-blue-700 text-white"
-              }`}
+              className={`p-3 w-[350px] border-none rounded-xl ${getButtonClass()}`}
             >
               Daftar dengan Email
             </button>
           </Link>
           <Link to={"/register-gmail"}>
             <button
-              className={`p-2 w-[350px]  border rounded-md ${
-                getBorderColor()
-              }`}
+              className={`p-3 w-[350px] border-none rounded-xl ${getBorderClass()}`}
             >
-              Daftar dengan Googlee
+              Daftar dengan Google
             </button>
           </Link>
         </div>

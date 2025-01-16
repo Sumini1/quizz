@@ -1,0 +1,126 @@
+[
+  {
+    ID: 2,
+    CreatedAt: "2024-12-27T16:33:48.118137Z",
+    UpdatedAt: "2024-12-27T16:33:48.118137Z",
+    DeletedAt: null,
+    name: "Mathematics",
+    description: "Category about mathematics",
+    icon_url: "https://example.com/icons/math.png",
+    status: "active",
+    subcategories: null,
+  },
+  {
+    ID: 3,
+    CreatedAt: "2024-12-27T16:33:48.118137Z",
+    UpdatedAt: "2024-12-27T16:33:48.118137Z",
+    DeletedAt: null,
+    name: "History",
+    description: "Category about history",
+    icon_url: "https://example.com/icons/history.png",
+    status: "active",
+    subcategories: null,
+  },
+  {
+    ID: 4,
+    CreatedAt: "2024-12-27T16:33:48.118137Z",
+    UpdatedAt: "2024-12-27T16:33:48.118137Z",
+    DeletedAt: null,
+    name: "Technology",
+    description: "Category about technology",
+    icon_url: "https://example.com/icons/tech.png",
+    status: "pending",
+    subcategories: null,
+  },
+  {
+    ID: 5,
+    CreatedAt: "2024-12-27T16:33:48.118137Z",
+    UpdatedAt: "2024-12-27T16:33:48.118137Z",
+    DeletedAt: null,
+    name: "Literature",
+    description: "Category about literature",
+    icon_url: "https://example.com/icons/literature.png",
+    status: "archived",
+    subcategories: null,
+  },
+  {
+    ID: 1,
+    CreatedAt: "2024-12-27T16:33:48.118137Z",
+    UpdatedAt: "2024-12-27T23:43:39.207488Z",
+    DeletedAt: null,
+    name: "Aqidah",
+    description: "Aqidah untuk pemula",
+    icon_url: "https://example.com/icons/science.png",
+    status: "active",
+    subcategories: null,
+  },
+];
+
+
+{
+    "ID": 1,
+    "CreatedAt": "2024-12-27T16:33:48.118137Z",
+    "UpdatedAt": "2024-12-27T23:43:39.207488Z",
+    "DeletedAt": null,
+    "name": "Aqidah",
+    "description": "Aqidah untuk pemula",
+    "icon_url": "https://example.com/icons/science.png",
+    "status": "active",
+    "subcategories": [
+        {
+            "ID": 1,
+            "CreatedAt": "2024-12-27T16:35:21.229601Z",
+            "UpdatedAt": "2024-12-27T16:35:21.229601Z",
+            "DeletedAt": null,
+            "name": "Physics",
+            "description": "Subcategory about physics",
+            "icon_url": "https://example.com/icons/physics.png",
+            "category_id": 1,
+            "themes_or_levels": null
+        },
+        {
+            "ID": 2,
+            "CreatedAt": "2024-12-27T16:35:21.229601Z",
+            "UpdatedAt": "2024-12-27T16:35:21.229601Z",
+            "DeletedAt": null,
+            "name": "Chemistry",
+            "description": "Subcategory about chemistry",
+            "icon_url": "https://example.com/icons/chemistry.png",
+            "category_id": 1,
+            "themes_or_levels": null
+        },
+        {
+            "ID": 3,
+            "CreatedAt": "2024-12-27T16:35:21.229601Z",
+            "UpdatedAt": "2024-12-27T16:35:21.229601Z",
+            "DeletedAt": null,
+            "name": "Biology",
+            "description": "Subcategory about biology",
+            "icon_url": "https://example.com/icons/biology.png",
+            "category_id": 1,
+            "themes_or_levels": null
+        },
+        {
+            "ID": 4,
+            "CreatedAt": "2024-12-27T16:35:21.229601Z",
+            "UpdatedAt": "2024-12-27T16:35:21.229601Z",
+            "DeletedAt": null,
+            "name": "Astronomy",
+            "description": "Subcategory about astronomy",
+            "icon_url": "https://example.com/icons/astronomy.png",
+            "category_id": 1,
+            "themes_or_levels": null
+        },
+        {
+            "ID": 5,
+            "CreatedAt": "2024-12-27T16:35:21.229601Z",
+            "UpdatedAt": "2024-12-27T16:35:21.229601Z",
+            "DeletedAt": null,
+            "name": "Geology",
+            "description": "Subcategory about geology",
+            "icon_url": "https://example.com/icons/geology.png",
+            "category_id": 1,
+            "themes_or_levels": null
+        }
+    ]
+}

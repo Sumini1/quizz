@@ -6,7 +6,6 @@ import SurveiTiga from "./pages/Survei/SurveiTiga";
 import PageSatu from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSatu";
 import PageDua from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageDua";
 import PilihCategory from "./pages/Category/PilihCategory";
-import MenuCategory from "./pages/Category/MenuCategory";
 import PageTiga from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageTiga";
 import PageEmpat from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageEmpat";
 import PageLima from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageLima";
@@ -30,6 +29,19 @@ import TestIlmuIslam from "./pages/Test/TestIlmuIslam";
 import IntroTestDua from "./pages/Test/IntroTestDua";
 import ListCategoryPemula from "./pages/Category/ListCategoryPemula";
 import ListLevelKeimanan from "./pages/Category/ListLevelKeimanan";
+import PageSatuKeimanan from "./pages/Ujian/Pemula/Keimanan/Level2-keimanan/PageSatuKeimanan";
+import ChooseThemeQuiz from "./pages/Category/ChooseThemeQuiz";
+import AppearanceKotak from "./pages/AppearancePage/Kotak";
+import Settings from "./pages/ButtonMobile/Settings";
+import Profil from "./pages/Settings/Profil"; 
+import Beranda from "./pages/ButtonMobile/Beranda";
+import Pembelajaran from "./pages/ButtonMobile/Pembelajaran";
+import Progress from "./pages/ButtonMobile/Progress";
+import Accordion from "./pages/Test/Accordion";
+import AccordionTingkatBelajar from "./components/ModalAccordion/AccordionTingkatBelajar";
+import AccordionDasarIslam from "./components/ModalAccordion/AccordionDasarIslam";
+import DonaturPage from "./components/Appearance/DonaturPage";
+import Notifikasi from "./pages/Settings/Notifikasi";
 
 export const routes = [
   {
@@ -120,10 +132,7 @@ export const routes = [
     path: "/list-level-keimanan",
     element: <ListLevelKeimanan />,
   },
-  {
-    path: "/menu-category",
-    element: <MenuCategory />,
-  },
+
   {
     path: "/page-tiga",
     element: <PageTiga />,
@@ -156,9 +165,62 @@ export const routes = [
     path: "/page-sepuluh",
     element: <PageSepuluh />,
   },
-
+  {
+    path: "/page-satu-keimanan",
+    element: <PageSatuKeimanan />,
+  },
+  {
+    path: "/choose-theme-quiz",
+    element: <ChooseThemeQuiz />,
+  },
+  {
+    path: "/appearance-kotak",
+    element: <AppearanceKotak />,
+  },
+  {
+    path: "/settings",
+    element: <Settings />,
+  },
+  {
+    path: "/profil",
+    element: <Profil />,
+  },
+  {
+    path: "/beranda",
+    element: <Beranda />,
+  },
+  {
+    path: "/pembelajaran",
+    element: <Pembelajaran />,
+  },
+  {
+    path: "/progress",
+    element: <Progress />,
+  },
+  {
+    path: "/accordion",
+    element: <Accordion />,
+  },
+{
+path : "/accordion-tingkat-belajar",
+element : <AccordionTingkatBelajar />
+},
+{
+  path : "/accordion-dasar-islam",
+  element : <AccordionDasarIslam />
+  },
+  {
+    path: "/donatur-page",
+    element: <DonaturPage />,
+  },
+  {
+    path: "/notifikasi",
+    element: <Notifikasi />,
+  },
   {
     path: "*",
     element: <ErrorPage />,
   },
 ];
+
+export default routes;

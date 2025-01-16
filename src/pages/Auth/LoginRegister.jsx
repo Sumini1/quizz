@@ -1,31 +1,16 @@
 import React, { useState } from "react";
-import { GoDotFill } from "react-icons/go";
-import { Link, useLocation } from "react-router-dom";
-import { useTheme } from "../../context/themeContext";
+// import { GoDotFill } from "react-icons/go";
+import { Link } from "react-router-dom";
+import { useTheme } from "../../context/ThemeContext";
 
 const LoginRegister = () => {
-  const { theme } = useTheme();
-  const location = useLocation();
+  const { getBorder, getButtonClass, getBorderClass } = useTheme();
 
-   const getBorderColor = () => {
-     switch (theme) {
-       case "dark":
-         return "border-gray-700";
-       case "cupcake":
-         return "border-pink-500";
-       case "bumblebee":
-         return "border-yellow-500";
-       default:
-         return "border-blue-700";
-     }
-   };
-
- 
   return (
     <div className="p-5 h-screen">
       {/* Slider */}
       <div className="w-full h-[250px] rounded-lg p-20">
-        <div>
+        <div className="w-full  h-[280px] flex justify-center items-center">
           <img
             src="/quiz33.png"
             alt="Logo 1"
@@ -35,29 +20,23 @@ const LoginRegister = () => {
       </div>
 
       {/* Teks informasi */}
-      <div className="flex flex-col  mt-32">
-        <h1 className="text-xl font-semibold mt-10 p-3 ">
+      <div className="flex flex-col  mt-40">
+        <h2 className="text-xl font-[500] mt-5 p-3 ">
           Sebelum belajar, Daftar atau Login terlebih dahulu ya
-        </h1>
+        </h2>
 
-        <div className="flex flex-col gap-5 mt-8">
+        <div className="flex flex-col gap-5 mt-5">
           <Link to={"/register"}>
             <button
-              className={`p-2 w-[350px] rounded-md ${
-                theme === "dark"
-                  ? "bg-gray-800 text-white"
-                  : theme === "cupcake"
-                  ? "bg-pink-500 text-white"
-                  : theme === "bumblebee"
-                  ? "bg-yellow-500 text-white"
-                  : "bg-blue-700 text-white"
-              }`}
+              className={`p-3 w-full border-none rounded-xl ${getButtonClass()}`}
             >
               Daftar
             </button>
           </Link>
           <Link to={"/login"}>
-            <button className={`p-2 w-[350px] border rounded-md ${getBorderColor()}`}>Login</button>
+            <button className={`p-3 w-full border-none   rounded-xl ${getBorderClass()}`}>
+              Login
+            </button>
           </Link>
         </div>
       </div>

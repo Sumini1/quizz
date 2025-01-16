@@ -1,38 +1,17 @@
 import React from "react";
 import { GoDotFill } from "react-icons/go";
 import { Link, useLocation } from "react-router-dom";
-import { useTheme } from "../../context/themeContext";
-
+import { useTheme } from "../../context/ThemeContext";
 
 const Screen2 = () => {
-  const { theme } = useTheme();
-  const location = useLocation();
+  const { getButtonClass, getDotClass } = useTheme();
 
-  const getDotClass = (index) => {
-    const currentScreen = ["/", "/screen2", "/screen3"];
-    return currentScreen[index] === location.pathname
-      ? theme === "dark"
-        ? "text-blue-700"
-        : theme === "cupcake"
-        ? "text-pink-500"
-        : theme === "bumblebee"
-        ? "text-yellow-600"
-        : "text-blue-700"
-      : theme === "dark"
-      ? "text-gray-200"
-      : theme === "cupcake"
-      ? "text-pink-200"
-      : theme === "bumblebee"
-      ? "text-yellow-300"
-      : "text-gray-200";
-  };
 
   return (
-    <div>
-      
+    <div className="flex flex-col min-h-screen ">
       {/* Slider */}
       <div className="w-full h-[250px] rounded-lg p-20">
-        <div>
+        <div className="flex justify-between items-center w-full h-[280px]">
           <img
             src="/quiz2.png"
             alt="Logo 1"
@@ -41,35 +20,25 @@ const Screen2 = () => {
         </div>
       </div>
 
-      {/* Teks informasi */}
+      {/* Main Content */}
       <div className="flex flex-col justify-center items-center mx-auto p-3">
         <div>
-          <h1 className="text-xl font-semibold mt-16 p-3 ">
+          <h2 className="text-xl font-[500] mt-[150px] p-3 ">
             Perjalanan akan menyenangkan
-          </h1>
-          <p className="text-sm -mt-3 p-3 ">
+          </h2>
+          <p className="text-md -mt-3 p-3 ">
             Kami menyediakan sistem belajar yang menarik agar peserta merasa
             senang
           </p>
         </div>
-        <div className="flex mt-36 mb-4 gap-3">
+        <div className="flex mt-[68px] mb-2 text-xl">
           <GoDotFill className={getDotClass(0)} />
           <GoDotFill className={getDotClass(1)} />
           <GoDotFill className={getDotClass(2)} />
         </div>
         <Link to={"/screen3"}>
-          <button
-            className={`p-2 w-[350px] rounded-md ${
-              theme === "dark"
-                ? "bg-gray-800 text-white"
-                : theme === "cupcake"
-                ? "bg-pink-500 text-white"
-                : theme === "bumblebee"
-                ? "bg-yellow-500 text-white"
-                : "bg-blue-700 text-white"
-            }`}
-          >
-            Lanjut  
+          <button className={`p-3 w-[350px] border-none rounded-md ${getButtonClass()}`}>
+            Lanjut
           </button>
         </Link>
       </div>

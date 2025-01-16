@@ -1,20 +1,11 @@
 import React, { useState } from "react";
-import { useTheme } from "../../context/themeContext";
+import { useTheme } from "../../context/ThemeContext";
 
-const ModalLanjutan2 = ({ isOpen, onClose }) => {
+const ModalMidnight = ({ isOpen, onClose,  }) => {
   if (!isOpen) {
     return null;
   }
-  const { theme } = useTheme();
-  const getThemeClass = () => {
-    return theme === "dark"
-      ? "bg-gray-800 text-white"
-      : theme === "cupcake"
-      ? "bg-pink-500 text-white"
-      : theme === "bumblebee"
-      ? "bg-yellow-500 text-white"
-      : "bg-blue-700 text-white";
-  };
+  const { getButtonClass } = useTheme();
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center p-5">
@@ -45,12 +36,12 @@ const ModalLanjutan2 = ({ isOpen, onClose }) => {
         <div>
           {/* Header Modal */}
           <h1 className="text-xl ml-[-20px] font-semibold mb-4 text-center">
-            Apa itu tingkatan Lanjutan-2 ?
+            Apa itu tingkatan dasar Islam?
           </h1>
 
           {/* Isi Modal */}
-          <p className="text-sm text-gray-700 leading-relaxed">
-            Tingkatan Lanjutan-2 adalah langkah awal untuk memahami ajaran
+          <p className="text-sm  leading-relaxed">
+            Tingkatan dasar Islam adalah langkah awal untuk memahami ajaran
             Islam secara mendalam. Ini termasuk pengenalan terhadap keyakinan,
             ibadah, dan akhlak yang menjadi dasar kehidupan seorang muslim.
           </p>
@@ -77,7 +68,7 @@ const ModalLanjutan2 = ({ isOpen, onClose }) => {
         </div>
         <button
           onClick={onClose}
-          className={`mt-4 w-full font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${getThemeClass()}`}
+          className={`mt-4 w-full font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${getButtonClass()}`}
         >
           Selesai Membaca
         </button>
@@ -86,4 +77,4 @@ const ModalLanjutan2 = ({ isOpen, onClose }) => {
   );
 };
 
-export default ModalLanjutan2;
+export default ModalMidnight;

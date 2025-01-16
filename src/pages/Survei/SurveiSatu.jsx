@@ -1,92 +1,101 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { GoDotFill } from "react-icons/go";
-import { useTheme } from "../../context/themeContext";
+import { useTheme } from "../../context/ThemeContext";
+
 
 const SurveiSatu = () => {
   const location = useLocation();
-  const { theme } = useTheme();
+  const { theme, getDotClassSurvey, getButtonClass } = useTheme();
+  const navigate = useNavigate();
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const getDotClass = (index) => {
-    const currentScreen = ["/survei-satu", "/survei-dua", "/survei-tiga"];
-    return currentScreen[index] === location.pathname
-      ? theme === "dark"
-        ? "text-blue-700"
-        : theme === "cupcake"
-        ? "text-pink-500"
-        : theme === "bumblebee"
-        ? "text-yellow-600"
-        : "text-blue-700"
-      : theme === "dark"
-      ? "text-gray-200"
-      : theme === "cupcake"
-      ? "text-pink-200"
-      : theme === "bumblebee"
-      ? "text-yellow-300"
-      : "text-gray-200";
+  const options = [
+    { id: 1, label: "Dibawah 12 tahun" },
+    { id: 2, label: "12 - 14 tahun" },
+    { id: 3, label: "15 - 18 tahun" },
+    { id: 4, label: "19 - 25 tahun" },
+    { id: 5, label: "26 - 35 tahun" },
+    { id: 6, label: "36 - 55 tahun" },
+    { id: 7, label: "Diatas 55 tahun" },
+  ];
+
+  const handleOptionChange = (id) => {
+    setSelectedOption(id);
   };
 
-  return (
-    <div className=" flex flex-col p-5 h-screen md:justify-start md:items-start md:ml-10 md:py-10">
-      
-      {/* Garis tanpa jarak */}
+  const handleNextClick = () => {
+    if (!selectedOption) {
+      setIsModalOpen(true);
+      console.log("Modal state set to true");
+    } else {
+      navigate("/survei-dua", {
+        state: {
+          selectedOption: options.find(
+            (option) => option.id === selectedOption
+          ),
+        },
+      });
+    }
+  };
 
-      <div className="mt-16 flex flex-col">
-        <div className="flex flex-col">
-          <h1 className="text-2xl mt-3 font-semibold mb-3 ">Usia</h1>
-          <p>Mohon partisipasinya untuk pengembangan aplikasi</p>
-          <div className="flex gap-5 mt-5 mb-2">
-            <input type="checkbox" />
-            <label htmlFor="">Dibawah 12 tahun</label>
-          </div>
-          <div className="flex gap-5 mt-3 mb-2">
-            <input type="checkbox" />
-            <label htmlFor="">12 - 14 tahun</label>
-          </div>
-          <div className="flex gap-5 mt-3 mb-2">
-            <input type="checkbox" />
-            <label htmlFor="">15 - 18 tahun</label>
-          </div>
-          <div className="flex gap-5 mt-3 mb-2">
-            <input type="checkbox" />
-            <label htmlFor="">19 - 25 tahun</label>
-          </div>
-          <div className="flex gap-5 mt-3 mb-2">
-            <input type="checkbox" />
-            <label htmlFor="">26 - 35 tahun</label>
-          </div>
-          <div className="flex gap-5 mt-3 mb-2">
-            <input type="checkbox" />
-            <label htmlFor="">36 - 55 tahun</label>
-          </div>
-          <div className="flex gap-5 mt-3">
-            <input type="checkbox" />
-            <label htmlFor="">Diatas 55 tahun</label>
-          </div>
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+
+  return (
+    <div className="flex flex-col p-9 h-screen md:justify-start md:items-start md:ml-10">
+      <div className="mt-7 flex flex-col">
+        <h2 className="text-xl  font-medium mb-3">Usia</h2>
+        <h1 className="text-md mb-5 ">
+          Mohon partisipasinya untuk pengembangan aplikasi
+        </h1>
+        <div className="flex flex-col gap-1">
+          {options.map((option) => (
+            <div key={option.id} className="flex gap-5 mt-3 mb-2">
+              <input
+                type="checkbox"
+                id={`option-${option.id}`}
+                name="usia"
+                value={option.id}
+                checked={selectedOption === option.id}
+                onChange={() => handleOptionChange(option.id)}
+              />
+              <p className="text-md" htmlFor={`option-${option.id}`}>
+                {option.label}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
-      <div className="flex mt-24 mb-2 gap-3 justify-center items-center">
-        <GoDotFill className={getDotClass(0)} />
-        <GoDotFill className={getDotClass(1)} />
-        <GoDotFill className={getDotClass(2)} />
+      <div className="flex mt-[60px] mb-2 text-xl  justify-center items-center">
+        <GoDotFill className={getDotClassSurvey(0)} />
+        <GoDotFill className={getDotClassSurvey(1)} />
+        <GoDotFill className={getDotClassSurvey(2)} />
       </div>
-      <div className="flex flex-col justify-center items-center ">
-        <Link to="/survei-dua">
-          <button
-            className={` text-white flex p-2 rounded-md  w-[350px] items-center justify-center ${
-              theme === "dark"
-                ? "bg-gray-800 text-white"
-                : theme === "cupcake"
-                ? "bg-pink-500 text-white"
-                : theme === "bumblebee"
-                ? "bg-yellow-500 text-white"
-                : "bg-blue-700 text-white"
-            }`}
-          >
-            Lanjut
-          </button>
-        </Link>
+      <div className="flex flex-col justify-center items-center">
+        <button
+          onClick={handleNextClick}
+          className={`text-white flex p-3 border-none rounded-xl w-full items-center justify-center ${getButtonClass()}`}
+        >
+          Lanjut
+        </button>
       </div>
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-5 rounded-md shadow-md w-[90%] max-w-md">
+            <h2 className="text-lg font-semibold mb-3">Peringatan</h2>
+            <p className="mb-5">
+              Anda harus memilih usia terlebih dahulu sebelum melanjutkan.
+            </p>
+            <button onClick={closeModal} className={` px-4 py-2 rounded-xl border-none ${getButtonClass()}`}>
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

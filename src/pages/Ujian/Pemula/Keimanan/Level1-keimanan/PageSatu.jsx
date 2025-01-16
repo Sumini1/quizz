@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { FaBook, FaQuestion } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { FaCheckCircle } from "react-icons/fa";
-import { useTheme } from "../../../../../context/themeContext";
+import { useTheme } from "../../../../../context/ThemeContext";
 import { Link } from "react-router-dom";
 import { MdMenuBook } from "react-icons/md";
 import { TbMapQuestion } from "react-icons/tb";
+import ModalTooltifWordIslam from "../../../../../components/ModalPageSatu/ModalTooltifIslam";
+import ModalTooltifWordRukun from "../../../../../components/ModalPageSatu/ModalTooltifWordRukun";
 
 const PageSatu = () => {
-  const { theme } = useTheme();
+  const { theme, getBorder, getIconTheme, getIconBookSoal, getButtonClass,  } = useTheme();
   const [progress, setProgress] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
   const [startTime, setStartTime] = useState(null);
@@ -17,16 +19,42 @@ const PageSatu = () => {
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [isModalAnswerVisible, setIsModalAnswerVisible] = useState(false);
   const [isModalReferensiVisible, setIsModalReferensiVisible] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeTooltip, setActiveTooltip] = useState(null);
+  const [activeModal, setActiveModal] = useState(null);
 
-  // const handleTooltipToggle = (index) => {
-  //   setActiveIndex(activeIndex === index ? null : index); // Toggle visibility
-  // };
+  
 
-  const handleTooltipToggle = (index) => (e) => {
-    e.stopPropagation(); // Mencegah event naik ke parent
-    setActiveIndex(activeIndex === index ? null : index);
-  };
+// const closeModal1 = () => {
+//   setActiveModal(null); // Tutup modal
+// };
+
+
+    // Data dinamis
+    const wordsWithTooltip = [
+      {id: 1, word: "Apa", tooltip: null },
+      {id: 2, word: "itu", tooltip: null },
+      {id: 3, word: "apa", tooltip: null },
+      {id: 4, word: "Islam ?", tooltip: "Agama yang haq" },
+      {id: 5, word: "Ada", tooltip: null },
+      {id: 6, word: "Berapa", tooltip: null },
+      {
+        id: 7,
+        word: "Rukun",
+        tooltip: "Segala sesuatu yang harus ada",
+      },
+      {
+        id: 8,
+        word: "Islam?",
+        tooltip:
+          "Agama yang diturunkan oleh Allah ta'ala kepada Nabi Muhammad sebagai nabi terakhir.",
+      },
+    ];
+
+
+    // Tooltip Toggle
+    const handleTooltipToggle = (index) => {
+      setActiveTooltip(activeTooltip === index ? null : index);
+    };
 
 
   const handleModalRefensi = () => {
@@ -77,6 +105,7 @@ const PageSatu = () => {
     setIsModalVisible(false);
     setIsAnswered(false);
     setSelectedAnswer(null);
+    setActiveModal(null);
   };
 
   const getThemeClass = () => {
@@ -86,22 +115,63 @@ const PageSatu = () => {
       ? "bg-pink-500 text-white"
       : theme === "bumblebee"
       ? "bg-yellow-500 text-white"
-      : "bg-blue-700 text-white";
+      : theme === "lemonade"
+      ? "bg-green-500 text-white"
+      : "bg-blue-600 text-[#FFF]  ";
   };
 
-   const getBorderColor = () => {
-     switch (theme) {
-       case "dark":
-         return "border-gray-700";
-       case "cupcake":
-         return "border-pink-500";
-       case "bumblebee":
-         return "border-yellow-500";
-       default:
-         return "border-blue-700";
+  const getTextSoal = ()=> {
+    return theme === "dark"
+      ? "text-white"
+      : theme === "cupcake"
+      ? "text-gray-900"
+      : theme === "bumblebee"
+      ? "text-white"
+      : "text-[#F59D09] ";
+  }
+
+  const getThemeLatar = () => {
+    return theme === "dark"
+      ? "bg-gray-800 text-white"
+      : theme === "cupcake"
+      ? "bg-[#FFF1DA] text-[#333]"
+      : theme === "bumblebee"
+      ? "bg-yellow-500 text-white"
+      : theme === "lemonade"
+      ? "bg-green-500 text-white"
+      : "bg-[#FFF1DA] text-[#333]";
+  };
+  
+  const getThemeTooltif = () => {
+    return theme === "dark"
+      ? "bg-gray-800 text-white"
+      : theme === "cupcake"
+      ? "bg-[#FFF1DA] text-[#333]"
+      : theme === "bumblebee"
+      ? "bg-[#333] text-[#FFF1DA]"
+      : theme === "lemonade"
+      ? "bg-[#333] text-[#FFF1DA]"
+      : "bg-[#EEE] text-[#333]";
+  }
+
+  const getButton = () => {
+    return theme === "dark"
+      ? "bg-gray-800 text-white"
+      : theme === "cupcake"
+      ? "bg-pink-500 text-white"
+      : theme === "bumblebee"
+      ? "bg-yellow-500 text-white"
+      : theme === "lemonade"
+      ? "bg-green-500 text-white"
+      : "bg-[#D2E2FF] text-[#0961F5]  ";
+  } 
+
+   const handleOverlayClick = (e) => {
+     if (e.target === e.currentTarget) {
+       setIsModalReferensiVisible(false);
      }
    };
-
+  
   return (
     <div className="flex flex-col p-5 h-screen md:justify-start md:items-start md:ml-10 md:py-10 cursor-">
       {/* Progress Bar */}
@@ -109,7 +179,7 @@ const PageSatu = () => {
         <div className="flex w-[300px] h-2 ">
           <IoClose className="m-1 -mt-3 text-3xl font-bold" />
 
-          <div className="w-full bg-gray-200 rounded-sm left-8 -mt-1">
+          <div className="w-full bg-gray-200 rounded-sm left-8 mx-1 -mt-1">
             <div
               className={`h-full rounded-sm ${getThemeClass()}`}
               style={{ width: `${progress}%` }}
@@ -123,58 +193,134 @@ const PageSatu = () => {
           <div className="flex gap-2">
             <span className="italic">
               <TbMapQuestion
-                className="text-2xl font-extrabold"
+                className={`text-2xl font-extrabold ${getIconTheme()}`}
                 strokeWidth={2}
               />
             </span>
-            <h1 className="text-xl mb-5 italic font-bold">Soal Mudah</h1>
+            <h2 className="text-xl mb-5 italic font-bold">Soal Mudah</h2>
           </div>
-          <div className="mt-1">
-            <p className="text-lg font-semibold">
-              {[
-                { word: "Ada", tooltip: null },
-                {
-                  word: "Berapa",
-                  tooltip: null,
-                },
-                {
-                  word: "Rukun",
-                  tooltip: "Penjelasan: Menunjukkan keberadaan sesuatu",
-                },
-                { word: "Islam ?", tooltip: "Jumlah Rukun Islam" },
-              ].map((item, index) => (
+          <div className="text-lg font-[500] gap-1 flex flex-wrap ">
+            {wordsWithTooltip.map((item, index) => (
+              <p>
                 <span
                   key={index}
-                  className={`relative inline-block mx-1 ${
+                  className={`relative inline-block ${
                     item.tooltip
-                      ? "underline decoration-dotted decoration-2"
+                      ? "underline decoration-dotted decoration-2 cursor-pointer"
                       : ""
                   }`}
-                  onClick={item.tooltip ? handleTooltipToggle(index) : null} // Kondisional
+                  onClick={
+                    item.tooltip
+                      ? (e) => {
+                          e.stopPropagation();
+                          const rect = e.currentTarget. getBoundingClientRect();
+                          const viewportWidth = window.innerWidth;
+                          const tooltipWidth = 200;
+                          let xPosition, arrowPosition;
+
+                          // Check if word is in right third of viewport
+                          if (rect.right > viewportWidth * 0.7) {
+                            xPosition = rect.right - tooltipWidth;
+                            arrowPosition = tooltipWidth - rect.width / 2;
+                          }
+                          // Check if word is in left third of viewport
+                          else if (rect.left < viewportWidth * 0.3) {
+                            xPosition = rect.left;
+                            arrowPosition = rect.width / 2;
+                          }
+                          // Center positioning
+                          else {
+                            xPosition =
+                              rect.left + rect.width / 2 - tooltipWidth / 2;
+                            arrowPosition = tooltipWidth / 2;
+                          }
+
+                          // Ensure tooltip stays within viewport
+                          xPosition = Math.max(
+                            20,
+                            Math.min(
+                              xPosition,
+                              viewportWidth - tooltipWidth - 20
+                            )
+                          );
+
+                          handleTooltipToggle(index);
+
+                          requestAnimationFrame(() => {
+                            const tooltip = document.getElementById(
+                              `tooltip-${index}`
+                            );
+                            if (tooltip) {
+                              tooltip.style.left = `${xPosition}px`;
+                              tooltip.style.top = `${
+                                rect.bottom + window.scrollY + 8
+                              }px`;
+                              tooltip.querySelector(
+                                ".arrow"
+                              ).style.left = `${arrowPosition}px`;
+                            }
+                          });
+                        }
+                      : null
+                  }
                 >
                   <span>{item.word}</span>
-                  {item.tooltip && activeIndex === index && (
+
+                  {item.tooltip && activeTooltip === index && (
                     <div
-                      className={`absolute top-full mt-1 w-[150px] p-2 rounded-md text-sm z-10 ${getThemeClass()} shadow-md`}
+                      id={`tooltip-${index}`}
+                      className={`fixed p-4 w-[200px] font-[300]  rounded-md text-[16px] shadow-lg ${getThemeTooltif()}`}
+                      style={{
+                        maxWidth: "270px",
+                        wordWrap: "break-word",
+                        zIndex: 1000,
+                      }}
                     >
                       {item.tooltip}
+                      <div
+                        className={`arrow absolute  -top-2 w-7 h-3 rotate-45 ${getThemeTooltif()}`}
+                      />
+                      <div className="w-full text-[#222]">
+                        <hr className="border-[#222] mt-10" />
+                      </div>
+                      <div className="mt-2">
+                        <button
+                          onClick={() => setActiveModal(item.id)}
+                          className={`text-md mt-1 font-[500] ml-12  underline ${getIconTheme()}`}
+                        >
+                          Selengkapnya
+                        </button>
+                      </div>
                     </div>
                   )}
                 </span>
-              ))}
-            </p>
+              </p>
+            ))}
           </div>
+          {activeModal === 4 && (
+            <ModalTooltifWordIslam
+              isOpen={activeModal === 4}
+              onClose={() => setActiveModal(null)}
+            />
+          )}
+          {activeModal === 7 && (
+            <ModalTooltifWordRukun
+              isOpen={activeModal === 7}
+              onClose={() => setActiveModal(null)}
+            />
+          )}
         </div>
         <div className="flex flex-wrap gap-5 mt-10">
           {["Empat", "Lima", "Enam", "Tiga"].map((answer, index) => (
             <p
               key={index}
-              className={`flex border ${getBorderColor()} p-2 w-24 text-center items-center justify-center cursor-pointer rounded-md ${
-                selectedAnswer === index ? getThemeClass() : ""
+              className={`flex border ${getBorder()} p-2 w-24 text-center items-center justify-center cursor-pointer rounded-md ${
+                selectedAnswer === index ? `${getThemeClass()} border-none` : ""
               }`}
               onClick={() => handleAnswer(index === 1, index)} // \
               style={{
-                color: selectedAnswer === index ? "white" : getThemeClass(),
+                color:
+                  selectedAnswer === index ? "white" : `${getThemeClass()} `,
               }}
             >
               {answer}
@@ -183,29 +329,40 @@ const PageSatu = () => {
         </div>
       </div>
 
-      <div className="flex gap-5 mt-[310px] w-full">
+      <div className="flex gap-5 mt-[280px] w-full">
         <button
-          className={`p-2 w-[370px] rounded-md ${getThemeClass()}`}
+          className={`p-3 w-[370px] rounded-xl border-none ${getButton()} ${
+            selectedAnswer !== null ? `${getThemeClass()} border-none` : ""
+          }`}
           onClick={handleCheck}
         >
           Cek
         </button>
-        <FaBook onClick={handleModalRefensi} className="border text-3xl mt-1" />
+        <FaBook
+          onClick={handleModalRefensi}
+          className={`border text-4xl mt-1 ${getIconBookSoal()}`}
+        />
       </div>
 
       {/* Modal Referensi */}
       {isModalReferensiVisible && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-5 w-96 relative  ">
-            <button
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ">
+          <div
+            className={`rounded-lg p-5 w-96 relative bg-white`}
+            onClick={handleOverlayClick}
+          >
+            {/* <button
               className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
               onClick={() => setIsModalReferensiVisible(false)}
             >
               <IoClose className="text-2xl" />
-            </button>
+            </button> */}
             {/* Wrapper untuk teks scrollable */}
             <ModalReferensi
               setIsModalReferensiVisible={setIsModalReferensiVisible}
+              getThemeLatar={getThemeLatar}
+              getThemeClass={getThemeClass}
+              getTextSoal={getTextSoal}
             />
           </div>
         </div>
@@ -214,49 +371,57 @@ const PageSatu = () => {
       {/* Modal Dari jawaban salah dan benar */}
       {isModalVisible && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-5 w-96  mt-[550px] items-center justify-center">
-            <div className="flex ">
+          <div
+            className={`rounded-lg p-6 w-96  mt-[550px] items-center justify-center  ${
+              isAnswerCorrect ? "bg-[#DCFFD9]" : "bg-[#FFD9D9]"
+            }`}
+          >
+            <div className="flex">
               <button
-                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                className="top-2 flex text-gray-500 hover:text-gray-700"
                 onClick={closeModal}
               ></button>
               <h2
-                className={`text-xl font-bold mb-4 w-full items-center flex mx-auto ${
-                  isAnswerCorrect ? "text-green-500" : "text-[#FF0000]"
+                className={`text-xl font-bold mb-4 w-full flex 
                 }`}
+                style={{ color: isAnswerCorrect ? "#28A745" : "#A74828" }}
               >
-                {isAnswerCorrect
-                  ? "Jawaban Anda Benar!"
-                  : "Jawaban Anda Salah!"}
+                {isAnswerCorrect ? "Benar!" : "Salah!"}
               </h2>
-              {isAnswerCorrect ? (
-                <FaCheckCircle className="text-green-500 text-4xl mr-24" />
-              ) : (
-                <IoClose className="text-[#FF0000] text-4xl mr-24 font-semibold  " />
-              )}
+
+              <div className="flex h-auto mx-2  ">
+                {isAnswerCorrect ? (
+                  <FaCheckCircle className="text-green-500 text-3xl " />
+                ) : (
+                  <span className="bg-[#A74828] w-full h-[30px] rounded-lg ">
+                    <IoClose className="text-white text-3xl font-semibold  " />
+                  </span>
+                )}
+              </div>
+              <div className="mt-5">
+                <p className="">
+                  <MdMenuBook
+                    onClick={handleModalAnswer}
+                    className={`text-5xl  bg-white  w-[50px] h-[50px]  -mt-7 ml-[180px] p-2 rounded-full ${
+                      isAnswerCorrect
+                        ? "text-[#F59D09] "
+                        : "text-[#F59D09] bg-[#FEEFB3]"
+                    }`}
+                  />
+                </p>
+              </div>
             </div>
-            <div className="flex gap-5 w-[250px]">
+            <div className="flex gap-5 ">
               <Link to={"/page-dua"}>
                 <button
-                  className={`p-1 w-[200px] rounded-md mt-4 text-white ${
-                    isAnswerCorrect ? "bg-green-500" : "bg-[#FF0000]"
+                  className={`p-3 w-[340px] rounded-xl mt-4 text-white ${
+                    isAnswerCorrect ? "bg-green-500" : "bg-[#A74828]"
                   }`}
                   onClick={closeModal}
                 >
                   Lanjut
                 </button>
               </Link>
-              {/* Menampilkan FaQuestion jika jawaban salah */}
-              {isAnswerCorrect ? (
-                <MdMenuBook
-                  onClick={handleModalAnswer}
-                  className={`text-3xl mt-4 mx-auto ${
-                    isAnswerCorrect ? "text-green-500" : "text-[#FF0000]"
-                  }`}
-                />
-              ) : (
-                <FaQuestion className="text-3xl mt-4 mx-aut text-[#FF0000]" />
-              )}
             </div>
           </div>
         </div>
@@ -264,14 +429,11 @@ const PageSatu = () => {
 
       {/* Modal Answer ketika jawaban benar ketik Icon buku */}
       {isModalAnswerVisible && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ">
-          <div className="bg-white rounded-lg p-3 w-96 relative py-5 ">
-            <button
-              className="absolute -top-3 right-2 text-gray-500 hover:text-gray-700"
-              onClick={() => setIsModalAnswerVisible(false)}
-            >
-              <IoClose className="text-2xl mt-5" />
-            </button>
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-5 "
+          onClick={() => setIsModalAnswerVisible(false)}
+        >
+          <div className="bg-[#DCFFD9] rounded-lg w-96 relative ">
             <ModalAnswer setIsModalAnswerVisible={setIsModalAnswerVisible} />
           </div>
         </div>
@@ -294,22 +456,23 @@ const ModalAnswer = ({ setIsModalAnswerVisible }) => {
       : "bg-blue-700 text-white";
   };
   return (
-    <div className="flex flex-col p-1">
+    <div className="flex flex-col rounded-lg bg-[#DCFFD9] p-5">
       {/* Sticky heading */}
-      <h1 className="text-xl font-bold mb-3 sticky top-0 bg-white z-10">
-        Penjelasan
+      <h1 className="text-[20px] font-[500] mb-3 sticky top-0  z-10">
+        Penjelasan{" "}
+        <span className="text-[#28A745] text-[20px] font-[500]">Jawaban</span>
       </h1>
 
       {/* Konten scrollable */}
-      <div className="overflow-y-auto max-h-[400px] text-lg">
-        <p >
-          Rukun iman ketiga adalah beriman kitab-kitabnya. Beriman kepada kitab
+      <div className="text-[16px] overflow-y-scroll max-h-[400px] font-[300]">
+        <p className="mb-2">
+          Rukun iman ketiga adalah beriman kitab-kitabya. Beriman kepada kitab
           yang Allah ta’ala turunkan wajib diimani oleh setiap muslim bukan
           hanya Al-Qur’an namun juga kitab-kitab sebelumnya seperti zabur,
           taurat dan injil. Adapun urutan ketiga beriman kepada kitab ada di
           Hadist Jibril yang berbunyi
         </p>
-        <p>
+        <p className="mb-2">
           Dalil yang paling jelas dan langsung tentang urutan rukun iman adalah
           Hadis Jibril:
         </p>
@@ -334,7 +497,7 @@ const ModalAnswer = ({ setIsModalAnswerVisible }) => {
       {/* Sticky button */}
       <button
         onClick={() => setIsModalAnswerVisible(false)}
-        className={`p-1 w-full rounded-md mt-4 sticky bottom-0 z-10 ${getThemeClass()}`}
+        className={`p-2 w-full rounded-xl mt-4 sticky bottom-0 z-10 bg-[#28A745] text-[#DCFFD9]  text-[16px] font-[400]`}
       >
         Selesai Membaca
       </button>
@@ -343,25 +506,20 @@ const ModalAnswer = ({ setIsModalAnswerVisible }) => {
 };
 
 // Modal Referensi
-const ModalReferensi = ({ setIsModalReferensiVisible }) => {
+const ModalReferensi = ({ setIsModalReferensiVisible, getThemeLatar, getTextSoal }) => {
   const { theme } = useTheme();
 
-  const getThemeClass = () => {
-    return theme === "dark"
-      ? "bg-gray-800 text-white"
-      : theme === "cupcake"
-      ? "bg-pink-500 text-white"
-      : theme === "bumblebee"
-      ? "bg-yellow-500 text-white"
-      : "bg-blue-700 text-white";
-  };
+ 
+
   return (
-    <div className="flex flex-col p-1 ">
-      {/* Judul Sticky */}
-      <h1 className="text-xl font-bold mb-3 bg-white z-10 sticky top-0">
-        Bantuan
+    <div
+      className={`flex flex-col p-5 rounded-lg ${getThemeLatar()}`}
+      
+    >
+      <h1 className="text-xl font-bold mb-3  z-10 sticky top-0">
+        Bantuan <span className={`${getTextSoal()} mx-1`}>Soal</span>
       </h1>
-      <div className="overflow-y-auto max-h-[300px] text-lg">
+      <div className="text-[16px] font-[300] mb-3">
         <p>
           Dalil yang paling jelas dan langsung tentang urutan rukun iman adalah
           Hadis Jibril:
@@ -386,7 +544,7 @@ const ModalReferensi = ({ setIsModalReferensiVisible }) => {
       {/* Tombol Sticky */}
       <button
         onClick={() => setIsModalReferensiVisible(false)}
-        className={`p-1 w-full rounded-md mt-4 sticky bottom-0  z-10 ${getThemeClass()}`}
+        className={`p-3 w-full rounded-xl mt-4 sticky bottom-0  z-10 bg-[#F59D09] text-[#FFF1DA]`}
       >
         Selesai Membaca
       </button>

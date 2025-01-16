@@ -7,7 +7,7 @@ const App = () => {
 
   return (
     <>
-     <div>
+     <div className="font-jakarta">
       <div className="absolute top-4 right-4">
         <ThemeDropdown />
       </div>
