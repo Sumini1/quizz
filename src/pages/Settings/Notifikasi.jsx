@@ -8,46 +8,41 @@ const Notifikasi = () => {
   const { getTextTitle1, getButtonClass } = useTheme();
 
   const information = [
-    { id: 1, name: "Semua" },
-    { id: 2, name: "Pengingat" },
-    { id: 3, name: "Informasi" },
-    { id: 4, name: "Iklan" },
-    { id: 5, name: "Umum" },
-    { id: 5, name: "Umum" },
+    { id: 1, name: "Semua", route: "/semua" },
+    { id: 2, name: "Pengingat", route: "/pengingat" },
+    { id: 3, name: "Informasi", route: "/informasi" },
+    { id: 4, name: "Iklan", route: "/iklan" },
+    { id: 5, name: "Umum", route: "/umum" },
   ];
 
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="flex items-center gap-3 mt-5 px-5 text-lg">
-        <FaArrowLeft />
-        <h1 className="font-semibold">Notifikasi</h1>
-      </div>
+      <Link to={"/settings"}>
+        <div className="flex items-center gap-3 mt-5 px-5 text-lg mb-8">
+          <FaArrowLeft />
+          <h1 className="font-semibold">Notifikasi</h1>
+        </div>
+      </Link>
 
-      <div className="relative m-4 flex items-center gap-3 px-5 bg-[#EEEEEE] rounded-lg">
-        <input
-          type="text"
-          placeholder="Cari"
-          className="pl-10 w-full py-2 bg-transparent outline-none"
-        />
-        <CiSearch className="absolute left-5 text-gray-500 text-xl" />
-      </div>
+     
 
       {/* Mapping name */}
-      <div className="overflow-x-auto whitespace-nowrap flex gap-3 px-4">
+      <div className="overflow-x-auto whitespace-nowrap pb-4 flex gap-3 px-4  scrollbar-thin scrollbar-thumb-scrollbarThumb scrollbar-track-scrollbarTrack">
         {information.map((item) => (
-          <div
+          <Link
+            to={item.route}
             key={item.id}
             className={`bg-[#EEE] px-3 py-2 rounded-full flex-shrink-0 transition-opacity duration-700 ease-in-out ${
-              item.id == 1 && "bg-[hsl(218,93%,50%)] text-white"
+              item.id === 1 && "bg-[hsl(218,93%,50%)] text-white"
             }`}
           >
             <h5 className="font-normal text-sm">{item.name}</h5>
-          </div>
+          </Link>
         ))}
       </div>
 
       {/* Notifications */}
-      <div className="flex flex-col mt-7">
+      <div className="flex flex-col mt-3">
         <div className="flex items-center gap-3 px-5">
           <h1 className={`${getTextTitle1()} text-base`}>Pengingat</h1>
           <p className="text-xs">1 jam yang lalu</p>
@@ -83,14 +78,7 @@ const Notifikasi = () => {
         <hr className="mt-3 w-[350px] flex mx-auto" />
       </div>
 
-      {/* Button */}
-      <Link to={"/settings"}>
-        <button
-          className={`${getButtonClass()} w-[350px] p-2 self-center justify-center items-center flex border-none mt-20 mx-auto`}
-        >
-          Selesai
-        </button>
-      </Link>
+      
     </div>
   );
 };

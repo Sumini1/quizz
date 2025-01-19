@@ -35,9 +35,9 @@ const Settings = () => {
     },
     {
       id: 3,
-      name: "Tema",
+      name: "Tampilan",
       icon: <IoColorPalette />,
-      link: "/pengaturan",
+      link: "/tampilan",
       symbol: <RiArrowRightSLine />,
     },
     {
@@ -61,13 +61,20 @@ const Settings = () => {
       id: 2,
       name: "Gabung berikan kontribusi",
       icon: <FaUsers />,
-      link: "/kontribusi",
+      link: "/kontributor",
       symbol: <RiArrowRightSLine />,
     },
     {
-      id: 2,
+      id: 3,
       name: "Profil Dukungan Pengguna",
       icon: <img src="/dukung.png" alt="" />,
+      link: "/profil-pengguna",
+      symbol: <RiArrowRightSLine />,
+    },
+    {
+      id: 4,
+      name: "Kerjasama",
+      icon: <img src="/handshake.png" alt="" />,
       link: "/kontribusi",
       symbol: <RiArrowRightSLine />,
     },
@@ -127,18 +134,18 @@ const Settings = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <div className="py-2 flex flex-col text-xl mx-5 mt-3 flex-grow">
-        <h1 className="text-xl font-[500] mb-5">Pengaturan</h1>
+        <h1 className="text-xl font-[500] mb-5">Lainnya</h1>
 
         <div className="mb-5">
           <h2 className="text-lg font-medium mb-3">Akun</h2>
-          <div className={`${getThemeClass()}`}>
+          <div className={` ${getThemeClass()}`}>
             {listSettings.map((item) => (
               <Link
                 to={item.link}
                 key={item.id}
-                className="flex items-center justify-between gap-4 py-2"
+                className="flex items-center justify-between gap-4   py-3 "
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 mx-1">
                   <span className="text-xl">{item.icon}</span>
                   <span className="text-base font-base">{item.name}</span>
                 </div>
@@ -150,14 +157,14 @@ const Settings = () => {
 
         <div className="mb-5">
           <h2 className="font-medium text-lg mb-3">Dukungan</h2>
-          <div className={`${getThemeClass()}`}>
+          <div className={`p-1 ${getThemeClass()}`}>
             {dukungan.map((item) => (
               <Link
                 to={item.link}
                 key={item.id}
-                className="flex items-center justify-between gap-4 py-2"
+                className="flex items-center justify-between gap-4   py-3"
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 mx-1">
                   <span className="text-xl">{item.icon}</span>
                   <span className="text-base font-base">{item.name}</span>
                 </div>
@@ -169,14 +176,14 @@ const Settings = () => {
 
         <div className="mb-5">
           <h2 className="font-medium text-lg mb-3">Lainnya</h2>
-          <div className={`${getThemeClass()}`}>
+          <div className={`p-2 ${getThemeClass()}`}>
             {lainnya.map((item) => (
               <Link
                 to={item.link}
                 key={item.id}
-                className="flex items-center justify-between gap-4 py-2"
+                className="flex items-center justify-between gap-4  py-3"
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 mx-1">
                   <span className="text-xl">{item.icon}</span>
                   <span className="text-base font-base">{item.name}</span>
                 </div>
@@ -186,12 +193,12 @@ const Settings = () => {
           </div>
         </div>
 
-        <div className={`${getThemeClass()}`}>
+        <div className={`p-2 selection:${getThemeClass()}`}>
           {keluar.map((item) => (
             <Link
               to={item.link}
               key={item.id}
-              className="flex items-center justify-between gap-4 py-2"
+              className="flex items-center justify-between gap-4 p-1 py-3"
             >
               <div className="flex items-center gap-4">
                 <span className="text-xl">{item.icon}</span>

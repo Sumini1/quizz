@@ -42,6 +42,16 @@ import AccordionTingkatBelajar from "./components/ModalAccordion/AccordionTingka
 import AccordionDasarIslam from "./components/ModalAccordion/AccordionDasarIslam";
 import DonaturPage from "./components/Appearance/DonaturPage";
 import Notifikasi from "./pages/Settings/Notifikasi";
+import SaranMasukan from "./pages/Settings/SaranMasukan";
+import Sertifikat from "./pages/Settings/Sertifikat";
+import Pengingat from "./pages/Settings/NotifElement/Pengingat";
+import SertifikatDasarIslam from "./pages/Settings/SertifikatCategory/SertifikatDasarIslam";
+import KumpulanUjianDasarIslam from "./pages/Settings/SertifikatCategory/KumpulanUjianDasarIslam";
+import TanyaJawab from "./pages/Settings/TanyaJawab";
+import Tampilan from "./pages/Settings/Tampilan";
+import Kontributor from "./pages/Settings/Kontribusi/Kontributor";
+import ProfilPengguna from "./pages/Settings/ProfilPengguna";
+import RiwayatDonasi from "./pages/Settings/ProfilKontributor/RiwayatDonasi";
 
 export const routes = [
   {
@@ -218,9 +228,49 @@ element : <AccordionTingkatBelajar />
     element: <Notifikasi />,
   },
   {
+    path: "/saran-masukan",
+    element: <SaranMasukan />,
+  },
+  {
+    path: "/sertifikat",
+    element: <Sertifikat />,
+  },
+  {
+    path: "/pengingat",
+    element: <Pengingat />,
+  },
+  {
+    path: "/sertifikat-dasar-islam",
+    element: <SertifikatDasarIslam />,
+  },
+  {
+    path: "/tanya-jawab",
+    element: <TanyaJawab />,
+  },
+  {
+    path: "/tampilan",
+    element: <Tampilan />,
+  },
+  {
+    path: "/kontributor",
+    element: <Kontributor />,
+  },
+  {
+    path: "/profil-pengguna",
+    element: <ProfilPengguna />,
+  },
+  {
+    path: "/riwayat-donasi",
+    element: <RiwayatDonasi />,
+  },
+  {
     path: "*",
     element: <ErrorPage />,
   },
+  {
+    path: "/kumpulan-ujian-dasar-islam",
+    element: <KumpulanUjianDasarIslam />,
+  }
 ];
 
 export default routes;
