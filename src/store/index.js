@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import soalReducer from "../reducer/SoalSlice";
-import quizReducer from "../reducer/quizSlice";
+import categoryReducer from "../reducer/categorySlice";
+// import categoryIdReducer from "../reducer/categoryIdSlice";
+import tooltipsReducer from "../reducer/tooltipsSlice";
 
 const store = configureStore({
   reducer: {
-    soal: soalReducer,
-    quiz: quizReducer,
+    category: categoryReducer,
+    // categoryId: categoryIdReducer,
+    tooltips: tooltipsReducer,
   },
 });
 

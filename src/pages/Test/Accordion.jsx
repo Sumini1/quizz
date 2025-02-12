@@ -1,19 +1,29 @@
 import React, { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
-
+import { useTheme } from "../../context/ThemeContext";
 import {
-  FaCheckCircle,
+  FaTimes,
   FaTimesCircle,
   FaChevronDown,
   FaChevronUp,
-} from "react-icons/fa"; // Ikon tambahan buka/
-import {Link} from 'react-router-dom';
+  FaCheck,
+} from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Accordion = () => {
+  const { getBorderColor, } = useTheme();
   const [activeIndex, setActiveIndex] = useState(null);
+  const [selectedAnswers, setSelectedAnswers] = useState({});
 
   const toggleAccordion = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  const handleAnswerClick = (questionIndex, optionIndex, isCorrect) => {
+    setSelectedAnswers({
+      ...selectedAnswers,
+      [questionIndex]: { optionIndex, isCorrect },
+    });
   };
 
   const questionsData = [
@@ -31,7 +41,7 @@ const Accordion = () => {
     },
     {
       question: "Cara menyikapi rukun iman bagi muslim?",
-      isCorrect: false,
+      isCorrect: false, // Pertanyaan salah
       options: [
         { text: "Mengimani dengan benar sesuai dalil", isCorrect: true },
         { text: "Mengimani yang diinginkan saja", isCorrect: false },
@@ -56,8 +66,8 @@ const Accordion = () => {
   ];
 
   return (
-    <div className="space-y-4 mt-3 p-3">
-      <div className="flex items-center gap-3 font-[500]  ">
+    <div className="space-y-4 mt-1 p-3">
+      <div className="flex items-center gap-3 font-[500] mb-7">
         <Link to={"/intro-test-dua"}>
           <FaArrowLeft className="text-2xl font-[500]" />
         </Link>
@@ -72,12 +82,12 @@ const Accordion = () => {
         >
           <div
             onClick={() => toggleAccordion(index)}
-            className={`flex justify-between items-center p-4 cursor-pointer ${
+            className={`flex justify-between  items-center p-4 text-base cursor-pointer ${
               activeIndex === index ? "rounded-t-xl" : "rounded-xl"
             } ${
               question.isCorrect
-                ? "bg-[#FFF] border-[#28A745] border-[1px] text-[#333]"
-                : "bg-[#FFD9D9] border-[#A74828] border-[1px]"
+                ? `bg-[#FFF] border-[1px] text-[#333] text-base border-[#222]`
+                : `border-[1px] text-base border-[#222]`
             }`}
           >
             <span className="font-[500]">
@@ -85,9 +95,9 @@ const Accordion = () => {
             </span>
             <div className="flex items-center space-x-2">
               {question.isCorrect ? (
-                <FaCheckCircle className="text-green-500" />
+                <FaCheck className="text-green-500" />
               ) : (
-                <FaTimesCircle className="text-red-500" />
+                <FaTimes className="text-red-500 bg-none" />
               )}
               {activeIndex === index ? (
                 <FaChevronUp className="text-gray-500" />
@@ -100,27 +110,35 @@ const Accordion = () => {
             <div
               className={`p-4 ${
                 question.isCorrect
-                  ? "bg-[#DCFFD9] border border-[#28A745] border-t-0 rounded-b-xl"
-                  : "bg-[#FFD9D9] border border-[#A74828] border-t-0 rounded-b-xl"
+                  ? `bg-[#DCFFD9] border-[1px] border-t-0 rounded-b-xl border-[#222]`
+                  : `bg-gray-100 border-[1px]  border-t-0 rounded-b-xl border-[#222]`
               }`}
             >
-              <div className="space-y-2">
-                {question.options.map((option, i) => (
-                  <button
-                    key={i}
-                    className={`w-full p-2 border rounded-xl ${
-                      question.isCorrect
-                        ? option.isCorrect
-                          ? "bg-[#28A745] border-green-500 text-white" // Warna hijau untuk jawaban yang benar
-                          : "bg-white border-gray-300"
-                        : option.isCorrect
-                        ? "bg-[#A74828] border-[#333]  text-white" // Masih hijau untuk jawaban benar meskipun pertanyaan salah
-                        : "bg-[#FFF] border-[#333] text-[#333]" // Merah untuk opsi jawaban salah saat pertanyaan salah
-                    }`}
-                  >
-                    {option.text}
-                  </button>
-                ))}
+              <div className="space-y-4 ">
+                {question.options.map((option, i) => {
+                  const userAnswer = selectedAnswers[index];
+                  const isSelected = userAnswer?.optionIndex === i;
+                  const isCorrectAnswer = option.isCorrect;
+                  const isWrongAnswer = isSelected && !option.isCorrect;
+
+                  return (
+                    <button
+                      key={i}
+                      onClick={() =>
+                        handleAnswerClick(index, i, option.isCorrect)
+                      }
+                      className={`w-full m p-2 border-[1px] border-[#222] rounded-xl ${
+                        isCorrectAnswer
+                          ? "bg-[#28A745] border-green-500  border-[1px] text-white" // Hijau untuk benar
+                          : isWrongAnswer
+                          ? "bg-[#A74828]  text-white border-none" // Merah untuk salah
+                          : "bg-white border-[#222]  border-[1px] " // Default
+                      }`}
+                    >
+                      {option.text}
+                    </button>
+                  );
+                })}
               </div>
               <div className="mt-4 text-md text-gray-700">
                 <strong>Penjelasan:</strong>

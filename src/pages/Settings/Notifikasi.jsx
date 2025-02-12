@@ -2,9 +2,10 @@ import React from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
 import { useTheme } from "../../context/ThemeContext";
-import {Link } from 'react-router-dom';
+import { useNavigate, Link } from "react-router-dom";
 
 const Notifikasi = () => {
+  const navigate = useNavigate();
   const { getTextTitle1, getButtonClass } = useTheme();
 
   const information = [
@@ -17,14 +18,14 @@ const Notifikasi = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Link to={"/settings"}>
-        <div className="flex items-center gap-3 mt-5 px-5 text-lg mb-8">
+   
+        <div
+        onClick={() => navigate(-1)}
+        className="flex items-center gap-3 mt-5 px-5 text-lg mb-8">
           <FaArrowLeft />
           <h1 className="font-semibold">Notifikasi</h1>
         </div>
-      </Link>
-
-     
+      
 
       {/* Mapping name */}
       <div className="overflow-x-auto whitespace-nowrap pb-4 flex gap-3 px-4  scrollbar-thin scrollbar-thumb-scrollbarThumb scrollbar-track-scrollbarTrack">
@@ -77,8 +78,6 @@ const Notifikasi = () => {
         </p>
         <hr className="mt-3 w-[350px] flex mx-auto" />
       </div>
-
-      
     </div>
   );
 };

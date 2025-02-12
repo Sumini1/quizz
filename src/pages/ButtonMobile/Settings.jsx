@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import { FaUserAlt, FaAffiliatetheme } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { MdNotificationsActive, MdEmail } from "react-icons/md";
@@ -17,6 +17,7 @@ import { IoColorPalette } from "react-icons/io5";
 
 
 const Settings = () => {
+    const navigate = useNavigate();   
     const { theme } = useTheme();
   const listSettings = [
     {
@@ -54,7 +55,7 @@ const Settings = () => {
       id: 1,
       name: "Dukung Kami",
       icon: <BiSolidDonateHeart />,
-      link: "/dukungan",
+      link: "/dukung-kami",
       symbol: <RiArrowRightSLine />,
     },
     {
@@ -140,9 +141,9 @@ const Settings = () => {
           <h2 className="text-lg font-medium mb-3">Akun</h2>
           <div className={` ${getThemeClass()}`}>
             {listSettings.map((item) => (
-              <Link
-                to={item.link}
+              <div
                 key={item.id}
+                onClick={() => navigate(item.link)}
                 className="flex items-center justify-between gap-4   py-3 "
               >
                 <div className="flex items-center gap-4 mx-1">
@@ -150,7 +151,7 @@ const Settings = () => {
                   <span className="text-base font-base">{item.name}</span>
                 </div>
                 <span className="text-3xl ">{item.symbol}</span>
-              </Link>
+              </div>
             ))}
           </div>
         </div>

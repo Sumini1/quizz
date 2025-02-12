@@ -15,7 +15,7 @@ const RiwayatDonasi = () => {
       <Link to={"/settings"}>
         <div className="flex items-center gap-3 mt-5 px-5 text-lg">
           <FaArrowLeft />
-          <h1 className="font-semibold">Saran dan Masukan</h1>
+          <h1 className="font-semibold">Riwayat Donasi</h1>
         </div>
       </Link>
       <div className={`flex gap-4 mx-5 mt-10 justify-center ${getBorder()}`}>
@@ -53,6 +53,8 @@ const RiwayatDonasi = () => {
           <span>Tanggal</span>
         </div>
       </div>
+
+      
       {/* Input */}
       <div className="flex flex-col m-4 mt-3 gap-3 px-3  p-3 rounded-xl ">
         {activeTab === "terbaru" && (

@@ -1,27 +1,17 @@
 import React from "react";
-import { useTheme } from "../../context/ThemeContext";
 
-const ModalArticle = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-
-  const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
-
-  const { theme, getButtonClass, getThemeModalCategory } = useTheme();
-
+const SurveiEmpat = () => {
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-5"
-      onClick={handleOverlayClick}
     >
       <div
-        className={`p-6 rounded-lg shadow-lg w-full relative max-w-md ${getThemeModalCategory()}`}
+        className="p-6 rounded-lg shadow-lg w-full relative max-w-md bg-[#EEEEEE]"
       >
         <div className="flex flex-col ">
-          <h2 className="text-lg font-[600] mb-3 ">Artikel</h2>
+          <h2 className="text-lg font-[600] mb-3 ">
+            Pelajaran Keimanan Level-1
+          </h2>
           <h1 className="text-md font-[500] mb-1">
             Apa itu tingkat dasar Islam ?
           </h1>
@@ -52,14 +42,15 @@ const ModalArticle = ({ isOpen, onClose }) => {
         </div>
 
         <button
-          onClick={onClose}
-          className={`mt-20 w-full text-[15px] font-medium py-2 px-4 border-none rounded-xl focus:outline-none focus:shadow-outline ${getButtonClass()}`}
+       
+          className="mt-20 w-full text-[15px] font-medium py-2 px-4 border-none rounded-xl focus:outline-none focus:shadow-outline text-[#FFFFFF] bg-[#0961F5]"
         >
           Selesai Membaca
         </button>
       </div>
     </div>
   );
+
 };
 
-export default ModalArticle;
+export default SurveiEmpat;

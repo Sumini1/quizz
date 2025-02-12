@@ -6,7 +6,8 @@ import { GiProgression } from "react-icons/gi";
 import { IoSettingsSharp } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
-import { AiOutlineUsb } from "react-icons/ai";
+import { FiUser } from "react-icons/fi";
+import { BsFillAwardFill } from "react-icons/bs";
 
 const ButtonMobileKotak = () => {
   const location = useLocation();
@@ -17,11 +18,11 @@ const ButtonMobileKotak = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {
-        setIsVisible(false); // Scroll ke bawah, sembunyikan navbar
+        setIsVisible(false);
       } else {
-        setIsVisible(true); // Scroll ke atas, tampilkan navbar
+        setIsVisible(true);
       }
-      setLastScrollY(window.scrollY); // Perbarui posisi scroll terakhir
+      setLastScrollY(window.scrollY);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -31,34 +32,23 @@ const ButtonMobileKotak = () => {
   }, [lastScrollY]);
 
   const kotak = [
-    { id: 1, icon: <FaHome />, title: "Home", link: "/beranda" },
+    { id: 1, icon: <FaHome />, link: "/beranda" },
     {
       id: 2,
       icon: <FaGraduationCap />,
-      title: "Pembelajaran",
+      // title: "Pembelajaran",
       link: "/pembelajaran",
     },
-    { id: 3, icon: <FaCirclePlay />, title: "Play", link: "/appearance-kotak" },
-    { id: 4, icon: <GiProgression />, title: "Progress", link: "/progress" },
+    { id: 3, icon: <FaCirclePlay />, link: "/appearance-kotak" },
+    { id: 4, icon: <BsFillAwardFill />, link: "/papan-peringkat" },
+    { id: 5, icon: <GiProgression />, link: "/progress" },
     {
-      id: 5,
-      icon: <AiOutlineUsb />,
-      title: "Pengaturan",
+      id: 6,
+      icon: <FiUser />,
+      // title: "Pengaturan",
       link: "/settings",
     },
   ];
-
-  const getThemeClass = () => {
-    return theme === "dark"
-      ? "bg-gray-800 text-white"
-      : theme === "cupcake"
-      ? "bg-pink-500 text-white"
-      : theme === "bumblebee"
-      ? "bg-yellow-500 text-white"
-      : theme === "lemonade"
-      ? "bg-[#027A7D] text-white"
-      : "text-[#0961F5] text-[#222]";
-  };
 
   const getBorderKotak = () => {
     return theme === "dark"
@@ -78,10 +68,18 @@ const ButtonMobileKotak = () => {
         theme === "dark" ? "bg-gray-800 text-white" : "bg-[#EEE]"
       } ${isVisible ? "translate-y-0" : "translate-y-full"}`}
     >
-      <div className="flex justify-between h-[30px] gap-2 items-center w-full relative">
+      <div className="flex justify-between h-[20px] gap-2 items-center w-full relative">
         {kotak.map((item) => {
-          const isActive = location.pathname === item.link;
-          const activeIcon = isActive
+          // Cek apakah item saat ini aktif berdasarkan pathname
+          const isItemActive =
+            location.pathname === item.link ||
+            (location.pathname.startsWith("/progress") &&
+              item.link === "/progress") || // Jika berada di halaman "/progress" atau "/progress/detail"
+            (location.pathname === "/jelajahi-aplikasi" &&
+              item.link === "/beranda");
+
+          // Aktifkan ikon jika item aktif
+          const activeIcon = isItemActive
             ? React.cloneElement(item.icon, { className: `${getIconTheme()}` })
             : item.icon;
 
@@ -89,34 +87,17 @@ const ButtonMobileKotak = () => {
             <Link
               to={item.link}
               key={item.id}
-              className={`flex flex-col justify-center items-center text-center gap-1`}
+              className={`flex flex-col justify-center items-center text-center `}
               style={{ flex: "1 1 20%" }}
             >
-              <p
-                className={`text-2xl font-extrabold ${
-                  item.id === 3
-                    ? isActive
-                      ? `rounded-full ${getBorderKotak()} text-5xl border-none -mt-14 p-4  ${getBorderClass()} ${
-                          theme === "dark"
-                            ? "bg-transparent text-white"
-                            : "bg-transparent text-[#222]"
-                        }`
-                      : "-mt-14 p-4 text-5xl  rounded-full bg-transparent text-[#222]"
-                    : ""
+              <p className={`text-2xl font-extrabold`}>{activeIcon}</p>
+              <h5
+                className={`text-xs ${
+                  isItemActive ? "text-blue-500" : "text-gray-500"
                 }`}
               >
-                {activeIcon}
-              </p>
-
-              {item.id !== 3 && (
-                <h5
-                  className={`text-xs ${
-                    isActive ? "text-blue-500" : "text-gray-500"
-                  }`}
-                >
-                  {item.title}
-                </h5>
-              )}
+                {item.title}
+              </h5>
             </Link>
           );
         })}

@@ -18,7 +18,7 @@ const IntroTestDua = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    navigate("/pilih-category");
+    navigate("/test/data-diri-lanjutan");
   };
 
   const handleOpenModal = () => {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTheme } from "../../context/ThemeContext";
 import { FaHeart } from "react-icons/fa";
 import { ImLeaf } from "react-icons/im";
-import ModalArticle from "../Appearance/ModalArticle";
+import { Link } from "react-router-dom";
 import ModalHasilUjian from "./ModalHasilUjian";
 import { FiLoader } from "react-icons/fi"; // Import spinner icon
 import { MdScale } from "react-icons/md";
@@ -68,12 +68,13 @@ const ModalEvaluasi = ({ isOpen, onClose }) => {
           Evaluasi pembelajaran untuk pemantapan materi dan persiapan ujian
           akhir.
         </p>
-        <button
-          onClick={ModalArtikel}
-          className={`mt-4 w-full text-[16px] font-normal py-2 px-4 rounded-xl border-none focus:outline-none focus:shadow-outline ${getBorderClass()}`}
-        >
-          Baca Materi Artikel
-        </button>
+        <Link to={"/keterangan-artikel"}>
+          <button
+            className={`mt-4 w-full text-[16px] font-normal py-2 px-4 rounded-xl border-none focus:outline-none focus:shadow-outline ${getBorderClass()}`}
+          >
+            Baca Materi Artikel
+          </button>
+        </Link>
         <button
           onClick={handleHasilUjian}
           className={`mt-4 w-full text-[16px] font-normal py-2 px-4 rounded-xl border-none focus:outline-none focus:shadow-outline    ${getButtonClass()}`}
@@ -97,10 +98,10 @@ const ModalEvaluasi = ({ isOpen, onClose }) => {
           </div>
         )}
       </div>
-      <ModalArticle
+      {/* <ModalArticle
         isOpen={isModalArtikelOpen}
         onClose={() => setIsModalArtikelOpen(false)}
-      />
+      /> */}
       <ModalHasilUjian
         isOpen={isModalHasilUjianOpen}
         onClose={() => setIsModalHasilUjianOpen(false)}

@@ -17,7 +17,7 @@ const PilihCategory = () => {
   } = useTheme();
   const [activeModal, setActiveModal] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  // Handlers
+ 
   const handleIconClick = (categoryId) => {
     console.log("Icon clicked for category:", categoryId);
     setActiveModal(categoryId);

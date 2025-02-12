@@ -8,17 +8,19 @@ import { Link } from "react-router-dom";
 import ButtonMobileKotak from "../../components/Appearance/ButtonMobileKotak";
 import { HiOutlineArrowTrendingUp } from "react-icons/hi2";
 import ModalOverView from "../../components/Appearance/ModalOverView";
-import ModalArticle from "../../components/Appearance/ModalArticle";
+
+
 import Wavify from "react-wavify";
 import ModalNomorSatu from "../../components/Appearance/ModalNomorSatu";
 import ModalEvaluasi from "../../components/Appearance/ModalEvaluasi";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { TbGiftCardFilled } from "react-icons/tb";
 import ModalBonus from "../../components/Appearance/ModalBonus";
 import ModalUjianAkhir from "../../components/Appearance/ModalUjianAkhir";
 
 
 const AppearanceKotak = () => {
+  const navigate = useNavigate();
   const { getIconColor, getBorder, getKotakStyle, theme } = useTheme();
   const [selectedKotak, setSelectedKotak] = useState(null);
   const location = useLocation();
@@ -135,7 +137,9 @@ const AppearanceKotak = () => {
     if (kotakId === 1 && index === 0) {
       setActiveModal("ModalOverView");
     } else if (kotakId === 1 && index === 1) {
-      setActiveModal("ModalArticle");
+      // Navigasi dengan React Router
+      navigate("/keterangan-artikel");
+      return;
     } else if (kotakId === 1 && index === 2) {
       setActiveModal("ModalNomorSatu");
     } else if (kotakId === 1 && index === 4) {
@@ -200,7 +204,7 @@ const AppearanceKotak = () => {
                       <span
                         className={`text-xl font-[400] ${getIconColor(
                           v.clicked
-                        )}`}
+                        )}`}  
                       >
                         {v.icon}
                       </span>
@@ -216,9 +220,9 @@ const AppearanceKotak = () => {
         {activeModal === "ModalOverView" && (
           <ModalOverView isOpen={true} onClose={closeModal} />
         )}
-        {activeModal === "ModalArticle" && (
+        {/* {activeModal === "ModalArticle" && (
           <ModalArticle isOpen={true} onClose={closeModal} />
-        )}
+        )} */}
         {activeModal === "ModalNomorSatu" && (
           <ModalNomorSatu isOpen={true} onClose={closeModal} />
         )}

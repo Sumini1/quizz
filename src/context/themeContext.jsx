@@ -315,6 +315,19 @@ export const ThemeProvider = ({ children }) => {
         }
       };
 
+      const borderColor = () => {
+        switch (theme) {
+          case "dark":
+            return "border-gray-700";
+          case "cupcake":
+            return "border-pink-500";
+          case "bumblebee":
+            return "border-yellow-500";
+          default:
+            return "border-[#DCE6F8] ";
+        }
+      };
+
         const getThemeModalCategory = () => {
           return theme === "dark"
             ? "bg-gray-800 text-white"
@@ -351,7 +364,7 @@ export const ThemeProvider = ({ children }) => {
 
   return (
     <ThemeContext.Provider
-      value={{ theme, setTheme, getBorder, getDotClass, getButtonClass, getButtonClassSelected, getLanjutkanClass, getThemeShadow, getButtonClassListCategory, getKotakStyle, getIconColor, getThemeLoveClass, getThemeClass, getThemeBeranda, getBorderClass, getLatarBeranda, getTextTitle, getDotClassSurvey, getIconTheme, getIconBookSoal, getBorderColor, getThemeModalCategory, getIconColorAlert, getTextTitle1 }}
+      value={{ theme, setTheme, getBorder, getDotClass, getButtonClass, getButtonClassSelected, getLanjutkanClass, getThemeShadow, getButtonClassListCategory, getKotakStyle, getIconColor, getThemeLoveClass, getThemeClass, getThemeBeranda, getBorderClass, getLatarBeranda, getTextTitle, getDotClassSurvey, getIconTheme, getIconBookSoal, getBorderColor, getThemeModalCategory, getIconColorAlert, getTextTitle1, borderColor }}
     >
       {children}
     </ThemeContext.Provider>

@@ -1,109 +1,251 @@
 import React, { useState } from "react";
-import { BiSolidMessageSquareError } from "react-icons/bi";
 import { useTheme } from "../../context/ThemeContext";
-import ButtonMobileKotak from "../../components/Appearance/ButtonMobileKotak";
-import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { MdOutlineError } from "react-icons/md";
-
+import { MdTimer } from "react-icons/md";
+import { IoDiamond, IoColorPaletteSharp } from "react-icons/io5";
+import { GrStarOutline } from "react-icons/gr";
+import { FaArrowRightLong } from "react-icons/fa6";
+import ButtonMobileKotak from "../../components/Appearance/ButtonMobileKotak";
+import ModalArticle from "../../components/Appearance/KeteranganArtikel";
 
 const Pembelajaran = () => {
-  const { getButtonClass, getBorderColor, getIconColorAlert } = useTheme();
-  const [selectedId, setSelectedId] = useState(null); // State untuk item yang dipilih
+  const { getButtonClass, getLatarBeranda, getBorderColor, getIconTheme } =
+    useTheme();
 
-  const dasar = [
-    { id: 1, name: "Keimanan", icon:   <MdOutlineError /> },
-    { id: 2, name: "Ibadah", icon:   <MdOutlineError /> },
-    { id: 3, name: "Akhlak", icon:   <MdOutlineError /> },
-    { id: 4, name: "Muamalah", icon:   <MdOutlineError /> },
-    { id: 5, name: "Sejarah", icon:   <MdOutlineError /> },
+    
+  const category = [
+    {
+      id: 1,
+      name: "Artikel",
+      link: "/pembelajaran/artikel",
+      description: "Artikel dari pelajaran yang sudah diikuti.",
+    },
+    {
+      id: 2,
+      name: "Penilaian",
+      link: "/pembelajaran/penilaian",
+      description: "Penyusunan nilai dan laporan pembelajaran",
+    },
+    {
+      id: 3,
+      name: "Arsip",
+      link: "/pembelajaran/arsip",
+      description: "Artikel, pertanyaan dan catatan yang disimpan.",
+    },
+    {
+      id: 4,
+      name: "Kesalahan",
+      link: "/pembelajaran/kesalahan",
+      description: "Pertanyaan yang salah dijawab untuk evaluasi.",
+    },
   ];
 
-  const umum = [
-    { id: 6, name: "Ekonomi", icon:   <MdOutlineError /> },
-    { id: 7, name: "Politik", icon:   <MdOutlineError /> },
-    { id: 8, name: "Sosial", icon:   <MdOutlineError /> },
-    { id: 9, name: "Budaya", icon:   <MdOutlineError /> },
-    { id: 10, name: "Teknologi", icon:   <MdOutlineError /> },
+  const tantangan = [
+    {
+      id: 1,
+      name: "login",
+      icon: <IoDiamond />,
+      type: "Login 7 hari berturut-turut",
+      progress: 100,
+    },
+    {
+      id: 2,
+      name: "Poin",
+      icon: <IoDiamond />,
+      type: "Mencapai 200 poin",
+      progress: 100,
+    },
+    {
+      id: 3,
+      name: "Login",
+      icon: <IoDiamond />,
+      type: "Mencapai 500 poin",
+      progress: 100,
+    },
+    {
+      id: 4,
+      name: "Poin",
+      link: "#",
+      icon: <GrStarOutline />,
+      type: "Mencapai 300 poin",
+      // progress: 100,
+    },
+    {
+      id: 5,
+      name: "Lihat pembelajaran lainnya",
+      link: "#",
+      icon: <FaArrowRightLong />,
+    },
   ];
+
+  const lencanaIndex = ["satu", "dua", "tiga", "empat", "lima"];
 
   return (
     <>
-      <div className="w-full p-5 flex flex-col">
-        <div className="flex items-center gap-3">
-          <Link to={"/settings"}>
-            <FaArrowLeft className="text-xl cursor-pointer items-center " />
-          </Link>
-          <h1 className="text-lg font-[600] items-center ">Pembelajaran</h1>
-        </div>
-        {/* Dasar Islam Section */}
-        <div className="relative">
-          <div className="flex gap-2">
-            <h2 className="text-md font-semibold mb-2 mt-5">Dasar Islam</h2>
-            <MdOutlineError className={`mt-5 ${getIconColorAlert()}`} />
+      <div
+        className={`flex flex-col p-0 flex-grow ${getLatarBeranda()} h-[235px]`}
+      >
+        <div className="mb-5 flex flex-col w-full p-5">
+          <h1 className="text-xl font-semibold mb-4">Pembelajaran</h1>
+          <div
+            className={`flex  flex-col  gap-3 px-1 ${getButtonClass()} border-none`}
+          >
+            <div className="p-3">
+              <Link to={"/pilih-category"}>
+                <h3 className="text-lg  mb-3 font-medium">
+                  Tersedia Pilihan Pembelajaran
+                </h3>
+              </Link>
+              <h5 className="text-sm mb-5 font-medium">
+                Terdapat 4 tingkat, 20 kategori , 100 level / tema dan 1000
+                topik pembahasan.
+              </h5>
+              <div className="bg-white  flex gap-2 rounded-xl p-1 w-[200px] justify-center items-center ml-32 m-1 ">
+                <img src="/Vector.png" alt="" />
+                <h5 className="text-center text-[#222] text-sm font-semibold">
+                  Jelajahi Pembelajaran
+                </h5>
+              </div>
+            </div>
           </div>
+          {/* Content */}
 
-          <div className="flex flex-col gap-3 mt-2">
-            {dasar.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => setSelectedId(item.id)} // Mengatur item yang dipilih
-                className={`flex justify-between items-center p-3  cursor-pointer rounded-xl ${
-                  selectedId === item.id
-                    ? `${getButtonClass()} text-white border-none`
-                    : `${getBorderColor()}`
-                }`}
-              >
-                <h5
-                  className={`font-base ${
-                    selectedId === item.id ? "text-white" : "text-[#333]"
+          <div className="grid grid-cols-2 mt-8  w-full h-[180px] gap-y-3 gap-x-3 justify-center">
+            {category.map((category) => (
+              <Link to={category.link}>
+                <div
+                  key={category.id}
+                  className={`flex flex-col w-full h-[110px]   gap-2  px-3 ${
+                    category.id === 1
+                      ? "bg-[#DCFFD9] rounded-xl p-2 "
+                      : category.id === 2
+                      ? "bg-[#DCE6F8] rounded-xl p-2 "
+                      : category.id === 3
+                      ? "bg-[#FFEF96] rounded-xl p-2 text-[#555555] "
+                      : category.id === 4
+                      ? "bg-[#FFD9D9] rounded-xl p-2 "
+                      : ""
                   }`}
                 >
-                  {item.name}
-                </h5>
-                <div className={`flex-shrink-0 ${getIconColorAlert()}`}>
-                  {item.icon}
+                  <h3
+                    className={`text-lg  font-medium ${
+                      category.id === 1
+                        ? "text-[#28A745]"
+                        : category.id === 2
+                        ? "text-[#0961F5]"
+                        : category.id === 3
+                        ? "text-[#B39700]"
+                        : category.id === 4
+                        ? "text-[#C15E42]"
+                        : ""
+                    }`}
+                  >
+                    {category.name}
+                  </h3>
+
+                  <h5 className="text-sm -mt-1  font-normal">
+                    {category.description}
+                  </h5>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
-
-        {/* Umum Section */}
-        <div className="relative mt-8">
-          <div className="flex gap-2">
-            <h2 className="text-md font-semibold mb-1">Umum</h2>
-            <MdOutlineError className={` ${getIconColorAlert()}`} />
+        <hr className="w-full text-[#EEEEEE] font-bold  border-8 m-0 mb-5 mt-8" />
+        {/* tantangan */}
+        <div className="flex flex-col p-5 ">
+          <div className="flex  justify-between -mt-8">
+            <h2 className="text-lg font-[500] ">Ikuti Tantangan</h2>
+            <p className="flex items-center ">
+              <MdTimer className="text-[#F59D09]" />
+              <span className="text-xs text-[#F59D09]">4 hari tersisa</span>
+            </p>
           </div>
+          <p className="text-sm mt-2 ">
+            Selesaikan tantangan dan dapatkan berbagai macam hadiah dan
+            lencananya.
+          </p>
+          <div className="grid grid-cols-1  gap-y-0">
+            <div className="grid grid-cols-1 mt-5 gap-y-0 ">
+              {tantangan.map((item, index) => {
+                const itemTheme = lencanaIndex[index % lencanaIndex.length];
+                const isSpecialId = item.id === 5;
+                const commonClasses = `flex flex-col w-full p-2 rounded-xl`;
+                const heightClass = isSpecialId
+                  ? "h-[40px] justify-center"
+                  : "h-[70px]";
+                const themeClasses =
+                  itemTheme === "satu"
+                    ? `  rounded-b-none border-[1px] ${getBorderColor()}`
+                    : itemTheme === "dua"
+                    ? ` rounded-t-none rounded-b-none border-[1px]  ${getBorderColor()}`
+                    : itemTheme === "tiga"
+                    ? ` rounded-t-none rounded-b-none border-[1px]  ${getBorderColor()}`
+                    : itemTheme === "empat"
+                    ? `bg-white text-[#4B4B4B] rounded-t-none rounded-b-none border-[1px]    ${getBorderColor()}`
+                    : itemTheme === "lima"
+                    ? `bg-white text-[#4B4B4B] rounded-t-none  border-[1px] rounded-b-xl    ${getBorderColor()}`
+                    : // : itemTheme === "emerald"
+                      // ? " rounded-t-none rounded-b-none border-gray-400 "
+                      ` rounded-t-none rounded-b-none border-[1px]  ${getBorderColor()}`;
 
-          <div className="flex flex-col gap-3 mt-2">
-            {umum.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => setSelectedId(item.id)} // Mengatur item yang dipilih
-                className={`flex justify-between items-center p-3  cursor-pointer rounded-xl ${
-                  selectedId === item.id
-                    ? `${getButtonClass()} text-white border-none`
-                    : `${getBorderColor()}`
-                }`}
-              >
-                <h5
-                  className={`font-base  ${
-                    selectedId === item.id ? "text-white" : "text-[#333]"
-                  }`}
-                >
-                  {item.name}
-                </h5>
-                <div className={`flex-shrink-0 ${getIconColorAlert()}`}>
-                  {item.icon}
-                </div>
-              </div>
-            ))}
+                return (
+                  <Link to={item.link}>
+                    <div
+                      key={item.id}
+                      // onClick={() => handleSelectMidnightTheme(item.id - 1)}
+                      className={`${commonClasses} ${heightClass} ${themeClasses}`}
+                    >
+                      <div className="flex items-center gap-x-2">
+                        <h5
+                          className={`border-none p-1 w-[30px] mx-2 flex items-center justify-center text-sm h-[30px] font-[500] rounded-full ${
+                            isSpecialId
+                              ? "bg-transparent text-[#222]"
+                              : "bg-blue-500 text-white"
+                          }`}
+                        >
+                          {!isSpecialId && item.id}
+                        </h5>
+
+                        <div className="flex flex-col">
+                          <h5
+                            className={`font-medium ${
+                              item.id === 5 ? "text-left flex  -ml-16 px-5" : ""
+                            }`}
+                          >
+                            {item.name}
+                          </h5>
+                          <h5 className=" text-xs">{item.type}</h5>
+                        </div>
+
+                        <div
+                          className={`ml-auto flex mx-3 gap-1 justify-center items-center font-bold ${getIconTheme()} ${
+                            item.id === 5 && "text-[#4B4B4B] "
+                          }`}
+                        >
+                          <h5
+                            className={`font-medium ${
+                              item.id === 4 && "text-3xl"
+                            } ${isSpecialId && "text-xl"}`}
+                          >
+                            {item.icon}
+                          </h5>
+                          <p className={`text-sm ${getIconTheme()}`}>
+                            {item.progress}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
-      <div className=" w-full sticky bottom-0 z-50">
-        <ButtonMobileKotak />
+        {/* Sticky Button */}
+        <div className="fixed bottom-0 w-full">
+          <ButtonMobileKotak className="p-0 m-0 bg-blue-500 text-white flex justify-center items-center h-12" />
+        </div>
       </div>
     </>
   );

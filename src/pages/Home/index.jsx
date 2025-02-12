@@ -8,13 +8,14 @@ const Home = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Slider */}
-      <div className="w-full h-[240px] rounded-lg p-20">
+      <div className="w-full h-[240px] rounded-lg p-20 flex-shrink-0 relative">
         <div className="flex flex-col">
           <img
             src="/logoquiz.png"
             alt="Logo 1"
-            className="w-full h-full object-cover "
+            className="w-full h-full object-cover"
           />
+          {/* SVG tetap muncul */}
           <svg
             className="-mt-[200px] -ml-16 text-3xl font-bold"
             xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +29,7 @@ const Home = () => {
               cy="76"
               r="75.5"
               stroke="#F9AD2B"
-              stroke-opacity="18"
+              strokeOpacity="0.18"
             />
           </svg>
           <svg
@@ -44,35 +45,35 @@ const Home = () => {
               cy="76"
               r="75.5"
               stroke="#F9AD2B"
-              stroke-opacity="12"
+              strokeOpacity="0.12"
             />
           </svg>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col justify-center items-center mx-auto p-3   ">
-        <div>
-          <h2 className="text-xl font-[500] mt-[90px] mb-4 p-3 ">
-            Mulai Perjalanan Menuntut Ilmu
-          </h2>
-          <p className="text-md -mt-7 mb-6 p-3 ">
-            Komitmen kami memudahkan kaum muslimin untuk belajar agama dan
-            bahasa Arab dimanapun.
-          </p>
-        </div>
-        <div className="flex mt-[90px] text-xl  mb-2  ">
+      <div className="flex-grow flex flex-col justify-center p-3">
+        <h2 className="text-xl font-[500] mt-[50px] mb-4 p-3">
+          Mulai Perjalanan Menuntut Ilmu
+        </h2>
+        <p className="text-md -mt-7 mb-6 p-3">
+          Komitmen kami memudahkan kaum muslimin untuk belajar agama dan bahasa
+          Arab dimanapun.
+        </p>
+        <div className="flex mt-20 mb-2 text-xl items-center mx-auto">
           <GoDotFill className={getDotClass(0)} />
           <GoDotFill className={getDotClass(1)} />
           <GoDotFill className={getDotClass(2)} />
         </div>
-        <Link to={"/screen2"}>
-          <button
-            className={`p-3 w-[350px] border-none rounded-xl ${getButtonClass()}`}
-          >
-            Lanjut
-          </button>
-        </Link>
+        <di className="mt-auto w-full flex justify-center p-4">
+          <Link to={"/screen2"} className="w-full ">
+            <button
+              className={`w-full p-3 text-center border-none rounded-xl ${getButtonClass()}`}
+            >
+              Lanjut
+            </button>
+          </Link>
+        </di>
       </div>
     </div>
   );
