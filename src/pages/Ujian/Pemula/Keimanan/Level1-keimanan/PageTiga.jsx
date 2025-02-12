@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaBook, FaQuestion } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { FaCheckCircle } from "react-icons/fa";
-import { useTheme } from "../../../../../context/themeContext";
+import { useTheme } from "../../../../../context/ThemeContext";
 import { Link } from "react-router-dom";
 import { MdMenuBook } from "react-icons/md";
 
