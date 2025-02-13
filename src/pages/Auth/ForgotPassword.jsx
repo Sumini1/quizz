@@ -60,7 +60,7 @@ const ForgotPassword = () => {
       </div>
 
       {/* Footer Section */}
-      <div className="p-5">
+      <div className="fixed bottom-0 left-0 w-full bg-white p-5 shadow-md flex flex-col items-center">
         <p className="mb-3 text-center">
           Mau mencoba login?
           <Link to="/login" className="text-blue-600 mx-2">

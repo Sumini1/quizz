@@ -31,7 +31,7 @@ const RegisterGmail = () => {
       {/* Judul EduLearn */}
       <h1 className="text-xl font-bold absolute top-5">EduLearn</h1>
 
-      <div className="w-full max-w-sm flex flex-col -mt-36">
+      <div className="w-full max-w-sm flex flex-col -mt-48 flex-grow justify-center">
         {/* Welcome Section */}
         <div className="mb-7 mt-10 ">
           <h2 className="text-lg font-semibold mb-2">Daftar dengan Google</h2>

@@ -37,9 +37,9 @@ const RegisterEmail = () => {
       {/* Judul EduLearn */}
       <h1 className="text-xl font-bold absolute top-5">EduLearn</h1>
 
-      <div className="w-full max-w-sm flex flex-col ">
+      <div className="w-full max-w-sm flex flex-col -mt-24 flex-grow justify-center">
         {/* Welcome Section */}
-        <div className="flex flex-col flex-grow -mt-16  ">
+        <div className="mt-5  ">
           <h2 className="text-lg font-semibold mb-2 ">Daftar dengan Email</h2>
           <p className="text-md mb-5">
             Untuk proses lebih lanjut mohon lengkapi data berikut
