@@ -8,18 +8,18 @@ const Register = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       {/* Slider */}
-      <div className="w-full h-[250px] rounded-lg p-20">
-        <div className="w-full  h-[280px] flex justify-center items-center">
+      <div className="w-full max-w-screen-lg h-[250px] rounded-lg ">
+        <div className="w-full  p-5 mt-7 flex justify-center items-center">
           <img
             src="/quiz33.png"
             alt="Logo 1"
-            className="w-full h-full object-cover"
+            className="w-3/4 sm:w-1/2 md:w-1/3 object-contain "
           />
         </div>
       </div>
 
       {/* Teks informasi */}
-      <div className="flex flex-col   mt-44">
+      <div className="flex flex-col   mt-10 p-5">
         <h2 className="text-xl font-medium mt-12 mb-7  ">
           Terdapat dua pilihan pendaftaran
         </h2>

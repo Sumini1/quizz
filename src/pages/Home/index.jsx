@@ -5,22 +5,21 @@ import { useTheme } from "../../context/ThemeContext";
 
 const Home = () => {
   const { getDotClass, getButtonClass } = useTheme();
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen items-center justify-center">
       {/* Slider */}
-      <div className="w-full h-[240px] rounded-lg p-20 flex-shrink-0 relative">
-        <div className="flex flex-col">
-          <img
-            src="/logoquiz.png"
-            alt="Logo 1"
-            className="w-full h-full object-cover"
-          />
-          {/* SVG tetap muncul */}
+      <div className="w-full max-w-screen-lg -mt-5 flex flex-col items-center relative">
+        <img
+          src="/logoquiz.png"
+          alt="Logo 1"
+          className="w-3/4 sm:w-1/2 md:w-1/3 lg:w-1/4 object-contain"
+        />
+        {/* SVG tetap muncul */}
+        <div className="flex gap-4 p-5">
           <svg
-            className="-mt-[200px] -ml-16 text-3xl font-bold"
+            className="w-16 h-16 sm:w-20 sm:h-20"
             xmlns="http://www.w3.org/2000/svg"
-            width="100"
-            height="100"
             viewBox="0 0 87 152"
             fill="none"
           >
@@ -33,10 +32,8 @@ const Home = () => {
             />
           </svg>
           <svg
-            className="mt-10 ml-[220px] text-3xl font-bold"
+            className="w-16 h-16 sm:w-20 sm:h-20"
             xmlns="http://www.w3.org/2000/svg"
-            width="100"
-            height="100"
             viewBox="0 0 87 152"
             fill="none"
           >
@@ -52,28 +49,32 @@ const Home = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-grow flex flex-col justify-center p-3">
-        <h2 className="text-xl font-[500] mt-[50px] mb-4 p-3">
+      <div className="flex flex-col  max-w-md p-5">
+        <h2 className="text-lg sm:text-xl font-semibold mb-2 -mt-16">
           Mulai Perjalanan Menuntut Ilmu
         </h2>
-        <p className="text-md -mt-7 mb-6 p-3">
+        <p className="text-sm sm:text-md text-gray-700 mb-6">
           Komitmen kami memudahkan kaum muslimin untuk belajar agama dan bahasa
           Arab dimanapun.
         </p>
-        <div className="flex mt-20 mb-2 text-xl items-center mx-auto">
+
+        {/* Navigasi */}
+        <div className="flex space-x-2 mt-20 items-center mx-auto">
           <GoDotFill className={getDotClass(0)} />
           <GoDotFill className={getDotClass(1)} />
           <GoDotFill className={getDotClass(2)} />
         </div>
-        <di className="mt-auto w-full flex justify-center p-4">
-          <Link to={"/screen2"} className="w-full ">
+
+        {/* Tombol */}
+        <div className="w-full mt-6">
+          <Link to="/screen2" className="block">
             <button
-              className={`w-full p-3 text-center border-none rounded-xl ${getButtonClass()}`}
+              className={`w-full py-3 rounded-xl text-white border-none ${getButtonClass()}`}
             >
               Lanjut
             </button>
           </Link>
-        </di>
+        </div>
       </div>
     </div>
   );
