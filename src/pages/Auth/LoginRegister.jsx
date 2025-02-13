@@ -7,7 +7,7 @@ const LoginRegister = () => {
   const { getBorder, getButtonClass, getBorderClass } = useTheme();
 
   return (
-    <div className="p-5 h-screen">
+    <div className="p-5 h-screen flex flex-col min-h-screen ">
       {/* Slider */}
       <div className="w-full max-w-screen-lg  rounded-lg ">
         <div className="w-full  p-5 mt-8 flex justify-center items-center">
