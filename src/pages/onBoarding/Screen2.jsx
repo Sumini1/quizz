@@ -10,7 +10,7 @@ const Screen2 = () => {
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">
       {/* Slider */}
-      <div className="w-full max-w-screen-lg mt-6 selection: ">
+      <div className="w-full max-w-screen-lg -mt-10  selection: ">
         <div className="flex justify-center w-full p-5">
           <img
             src="/quiz2.png"
@@ -21,7 +21,7 @@ const Screen2 = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col justify-center p-5 -mt-3">
+      <div className="flex flex-col justify-center p-5 ">
         <h2 className="text-xl font-medium mb-2">
           Perjalanan akan menyenangkan
         </h2>
@@ -29,22 +29,22 @@ const Screen2 = () => {
           Kami menyediakan sistem belajar yang menarik agar peserta merasa
           senang
         </p>
-        <div className="flex mt-32   text-xl gap-2 items-center mx-auto">
-          <GoDotFill className={getDotClass(0)} />
-          <GoDotFill className={getDotClass(1)} />
-          <GoDotFill className={getDotClass(2)} />
-        </div>
-        <div
-        onClick={() => navigate("/screen3")}
-        className="w-full mt-4  mx-auto flex flex-col">
-         
-            <button
-              className={`w-full p-3 text-center border-none rounded-xl ${getButtonClass()}`}
-            >
-              Lanjut
-          
-            </button>
-        </div>
+      </div>
+      {/* Navigasi */}
+      <div className="flex space-x-2 items-center mx-auto text-xl  mt-20">
+        <GoDotFill className={getDotClass(0)} />
+        <GoDotFill className={getDotClass(1)} />
+        <GoDotFill className={getDotClass(2)} />
+      </div>
+
+      {/* Tombol Fixed di Bawah */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-3 shadow-md">
+        <button
+          onClick={() => navigate("/screen3")}
+          className={`w-full py-3 rounded-xl text-white border-none ${getButtonClass()}`}
+        >
+          Lanjut
+        </button>
       </div>
     </div>
   );

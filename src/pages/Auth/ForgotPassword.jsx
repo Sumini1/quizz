@@ -3,9 +3,8 @@ import { useTheme } from "../../context/ThemeContext";
 import { FaArrowLeft } from "react-icons/fa6";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
-import { FiEye, FiEyeOff } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiLoader } from "react-icons/fi";
 import { HiUserCircle } from "react-icons/hi";
-import { FiLoader } from "react-icons/fi";
 
 const ForgotPassword = () => {
   const { getBorder, getButtonClass, getThemeClass, getIconTheme } = useTheme();
@@ -18,7 +17,7 @@ const ForgotPassword = () => {
     setTimeout(() => {
       setIsLoading(false);
       navigate("/verifikasi-email");
-    }, 2000); // Simulasi proses verifikasi 2 detik
+    }, 2000);
   };
 
   const togglePasswordVisibility = () => {
@@ -26,7 +25,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen justify-between">
       {/* Header */}
       <div className="flex items-center gap-3 mt-5 px-5">
         <FaArrowLeft className="text-2xl cursor-pointer" />
@@ -34,7 +33,7 @@ const ForgotPassword = () => {
       </div>
 
       {/* Form Section */}
-      <div className="flex flex-col mx-5 mt-10 text-lg">
+      <div className="flex flex-col mx-5 mt-10 text-lg flex-grow">
         <h2 className="font-semibold mb-5">
           Insya Allah, kami bantu pulihkan akun
         </h2>
@@ -61,8 +60,8 @@ const ForgotPassword = () => {
       </div>
 
       {/* Footer Section */}
-      <div className="mt-auto mb-2 flex flex-col justify-center items-center">
-        <p className="mb-3">
+      <div className="p-5">
+        <p className="mb-3 text-center">
           Mau mencoba login?
           <Link to="/login" className="text-blue-600 mx-2">
             Login
@@ -70,7 +69,7 @@ const ForgotPassword = () => {
         </p>
         <button
           onClick={handleVerifikasi}
-          className={`p-4 w-[350px] border-none ${getButtonClass()}`}
+          className={`p-4 w-full border-none ${getButtonClass()}`}
           disabled={isLoading}
         >
           {isLoading ? (
@@ -92,7 +91,7 @@ const ForgotPassword = () => {
             <p className="text-sm text-gray-500">Sedang memproses verifikasi</p>
             <FiLoader
               style={{ animation: "spin 2s linear infinite" }}
-              className={`text-4xl  ${getIconTheme()}`}
+              className={`text-4xl ${getIconTheme()}`}
             />
           </div>
         </div>

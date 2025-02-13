@@ -10,7 +10,7 @@ const Screen3 = () => {
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">
       {/* Slider */}
-      <div className="w-full max-w-screen-lg mt-6 selection: ">
+      <div className="w-full max-w-screen-lg -mt-12 selection: ">
         <div className="flex justify-center w-full p-5">
           <img
             src="/quiz33.png"
@@ -21,7 +21,7 @@ const Screen3 = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col justify-center p-5 -mt-3">
+      <div className="flex flex-col justify-center p-5 -mt-5">
         <h2 className="text-xl font-medium mb-2">
           Belajar Islam dan Bahasa Arab Sesuai Keinginanmu
         </h2>
@@ -29,21 +29,21 @@ const Screen3 = () => {
           Mau belajar dari dasar ? Ingin memperdalam berbagai cabang ilmu islam
           seperti Fiqh Syafi’i ? atau mau memilih belajar tingkat lanjut ?
         </p>
-        <div className="flex mt-14   text-xl gap-2 items-center mx-auto">
-          <GoDotFill className={getDotClass(0)} />
-          <GoDotFill className={getDotClass(1)} />
-          <GoDotFill className={getDotClass(2)} />
-        </div>
-        <div
+      </div>
+      <div className="flex space-x-2 items-center mx-auto text-xl  mt-7">
+        <GoDotFill className={getDotClass(0)} />
+        <GoDotFill className={getDotClass(1)} />
+        <GoDotFill className={getDotClass(2)} />
+      </div>
+
+      {/* Tombol Fixed di Bawah */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-3 shadow-md">
+        <button
           onClick={() => navigate("/login-register")}
-          className="w-full mt-4  mx-auto flex flex-col"
+          className={`w-full py-3 rounded-xl text-white border-none ${getButtonClass()}`}
         >
-          <button
-            className={`w-full p-3 text-center border-none rounded-xl ${getButtonClass()}`}
-          >
-            Lanjut
-          </button>
-        </div>
+          Lanjut
+        </button>
       </div>
     </div>
   );

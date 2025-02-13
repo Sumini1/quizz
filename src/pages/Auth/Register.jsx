@@ -1,42 +1,43 @@
-import React, { useState } from "react";    
-import { Link, useLocation } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 
 const Register = () => {
-  const { getButtonClass, getBorderClass,  } = useTheme();
+  const { getButtonClass, getBorderClass } = useTheme();
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      {/* Slider */}
-      <div className="w-full max-w-screen-lg h-[250px] rounded-lg ">
-        <div className="w-full  p-5 mt-7 flex justify-center items-center">
-          <img
-            src="/quiz33.png"
-            alt="Logo 1"
-            className="w-3/4 sm:w-1/2 md:w-1/3 object-contain "
-          />
-        </div>
+    <div className="h-screen flex flex-col items-center p-5 relative">
+      {/* Logo */}
+      <div className="w-full max-w-md flex justify-center mt-10">
+        <img
+          src="/quiz33.png"
+          alt="Logo 1"
+          className="w-3/4 sm:w-1/2 md:w-1/3 object-contain"
+        />
       </div>
 
-      {/* Teks informasi */}
-      <div className="flex flex-col   mt-10 p-5">
-        <h2 className="text-xl font-medium mt-12 mb-7  ">
+      {/* Informasi */}
+      <div className="flex flex-col flex-grow max-w-md w-full mt-10">
+        <h2 className="text-xl font-medium ">
           Terdapat dua pilihan pendaftaran
         </h2>
+      </div>
 
-        <div className="flex flex-col gap-3 mt-3">
-          <Link to={"/register-email"}>
+      {/* Tombol Daftar & Login */}
+      <div className="absolute bottom-0 w-full max-w-md p-5 bg-white ">
+        <div className="flex flex-col gap-4 w-full">
+          <Link to="/register-email">
             <button
-              className={`p-3 w-[350px] border-none rounded-xl ${getButtonClass()}`}
+              className={`p-3 w-full rounded-xl border-none ${getButtonClass()}`}
             >
-              Daftar dengan Email
+              Daftar dengan email
             </button>
           </Link>
-          <Link to={"/register-gmail"}>
+          <Link to="/register-gmail">
             <button
-              className={`p-3 w-[350px] border-none rounded-xl ${getBorderClass()}`}
+              className={`p-3 w-full rounded-xl border-none ${getBorderClass()}`}
             >
-              Daftar dengan Google
+              daftar dengan google
             </button>
           </Link>
         </div>

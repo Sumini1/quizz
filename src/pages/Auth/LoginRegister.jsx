@@ -1,40 +1,42 @@
-import React, { useState } from "react";
-// import { GoDotFill } from "react-icons/go";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 
 const LoginRegister = () => {
-  const { getBorder, getButtonClass, getBorderClass } = useTheme();
+  const { getButtonClass, getBorderClass } = useTheme();
 
   return (
-    <div className="p-5 h-screen flex flex-col min-h-screen ">
-      {/* Slider */}
-      <div className="w-full max-w-screen-lg  rounded-lg ">
-        <div className="w-full  p-5 mt-8 flex justify-center items-center">
-          <img
-            src="/quiz33.png"
-            alt="Logo 1"
-            className="w-3/4 sm:w-1/2 md:w-1/3 object-contain "
-          />
-        </div>
+    <div className="h-screen flex flex-col items-center p-5 relative">
+      {/* Logo */}
+      <div className="w-full max-w-md flex justify-center mt-10">
+        <img
+          src="/quiz33.png"
+          alt="Logo 1"
+          className="w-3/4 sm:w-1/2 md:w-1/3 object-contain"
+        />
       </div>
 
-      {/* Teks informasi */}
-      <div className="flex flex-col mt-7">
-        <h2 className="text-xl font-[500] mt-5 p-3 ">
+      {/* Informasi */}
+      <div className="flex flex-col flex-grow max-w-md w-full mt-10">
+        <h2 className="text-xl font-medium ">
           Sebelum belajar, Daftar atau Login terlebih dahulu ya
         </h2>
+      </div>
 
-        <div className="flex flex-col gap-5 mt-16">
-          <Link to={"/register"}>
+      {/* Tombol Daftar & Login */}
+      <div className="absolute bottom-0 w-full max-w-md p-5 bg-white ">
+        <div className="flex flex-col gap-4 w-full">
+          <Link to="/register">
             <button
-              className={`p-3 w-full border-none rounded-xl ${getButtonClass()}`}
+              className={`p-3 w-full rounded-xl border-none ${getButtonClass()}`}
             >
               Daftar
             </button>
           </Link>
-          <Link to={"/login"}>
-            <button className={`p-3 w-full border-none   rounded-xl ${getBorderClass()}`}>
+          <Link to="/login">
+            <button
+              className={`p-3 w-full rounded-xl border-none ${getBorderClass()}`}
+            >
               Login
             </button>
           </Link>

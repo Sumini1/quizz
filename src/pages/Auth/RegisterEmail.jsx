@@ -33,14 +33,9 @@ const RegisterEmail = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div className="w-full max-w-sm p-5 flex flex-col items-center">
-        {/* Header */}
-        <div className="flex justify-between  w-full">
-          <Link to="/">
-            <h1 className={`text-xl font-bold mt-5  mb-3`}>EduLearn</h1>
-          </Link>
-        </div>
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <div className="w-full max-w-sm p-5  flex flex-col ">
+        <h1 className={`text-xl font-bold mb-2 `}>EduLearn</h1>
 
         {/* Welcome Section */}
         <div className="  ">

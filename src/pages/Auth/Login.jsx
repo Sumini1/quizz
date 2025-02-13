@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { MdEmail } from "react-icons/md";
-import { RiLockPasswordFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
+
+import { MdEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const Login = () => {
@@ -12,34 +13,34 @@ const Login = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  
+
   return (
-    <div className="flex items-center justify-center min-h-screen ">
-      <div className="w-full max-w-sm p-5 flex flex-col items-center  ">
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="w-full max-w-sm p-5 flex flex-col items-center">
         {/* Header */}
         <div className="flex justify-between w-full mb-3">
           <Link to="/">
-            <h1 className="text-xl font-bold ">EduLearn</h1>
+            <h1 className="text-xl font-bold">EduLearn</h1>
           </Link>
         </div>
 
         {/* Welcome Section */}
-        <div className="mb-10 ">
+        <div className="mb-10">
           <h2 className="text-lg font-semibold mb-2 tracking-wide leading-[1.6]">
             Ahlan Wa Sahlan
           </h2>
-          <p >
+          <p>
             Alhamdulillah bisa bertemu kembali, Login untuk melanjutkan
             pembelajaran
           </p>
         </div>
 
         {/* Login Form */}
-        <form className="flex flex-col gap-5 w-full mt-5 items-center">
+        <form className="flex flex-col gap-5 w-full  items-center">
           {/* Email Input */}
           <div
-            style={{ backgroundColor: "transparent" }}
             className={`flex gap-2 items-center rounded-xl p-3 border-2 w-full ${getBorder()}`}
+            style={{ backgroundColor: "transparent" }}
           >
             <MdEmail />
             <input
@@ -51,8 +52,8 @@ const Login = () => {
 
           {/* Password Input */}
           <div
-            style={{ backgroundColor: "transparent" }}
             className={`flex gap-2 items-center rounded-xl p-3 relative border-2 w-full ${getBorder()}`}
+            style={{ backgroundColor: "transparent" }}
           >
             <RiLockPasswordFill />
             <input
@@ -74,13 +75,13 @@ const Login = () => {
 
           {/* Forgot Password */}
           <Link to="/forgot-password">
-            <p className=" ml-[210px] text-sm">Lupa Password?</p>
+            <p className="ml-[210px] text-sm">Lupa Password?</p>
           </Link>
 
           {/* Login Button */}
-          <Link to={"/survei-satu"}>
+          <Link to="/survei-satu" className="w-full">
             <button
-              className={`p-4 w-[350px] border-none rounded-xl ${getButtonClass()}`}
+              className={`p-4 w-full border-none rounded-xl ${getButtonClass()}`}
             >
               Login dengan Email
             </button>
@@ -95,7 +96,7 @@ const Login = () => {
 
           {/* Google Login Button */}
           <button
-            className={`p-4 w-full rounded-xl border-none border-gray-300 ${getBorderClass()} `}
+            className={`p-4 w-full rounded-xl border-none border-gray-300 ${getBorderClass()}`}
           >
             Login dengan Google
           </button>
@@ -103,7 +104,10 @@ const Login = () => {
           {/* Register Link */}
           <p className="text-center mt-5">
             Belum Punya Akun?{" "}
-            <Link to="/register" className="font-semibold text-[#2F80ED] underline">
+            <Link
+              to="/register"
+              className="font-semibold text-[#2F80ED] underline"
+            >
               Daftar Disini
             </Link>
           </p>

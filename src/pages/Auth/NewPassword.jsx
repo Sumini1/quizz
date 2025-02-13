@@ -29,7 +29,7 @@ const NewPassword = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen justify-between">
       <div className="flex items-center gap-3 mt-5 px-5">
         <FaArrowLeft className="text-2xl cursor-pointer" />
         <h1 className="text-lg font-semibold">Password Baru</h1>
@@ -87,7 +87,7 @@ const NewPassword = () => {
             </div>
           </div>
 
-          <div className="mt-[170px] ">
+          <div className="fixed bottom-0 left-0 w-full bg-white p-5 shadow-md flex flex-col items-center">
             <button
               type="submit"
               className={`p-4 w-full border-none rounded-xl ${getButtonClass()}`}

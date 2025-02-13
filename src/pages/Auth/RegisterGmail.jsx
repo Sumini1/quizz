@@ -23,33 +23,28 @@ const RegisterGmail = () => {
     setTimeout(() => {
       setIsLoading(false);
       navigate("/login");
-    }, 2000); // Simulasi proses verifikasi 2 detik
+    }, 2000);
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen">
-      <div className="w-full max-w-sm p-5 flex flex-col items-center">
-        {/* Header */}
-        <div className="flex justify-between w-full mb-7">
-          <Link to="/">
-            <h1 className="text-xl font-bold mt-2">EduLearn</h1>
-          </Link>
-        </div>
+    <div className="flex flex-col justify-center min-h-screen relative px-5">
+      {/* Judul EduLearn */}
+      <h1 className="text-xl font-bold absolute top-5">EduLearn</h1>
 
+      <div className="w-full max-w-sm flex flex-col -mt-36">
         {/* Welcome Section */}
-        <div className=" mb-7 -mt-2 ">
-          <h2 className="text-lg font-semibold mb-2 ">Daftar</h2>
-          <p className="text-md ">
+        <div className="mb-7 mt-10 ">
+          <h2 className="text-lg font-semibold mb-2">Daftar dengan Google</h2>
+          <p className="text-md">
             Untuk proses lebih lanjut mohon lengkapi data berikut
           </p>
         </div>
 
         {/* Login Form */}
-        <form className="flex flex-col gap-5 w-full">
-          {/* name */}
+        <form className="flex flex-col gap-5 w-full mt-7">
+          {/* Name */}
           <div
-            style={{ backgroundColor: "transparent" }}
-            className={`flex gap-2  items-center rounded-xl p-2 ${getBorder()}`}
+            className={`flex gap-2 items-center rounded-xl p-2 ${getBorder()}`}
           >
             <FaUserAlt className="mx-2" />
             <input
@@ -59,21 +54,8 @@ const RegisterGmail = () => {
             />
           </div>
 
-          {/* <div
-            style={{ backgroundColor: "transparent" }}
-            className={`flex gap-2 items-center rounded-xl p-2  ${getBorder()}`}
-          >
-            <FaUserAlt />
-            <input
-              type="text"
-              placeholder="Nama User"
-              className="flex-grow bg-transparent p-2 rounded-xl outline-none"
-            />
-          </div> */}
-
-          {/* Email Input */}
+          {/* Email */}
           <div
-            style={{ backgroundColor: "transparent" }}
             className={`flex gap-2 items-center rounded-xl p-2 ${getBorder()}`}
           >
             <MdEmail className="mx-2" />
@@ -84,9 +66,8 @@ const RegisterGmail = () => {
             />
           </div>
 
-          {/* phone number */}
+          {/* Phone Number */}
           <div
-            style={{ backgroundColor: "transparent" }}
             className={`flex gap-2 items-center rounded-xl p-2 ${getBorder()}`}
           >
             <MdPhone className="mx-2" />
@@ -97,30 +78,35 @@ const RegisterGmail = () => {
             />
           </div>
 
-          {/* Google Login Button */}
-          <button
-            onClick={handleRegisterGmail}
-            disabled={isLoading}
-            className={`p-4 w-full mt-[150px] border-none rounded-xl ${getButtonClass()}`}
-          >
-            {isLoading ? (
-              <FiLoader className="animate-spin inline-block mr-2" />
-            ) : (
-              "Daftar"
-            )}
-          </button>
-          <p className="flex justify-center -mt-3">
-            Sudah memiliki akun ?{" "}
-            <span
-              className="underline cursor-pointer text-[#2F80ED] mx-2"
-              onClick={() => navigate("/login")}
+          <div className="fixed bottom-0 left-0 w-full bg-white p-5 shadow-md flex flex-col items-center">
+            {/* Submit Button */}
+            <button
+              onClick={handleRegisterGmail}
+              disabled={isLoading}
+              className={`p-4 mb-2 w-full mt-5 border-none rounded-xl ${getButtonClass()}`}
             >
-              Login
-            </span>
-          </p>
+              {isLoading ? (
+                <FiLoader className="animate-spin inline-block mr-2 " />
+              ) : (
+                "Daftar"
+              )}
+            </button>
+
+            {/* Login Redirect */}
+            <p className="flex justify-center text-sm">
+              Sudah memiliki akun?{" "}
+              <span
+                className="underline cursor-pointer text-[#2F80ED] mx-2"
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </span>
+            </p>
+          </div>
         </form>
       </div>
-      {/* alert modal */}
+
+      {/* Modal Alert */}
       {isLoading && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-5 rounded-md flex flex-col items-center gap-4">
@@ -129,10 +115,7 @@ const RegisterGmail = () => {
             />
             <p className="text-lg font-semibold">Mohon tunggu...</p>
             <p className="text-sm text-gray-500">Sedang memproses verifikasi</p>
-            <FiLoader
-              style={{ animation: "spin 2s linear infinite" }}
-              className={`text-4xl  ${getIconTheme()}`}
-            />
+            <FiLoader className={`text-4xl ${getIconTheme()} animate-spin`} />
           </div>
         </div>
       )}
