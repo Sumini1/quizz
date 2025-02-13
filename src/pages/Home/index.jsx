@@ -1,15 +1,16 @@
 import React from "react";
 import { GoDotFill } from "react-icons/go";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 
 const Home = () => {
+  const navigate = useNavigate();
   const { getDotClass, getButtonClass } = useTheme();
 
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">
       {/* Slider */}
-      <div className="w-full max-w-screen-lg mt-10 flex flex-col items-center relative">
+      <div className="w-full max-w-screen-lg mt-12 flex flex-col items-center relative">
         <img
           src="/logoquiz.png"
           alt="Logo 1"
@@ -66,14 +67,13 @@ const Home = () => {
         </div>
 
         {/* Tombol */}
-        <div className="w-full mt-6">
-          <Link to="/screen2" className="block">
-            <button
-              className={`w-full py-3 rounded-xl text-white border-none ${getButtonClass()}`}
-            >
-              Lanjut
-            </button>
-          </Link>
+        <div className="w-full mt-4 flex flex-col">
+          <button
+            onClick={() => navigate("/screen2")}
+            className={`w-full py-3 rounded-xl text-white border-none ${getButtonClass()}`}
+          >
+            Lanjut
+          </button>
         </div>
       </div>
     </div>

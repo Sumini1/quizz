@@ -1,9 +1,10 @@
 import React from "react";
 import { GoDotFill } from "react-icons/go";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 
 const Screen2 = () => {
+  const navigate = useNavigate();
   const { getButtonClass, getDotClass } = useTheme();
 
   return (
@@ -28,19 +29,21 @@ const Screen2 = () => {
           Kami menyediakan sistem belajar yang menarik agar peserta merasa
           senang
         </p>
-        <div className="flex mt-32 mb-4 text-xl gap-2 items-center mx-auto">
+        <div className="flex mt-32   text-xl gap-2 items-center mx-auto">
           <GoDotFill className={getDotClass(0)} />
           <GoDotFill className={getDotClass(1)} />
           <GoDotFill className={getDotClass(2)} />
         </div>
-        <div className="w-full  mx-auto ">
-          <Link to="/screen3">
+        <div
+        onClick={() => navigate("/screen3")}
+        className="w-full mt-4  mx-auto flex flex-col">
+         
             <button
               className={`w-full p-3 text-center border-none rounded-xl ${getButtonClass()}`}
             >
               Lanjut
+          
             </button>
-          </Link>
         </div>
       </div>
     </div>

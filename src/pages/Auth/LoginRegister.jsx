@@ -25,7 +25,7 @@ const LoginRegister = () => {
           Sebelum belajar, Daftar atau Login terlebih dahulu ya
         </h2>
 
-        <div className="flex flex-col gap-5 mt-14">
+        <div className="flex flex-col gap-5 mt-20">
           <Link to={"/register"}>
             <button
               className={`p-3 w-full border-none rounded-xl ${getButtonClass()}`}
