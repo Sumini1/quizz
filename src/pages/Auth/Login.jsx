@@ -20,9 +20,9 @@ const Login = () => {
       {/* Judul EduLearn */}
       <h1 className="text-xl font-bold absolute top-5">EduLearn</h1>
 
-      <div className="w-full max-w-sm flex flex-col mt-2 flex-grow justify-center">
+
         {/* Welcome Section */}
-        <div className="flex flex-col  mt-5">
+        <div className="flex flex-col  mt-7">
           <h2 className="text-lg font-semibold mb-2 tracking-wide leading-[1.6]">
             Ahlan Wa Sahlan
           </h2>
@@ -30,10 +30,10 @@ const Login = () => {
             Alhamdulillah bisa bertemu kembali, Login untuk melanjutkan
             pembelajaran
           </p>
-        </div>
+        
 
         {/* Login Form */}
-        <form className="flex flex-col gap-5 w-full  items-center">
+        <form className="flex flex-col gap-5 w-full mt-5  items-center">
           {/* Email Input */}
           <div
             className={`flex gap-2 items-center rounded-xl p-3 border-2 w-full ${getBorder()}`}
@@ -43,7 +43,7 @@ const Login = () => {
             <input
               type="text"
               placeholder="Email"
-              className="flex-grow p-2 rounded-md outline-none bg-transparent"
+              className="flex-grow p-1 rounded-md outline-none bg-transparent"
             />
           </div>
 
@@ -56,7 +56,7 @@ const Login = () => {
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
-              className="flex-grow p-2 rounded-md outline-none bg-transparent"
+              className="flex-grow p- rounded-md outline-none bg-transparent"
             />
             <div
               onClick={togglePasswordVisibility}

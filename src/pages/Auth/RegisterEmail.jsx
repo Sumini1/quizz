@@ -35,16 +35,15 @@ const RegisterEmail = () => {
   return (
     <div className="flex flex-col justify-center min-h-screen relative px-5">
       {/* Judul EduLearn */}
-      <h1 className="text-xl font-bold absolute  top-5">EduLearn</h1>
+      <h1 className="text-xl font-bold absolute   top-5">EduLearn</h1>
 
-      <div className="w-full max-w-sm flex flex-col mt-2  flex-grow justify-center">
-        {/* Welcome Section */}
-        <div className="-mt-24 flex flex-col  ">
+     
+        <div className="-mt-20 flex flex-col">
           <h2 className="text-lg font-semibold mb-2 ">Daftar dengan Email</h2>
           <p className="text-md mb-5">
             Untuk proses lebih lanjut mohon lengkapi data berikut
           </p>
-        </div>
+    
 
         {/* Login Form */}
         <form className="flex flex-col gap-5 w-full">
