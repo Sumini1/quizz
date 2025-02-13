@@ -27,14 +27,14 @@ const Screen3 = () => {
 
       {/* Teks informasi */}
       <div className="flex flex-col justify-center items-center mx-auto p-5 ">
-        <h2 className="text-xl font-semibold   mb-2">
+        <h2 className="text-xl font-semibold  -mt-3 mb-2">
           Belajar Islam dan Bahasa Arab Sesuai Keinginanmu
         </h2>
         <p className="text-md mb-6 ">
           Mau belajar dari dasar ? Ingin memperdalam berbagai cabang ilmu islam
           seperti Fiqh Syafi’i ? atau mau memilih belajar tingkat lanjut ?
         </p>
-        <div className="flex  mt-5  mb-4 text-xl">
+        <div className="flex  mt-7  mb-4 text-xl">
           <GoDotFill className={getDotClass(0)} />
           <GoDotFill className={getDotClass(1)} />
           <GoDotFill className={getDotClass(2)} />

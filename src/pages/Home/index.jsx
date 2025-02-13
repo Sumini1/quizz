@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">
       {/* Slider */}
-      <div className="w-full max-w-screen-lg -mt-5 flex flex-col items-center relative">
+      <div className="w-full max-w-screen-lg mt-10 flex flex-col items-center relative">
         <img
           src="/logoquiz.png"
           alt="Logo 1"
@@ -59,7 +59,7 @@ const Home = () => {
         </p>
 
         {/* Navigasi */}
-        <div className="flex space-x-2 mt-20 items-center mx-auto">
+        <div className="flex space-x-2 mt-28 items-center mx-auto">
           <GoDotFill className={getDotClass(0)} />
           <GoDotFill className={getDotClass(1)} />
           <GoDotFill className={getDotClass(2)} />

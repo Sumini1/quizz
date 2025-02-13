@@ -9,7 +9,7 @@ const Screen2 = () => {
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">
       {/* Slider */}
-      <div className="w-full max-w-screen-lg -mt-16 selection: ">
+      <div className="w-full max-w-screen-lg mt-6 selection: ">
         <div className="flex justify-center w-full p-5">
           <img
             src="/quiz2.png"
@@ -28,7 +28,7 @@ const Screen2 = () => {
           Kami menyediakan sistem belajar yang menarik agar peserta merasa
           senang
         </p>
-        <div className="flex mt-36 mb-4 text-xl gap-2 items-center mx-auto">
+        <div className="flex mt-32 mb-4 text-xl gap-2 items-center mx-auto">
           <GoDotFill className={getDotClass(0)} />
           <GoDotFill className={getDotClass(1)} />
           <GoDotFill className={getDotClass(2)} />
