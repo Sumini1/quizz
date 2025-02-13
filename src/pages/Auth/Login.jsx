@@ -10,20 +10,17 @@ const Login = () => {
   const { getBorder, getButtonClass, getBorderClass } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
 
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="w-full max-w-sm p-5 flex flex-col items-center">
-        {/* Header */}
-        <div className="flex justify-between w-full mb-3">
-          <Link to="/">
-            <h1 className="text-xl font-bold">EduLearn</h1>
-          </Link>
-        </div>
+     <div className="flex flex-col justify-center min-h-screen relative px-5">
+      {/* Judul EduLearn */}
+      <h1 className="text-xl font-bold absolute top-5">EduLearn</h1>
 
+      <div className="w-full max-w-sm flex flex-col mt-10">
         {/* Welcome Section */}
         <div className="mb-10">
           <h2 className="text-lg font-semibold mb-2 tracking-wide leading-[1.6]">

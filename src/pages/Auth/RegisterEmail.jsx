@@ -33,12 +33,13 @@ const RegisterEmail = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <div className="w-full max-w-sm p-5  flex flex-col ">
-        <h1 className={`text-xl font-bold mb-2 `}>EduLearn</h1>
+    <div className="flex flex-col justify-center min-h-screen relative px-5">
+      {/* Judul EduLearn */}
+      <h1 className="text-xl font-bold absolute top-5">EduLearn</h1>
 
+      <div className="w-full max-w-sm flex flex-col ">
         {/* Welcome Section */}
-        <div className="  ">
+        <div className="flex flex-col flex-grow -mt-16  ">
           <h2 className="text-lg font-semibold mb-2 ">Daftar dengan Email</h2>
           <p className="text-md mb-5">
             Untuk proses lebih lanjut mohon lengkapi data berikut
@@ -144,27 +145,29 @@ const RegisterEmail = () => {
             </div>
           </div>
 
-          {/* Google Login Button */}
-          <button
-            onClick={handleRegisterEmail}
-            disabled={isLoading}
-            className={`p-4  w-full mt-10  border-none rounded-xl ${getButtonClass()}`}
-          >
-            {isLoading ? (
-              <FiLoader className="animate-spin inline-block mr-2" />
-            ) : (
-              "Daftar"
-            )}
-          </button>
-          <p className="flex justify-center -mt-3">
-            Sudah memiliki akun ?{" "}
-            <span
-              className="underline cursor-pointer text-[#2F80ED] mx-2"
-              onClick={() => navigate("/login")}
+          <div className="fixed bottom-0  left-0 w-full bg-white p-5 shadow-md flex flex-col items-center">
+            {/* Google Login Button */}
+            <button
+              onClick={handleRegisterEmail}
+              disabled={isLoading}
+              className={`p-4  w-full  mb-4  border-none rounded-xl ${getButtonClass()}`}
             >
-              Login
-            </span>
-          </p>
+              {isLoading ? (
+                <FiLoader className="animate-spin inline-block mr-2" />
+              ) : (
+                "Daftar"
+              )}
+            </button>
+            <p className="flex justify-center -mt-3">
+              Sudah memiliki akun ?{" "}
+              <span
+                className="underline cursor-pointer text-[#2F80ED] mx-2"
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </span>
+            </p>
+          </div>
         </form>
       </div>
 

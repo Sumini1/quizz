@@ -24,7 +24,7 @@ const Register = () => {
       </div>
 
       {/* Tombol Daftar & Login */}
-      <div className="absolute bottom-0 w-full max-w-md p-5 bg-white ">
+      <div className="fixed bottom-0 left-0 w-full bg-white p-5 shadow-md flex flex-col items-center">
         <div className="flex flex-col gap-4 w-full">
           <Link to="/register-email">
             <button
