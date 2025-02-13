@@ -31,9 +31,9 @@ const RegisterGmail = () => {
       {/* Judul EduLearn */}
       <h1 className="text-xl font-bold absolute top-5">EduLearn</h1>
 
-      <div className="w-full max-w-sm flex flex-col -mt-48 flex-grow justify-center">
+      <div className="w-full max-w-sm flex flex-col mt-2 flex-grow justify-center">
         {/* Welcome Section */}
-        <div className="mb-7 mt-10 ">
+        <div className="flex flex-col -mt-44 ">
           <h2 className="text-lg font-semibold mb-2">Daftar dengan Google</h2>
           <p className="text-md">
             Untuk proses lebih lanjut mohon lengkapi data berikut
@@ -41,7 +41,7 @@ const RegisterGmail = () => {
         </div>
 
         {/* Login Form */}
-        <form className="flex flex-col gap-5 w-full mt-7">
+        <form className="flex flex-col gap-5 w-full mt-16">
           {/* Name */}
           <div
             className={`flex gap-2 items-center rounded-xl p-2 ${getBorder()}`}

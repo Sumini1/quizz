@@ -16,17 +16,17 @@ const Login = () => {
   };
 
   return (
-     <div className="flex flex-col justify-center min-h-screen relative px-5">
+    <div className="flex flex-col justify-center min-h-screen relative px-5">
       {/* Judul EduLearn */}
       <h1 className="text-xl font-bold absolute top-5">EduLearn</h1>
 
-      <div className="w-full max-w-sm flex flex-col mt-10">
+      <div className="w-full max-w-sm flex flex-col mt-2 flex-grow justify-center">
         {/* Welcome Section */}
-        <div className="mb-10">
+        <div className="flex flex-col  mt-5">
           <h2 className="text-lg font-semibold mb-2 tracking-wide leading-[1.6]">
             Ahlan Wa Sahlan
           </h2>
-          <p>
+          <p className="mb-7">
             Alhamdulillah bisa bertemu kembali, Login untuk melanjutkan
             pembelajaran
           </p>
