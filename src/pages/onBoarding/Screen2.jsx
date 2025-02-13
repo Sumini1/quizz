@@ -21,7 +21,7 @@ const Screen2 = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col justify-center p-5 -mt-5">
+      <div className="flex flex-col justify-center p-5 -mt-3">
         <h2 className="text-xl font-medium mb-2">
           Perjalanan akan menyenangkan
         </h2>

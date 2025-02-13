@@ -1,51 +1,51 @@
-import React, { useState } from "react";
+import React from "react";
 import { GoDotFill } from "react-icons/go";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 
 const Screen3 = () => {
   const navigate = useNavigate();
-  const { theme, getDotClass, getButtonClass } = useTheme();
-  //  const location = useLocation();
+  const { getDotClass, getButtonClass } = useTheme();
 
   return (
-    <div className="flex flex-col min-h-screen items-center justify-center">
+    <div className="flex flex-col min-h-screen items-center p-5">
       {/* Slider */}
-      <div className="w-full max-w-screen-lg mt-6 selection: ">
-        <div className="flex justify-center w-full p-5">
-          {" "}
+      <div className="w-full max-w-screen-lg">
+        <div className="flex justify-center w-full">
           <img
             src="/quiz33.png"
-            alt="Logo 1"
-            className="w-3/4 sm:w-1/2 md:w-1/3 object-contain "
+            alt="Quiz 3"
+            className="w-3/4 sm:w-2/3 md:w-1/2 object-contain"
           />
         </div>
       </div>
 
-      {/* Teks informasi */}
-      <div className="flex flex-col justify-center items-center mx-auto p-5 ">
-        <h2 className="text-xl font-semibold   mb-2">
-          Belajar Islam dan Bahasa Arab Sesuai Keinginanmu
-        </h2>
-        <p className="text-md  ">
-          Mau belajar dari dasar ? Ingin memperdalam berbagai cabang ilmu islam
-          seperti Fiqh Syafi’i ? atau mau memilih belajar tingkat lanjut ?
-        </p>
-        <div className="flex  mt-8  mb-4 text-xl">
+      {/* Main Content */}
+      <div className="flex flex-col flex-1 justify-between w-full mt-5">
+        <div className=" space-y-4 ">
+          <h2 className="text-xl font-semibold">
+            Belajar Islam dan Bahasa Arab Sesuai Keinginanmu
+          </h2>
+          <p className="text-md text-gray-600">
+            Mau belajar dari dasar? Ingin memperdalam berbagai cabang ilmu Islam
+            seperti Fiqh Syafi’i? atau memilih belajar tingkat lanjut?
+          </p>
+        </div>
+
+        {/* Indicator */}
+        <div className="flex gap-2 text-xl items-center mt-auto mb-5 mx-auto">
           <GoDotFill className={getDotClass(0)} />
           <GoDotFill className={getDotClass(1)} />
           <GoDotFill className={getDotClass(2)} />
         </div>
-        <div
+
+        {/* Button */}
+        <button
           onClick={() => navigate("/login-register")}
-          className="mt-auto w-full flex justify-center  flex-col"
+          className={`w-full  p-3 rounded-xl border-none ${getButtonClass()}`}
         >
-          <button
-            className={`w-full p-3 text-center border-none rounded-xl ${getButtonClass()}`}
-          >
-            Lanjut
-          </button>
-        </div>
+          Lanjut
+        </button>
       </div>
     </div>
   );

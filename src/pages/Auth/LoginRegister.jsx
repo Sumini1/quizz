@@ -9,8 +9,8 @@ const LoginRegister = () => {
   return (
     <div className="p-5 h-screen">
       {/* Slider */}
-      <div className="w-full max-w-screen-lg h-[250px] rounded-lg ">
-        <div className="w-full  p-5 mt-7 flex justify-center items-center">
+      <div className="w-full max-w-screen-lg  rounded-lg ">
+        <div className="w-full  p-5 mt-8 flex justify-center items-center">
           <img
             src="/quiz33.png"
             alt="Logo 1"
@@ -25,7 +25,7 @@ const LoginRegister = () => {
           Sebelum belajar, Daftar atau Login terlebih dahulu ya
         </h2>
 
-        <div className="flex flex-col gap-5 mt-20">
+        <div className="flex flex-col gap-5 mt-16">
           <Link to={"/register"}>
             <button
               className={`p-3 w-full border-none rounded-xl ${getButtonClass()}`}

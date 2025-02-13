@@ -51,7 +51,7 @@ const Home = () => {
 
       {/* Main Content */}
       <div className="flex flex-col  max-w-md p-5">
-        <h2 className="text-lg sm:text-xl font-semibold mb-2 -mt-16">
+        <h2 className="text-lg sm:text-xl font-semibold mb-2 -mt-14">
           Mulai Perjalanan Menuntut Ilmu
         </h2>
         <p className="text-sm sm:text-md text-gray-700 mb-6">
