@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GoDotFill } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
@@ -6,6 +6,15 @@ import { useTheme } from "../../context/ThemeContext";
 const Home = () => {
   const navigate = useNavigate();
   const { getButtonClass, getDotClass } = useTheme();
+
+  // Set overflow:hidden hanya saat halaman ini aktif
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
+    };
+  }, []);
 
   return (
     <div className="flex flex-col h-screen overflow-hidden p-5 items-center">
