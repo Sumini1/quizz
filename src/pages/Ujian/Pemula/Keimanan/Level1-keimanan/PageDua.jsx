@@ -19,10 +19,17 @@ const PageDua = () => {
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [isModalAnswerVisible, setIsModalAnswerVisible] = useState(false);
   const [isModalReferensiVisible, setIsModalReferensiVisible] = useState(false);
-
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.modal.isOpen);
 
+  // Set overflow:hidden hanya saat halaman ini aktif
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
+    };
+  }, []);
   const handleModalRefensi = () => {
     setIsModalReferensiVisible(true);
   };
@@ -122,7 +129,9 @@ const PageDua = () => {
 
       <div>
         <div className="flex flex-col mt-10">
-          <h1 className="text-lg font-medium">Sebutkan rukun iman yang ke-2 ?</h1>
+          <h1 className="text-lg font-medium">
+            Sebutkan rukun iman yang ke-2 ?
+          </h1>
         </div>
         <div className="flex flex-col  gap-5 mt-10 ">
           {[

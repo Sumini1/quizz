@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { RiLockPasswordFill, RiCheckboxCircleFill } from "react-icons/ri"; // Import ikon untuk keberhasilan
 import { useNavigate } from "react-router-dom";
@@ -10,8 +10,16 @@ const NewPassword = () => {
   const { getBorder, getButtonClass, getThemeClass, getIconTheme } = useTheme();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
+  // Set overflow:hidden hanya saat halaman ini aktif
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
+    };
+  }, []);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);

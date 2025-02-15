@@ -12,9 +12,9 @@ import { FaHeart } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import Tutorial1 from "../../Keimanan/Level2-keimanan/ModalTutorial/Tutorial1";
 
-
 const PageSatu = () => {
-  const { theme, getBorder, getIconTheme, getIconBookSoal, getButton,  } = useTheme();
+  const { theme, getBorder, getIconTheme, getIconBookSoal, getButton } =
+    useTheme();
   const [progress, setProgress] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
   const [startTime, setStartTime] = useState(null);
@@ -28,35 +28,40 @@ const PageSatu = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.modal.isOpen);
 
-  
+  // Set overflow:hidden hanya saat halaman ini aktif
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
 
-    // Data dinamis
-    const wordsWithTooltip = [
-      {id: 1, word: "Apa", tooltip: null },
-      {id: 2, word: "itu", tooltip: null },
-      {id: 3, word: "apa", tooltip: null },
-      {id: 4, word: "Islam ?", tooltip: "Agama yang haq" },
-      {id: 5, word: "Ada", tooltip: null },
-      {id: 6, word: "Berapa", tooltip: null },
-      {
-        id: 7,
-        word: "Rukun",
-        tooltip: "Segala sesuatu yang harus ada",
-      },
-      {
-        id: 8,
-        word: "Islam?",
-        tooltip:
-          "Agama yang diturunkan oleh Allah ta'ala kepada Nabi Muhammad sebagai nabi terakhir.",
-      },
-    ];
-
-
-    // Tooltip Toggle
-    const handleTooltipToggle = (index) => {
-      setActiveTooltip(activeTooltip === index ? null : index);
+    return () => {
+      document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
     };
+  }, []);
 
+  // Data dinamis
+  const wordsWithTooltip = [
+    { id: 1, word: "Apa", tooltip: null },
+    { id: 2, word: "itu", tooltip: null },
+    { id: 3, word: "apa", tooltip: null },
+    { id: 4, word: "Islam ?", tooltip: "Agama yang haq" },
+    { id: 5, word: "Ada", tooltip: null },
+    { id: 6, word: "Berapa", tooltip: null },
+    {
+      id: 7,
+      word: "Rukun",
+      tooltip: "Segala sesuatu yang harus ada",
+    },
+    {
+      id: 8,
+      word: "Islam?",
+      tooltip:
+        "Agama yang diturunkan oleh Allah ta'ala kepada Nabi Muhammad sebagai nabi terakhir.",
+    },
+  ];
+
+  // Tooltip Toggle
+  const handleTooltipToggle = (index) => {
+    setActiveTooltip(activeTooltip === index ? null : index);
+  };
 
   const handleModalRefensi = () => {
     setIsModalReferensiVisible(true);
@@ -121,7 +126,7 @@ const PageSatu = () => {
       : "bg-blue-600 text-[#FFF]  ";
   };
 
-  const getTextSoal = ()=> {
+  const getTextSoal = () => {
     return theme === "dark"
       ? "text-white"
       : theme === "cupcake"
@@ -129,7 +134,7 @@ const PageSatu = () => {
       : theme === "bumblebee"
       ? "text-white"
       : "text-[#F59D09] ";
-  }
+  };
 
   const getThemeLatar = () => {
     return theme === "dark"
@@ -142,7 +147,7 @@ const PageSatu = () => {
       ? "bg-green-500 text-white"
       : "bg-[#FFF1DA] text-[#333]";
   };
-  
+
   const getThemeTooltif = () => {
     return theme === "dark"
       ? "bg-gray-800 text-white"
@@ -153,24 +158,21 @@ const PageSatu = () => {
       : theme === "lemonade"
       ? "bg-[#333] text-[#FFF1DA]"
       : "bg-[#EEE] text-[#333]";
-  }
+  };
 
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      setIsModalReferensiVisible(false);
+    }
+  };
 
-
-   const handleOverlayClick = (e) => {
-     if (e.target === e.currentTarget) {
-       setIsModalReferensiVisible(false);
-     }
-   };
-  
   return (
     <div className="flex flex-col p-5 h-screen overflow-hidden md:justify-start md:items-start md:ml-10 md:py-10 cursor-">
       {/* Progress Bar */}
       {isOpen && <Tutorial1 />}
       <div className="flex flex-col h-4 mb-2 mt-2 ">
         <div className="flex w-[270px] h-2 ">
-           <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
-         
+          <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
 
           <div className="w-full bg-gray-200 rounded-sm left-8 mx-1 -mt-1">
             <div
@@ -254,12 +256,14 @@ const PageSatu = () => {
                     : null
                 }
               >
-                <span className="text-lg font-medium !important">{item.word}</span>
+                <span className="text-lg font-medium !important">
+                  {item.word}
+                </span>
 
                 {item.tooltip && activeTooltip === index && (
                   <div
                     id={`tooltip-${index}`}
-                    className={`fixed p-4 w-[200px] font-[300]  rounded-md text-[16px] shadow-lg ${getThemeTooltif()}`} 
+                    className={`fixed p-4 w-[200px] font-[300]  rounded-md text-[16px] shadow-lg ${getThemeTooltif()}`}
                     style={{
                       maxWidth: "270px",
                       wordWrap: "break-word",
@@ -434,7 +438,6 @@ const PageSatu = () => {
 const ModalAnswer = ({ setIsModalAnswerVisible }) => {
   const { theme } = useTheme();
 
- 
   return (
     <div className="flex flex-col rounded-lg bg-[#DCFFD9] p-5">
       {/* Sticky heading */}
@@ -486,16 +489,15 @@ const ModalAnswer = ({ setIsModalAnswerVisible }) => {
 };
 
 // Modal Referensi
-const ModalReferensi = ({ setIsModalReferensiVisible, getThemeLatar, getTextSoal }) => {
+const ModalReferensi = ({
+  setIsModalReferensiVisible,
+  getThemeLatar,
+  getTextSoal,
+}) => {
   const { theme } = useTheme();
 
- 
-
   return (
-    <div
-      className={`flex flex-col p-5 rounded-lg ${getThemeLatar()}`}
-      
-    >
+    <div className={`flex flex-col p-5 rounded-lg ${getThemeLatar()}`}>
       <h1 className="text-xl font-bold mb-3  z-10 sticky top-0">
         Bantuan <span className={`${getTextSoal()} mx-1`}>Soal</span>
       </h1>
@@ -533,8 +535,3 @@ const ModalReferensi = ({ setIsModalReferensiVisible, getThemeLatar, getTextSoal
 };
 
 export default PageSatu;
-
-
-
-
-

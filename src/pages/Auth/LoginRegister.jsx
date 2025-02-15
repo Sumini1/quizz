@@ -1,9 +1,17 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 
 const LoginRegister = () => {
   const { getButtonClass, getBorderClass } = useTheme();
+   // Set overflow:hidden hanya saat halaman ini aktif
+    useEffect(() => {
+      document.body.style.overflow = "hidden";
+  
+      return () => {
+        document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
+      };
+    }, []);
 
   return (
     <div className="h-screen overflow-hidden flex flex-col items-center p-5 relative">

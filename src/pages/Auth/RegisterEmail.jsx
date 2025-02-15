@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdEmail, MdPhone } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
@@ -19,6 +19,15 @@ const RegisterEmail = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+
+  // Set overflow:hidden hanya saat halaman ini aktif
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
+    };
+  }, []);
 
   const handleRegisterEmail = () => {
     setIsLoading(true);
@@ -57,8 +66,6 @@ const RegisterEmail = () => {
               className="flex-grow text-sm p-2 bg-transparent rounded-xl outline-none"
             />
           </div>
-
-        
 
           {/* Email Input */}
           <div

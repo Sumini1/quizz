@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { GoDotFill } from "react-icons/go";
 import { useTheme } from "../../context/ThemeContext";
@@ -34,6 +34,15 @@ const SurveiDua = () => {
   };
   // Ambil label usia dari SurveiSatu
   const selectedOptionFromSurveiSatu = location.state?.selectedOption?.label;
+
+   // Set overflow:hidden hanya saat halaman ini aktif
+    useEffect(() => {
+      document.body.style.overflow = "hidden";
+  
+      return () => {
+        document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
+      };
+    }, []);
 
   const options = [
     { id: 1, label: "Teman/saudara" },

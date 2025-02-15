@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "../../context/ThemeContext";
 import { FaArrowLeft } from "react-icons/fa6";
 import { RiLockPasswordFill } from "react-icons/ri";
@@ -11,6 +11,14 @@ const ForgotPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  // Set overflow:hidden hanya saat halaman ini aktif
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
+    };
+  }, []);
 
   const handleVerifikasi = () => {
     setIsLoading(true);

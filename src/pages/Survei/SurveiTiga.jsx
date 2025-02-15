@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import { GoDotFill } from "react-icons/go";
@@ -17,6 +17,15 @@ const SurveiTiga = () => {
   } = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
+
+   // Set overflow:hidden hanya saat halaman ini aktif
+    useEffect(() => {
+      document.body.style.overflow = "hidden";
+  
+      return () => {
+        document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
+      };
+    }, []);
 
   const handleSurvey = () => {
     setIsModalOpen(false);

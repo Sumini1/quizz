@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useTheme } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,15 @@ const VerifikasiEmail = () => {
   const { getBorder, getButtonClass, getThemeClass, getIconTheme } = useTheme();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+
+   // Set overflow:hidden hanya saat halaman ini aktif
+    useEffect(() => {
+      document.body.style.overflow = "hidden";
+  
+      return () => {
+        document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
+      };
+    }, []);
 
   const handleVerifikasi = () => {
     setIsLoading(true);

@@ -24,7 +24,7 @@ const Tutorial1 = () => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-5">
-      <div className="bg-white h-auto max-h-[28vh] -mt-20 rounded-lg shadow-lg p-5 w-full  flex flex-col ">
+      <div className="bg-white h-auto max-h-[24vh] -mt-20 rounded-lg shadow-lg p-5 w-full  flex flex-col ">
         {/* Bagian Atas: Judul & Pertanyaan */}
         <div className="mb-3 flex flex-col items-center">
           <h1 className="text-md font-semibold whitespace-nowrap">

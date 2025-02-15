@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 
@@ -10,6 +10,14 @@ const Login = () => {
   const { getBorder, getButtonClass, getBorderClass } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
 
+   // Set overflow:hidden hanya saat halaman ini aktif
+    useEffect(() => {
+      document.body.style.overflow = "hidden";
+  
+      return () => {
+        document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
+      };
+    }, []);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);

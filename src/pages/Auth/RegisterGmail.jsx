@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdEmail, MdPhone } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,6 +17,15 @@ const RegisterGmail = () => {
     getIconTheme,
   } = useTheme();
   const [isLoading, setIsLoading] = useState(false);
+
+  // Set overflow:hidden hanya saat halaman ini aktif
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
+    };
+  }, []);
 
   const handleRegisterGmail = () => {
     setIsLoading(true);
