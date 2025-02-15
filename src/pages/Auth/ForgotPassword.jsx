@@ -25,7 +25,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen justify-between">
+    <div className="flex flex-col h-screen overflow-hidden justify-between">
       {/* Header */}
       <div className="flex items-center gap-3 mt-5 px-5">
         <FaArrowLeft className="text-2xl cursor-pointer" />

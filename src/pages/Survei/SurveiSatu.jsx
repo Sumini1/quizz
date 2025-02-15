@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { GoDotFill } from "react-icons/go";
 import { useTheme } from "../../context/ThemeContext";
 
-
 const SurveiSatu = () => {
   const location = useLocation();
   const { theme, getDotClassSurvey, getButtonClass } = useTheme();
@@ -44,11 +43,10 @@ const SurveiSatu = () => {
     setIsModalOpen(false);
   };
 
-
   return (
-    <div className="flex flex-col p-9 h-screen md:justify-start md:items-start md:ml-10">
-      <div className="mt-7 flex flex-col">
-        <h2 className="text-xl  font-medium mb-3">Usia</h2>
+    <div className="flex flex-col p-9 h-screen overflow-hidden md:justify-start md:items-start md:ml-10">
+      <div className="mt-2 flex flex-col">
+        <h2 className="text-xl  font-medium mb-3 mt-auto">Usia</h2>
         <h1 className="text-md mb-5 ">
           Mohon partisipasinya untuk pengembangan aplikasi
         </h1>
@@ -70,12 +68,13 @@ const SurveiSatu = () => {
           ))}
         </div>
       </div>
-      <div className="flex mt-[60px] mb-2 text-xl  justify-center items-center">
+      <div className="flex fixed bottom-20 left-1/2 -translate-x-1/2 mb-2 text-xl justify-center items-center text-center">
         <GoDotFill className={getDotClassSurvey(0)} />
         <GoDotFill className={getDotClassSurvey(1)} />
         <GoDotFill className={getDotClassSurvey(2)} />
       </div>
-      <div className="flex flex-col justify-center items-center">
+
+      <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-3 shadow-md">
         <button
           onClick={handleNextClick}
           className={`text-white flex p-3 border-none rounded-xl w-full items-center justify-center ${getButtonClass()}`}
@@ -90,7 +89,10 @@ const SurveiSatu = () => {
             <p className="mb-5">
               Anda harus memilih usia terlebih dahulu sebelum melanjutkan.
             </p>
-            <button onClick={closeModal} className={` px-4 py-2 rounded-xl border-none ${getButtonClass()}`}>
+            <button
+              onClick={closeModal}
+              className={` px-4 py-2 rounded-xl border-none ${getButtonClass()}`}
+            >
               OK
             </button>
           </div>

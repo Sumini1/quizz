@@ -20,7 +20,7 @@ const VerifikasiEmail = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen justify-between">
+    <div className="flex flex-col h-screen overflow-hidden justify-between">
       <div>
         <div className="flex items-center gap-2 mt-5 px-5">
           <FaArrowLeft className="text-2xl cursor-pointer" />

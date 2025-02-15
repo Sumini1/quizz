@@ -33,20 +33,18 @@ const RegisterEmail = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center min-h-screen relative px-5">
+    <div className="flex flex-col justify-center h-screen overflow-hidden relative px-5">
       {/* Judul EduLearn */}
       <h1 className="text-xl font-bold absolute   top-5">EduLearn</h1>
 
-     
-        <div className="-mt-20 flex flex-col">
-          <h2 className="text-lg font-semibold mb-2 ">Daftar dengan Email</h2>
-          <p className="text-md mb-5">
-            Untuk proses lebih lanjut mohon lengkapi data berikut
-          </p>
-    
+      <div className="-mt-16 flex flex-col">
+        <h2 className="text-lg font-semibold mb-2 ">Daftar dengan Email</h2>
+        <p className="text-md mb-5">
+          Untuk proses lebih lanjut mohon lengkapi data berikut
+        </p>
 
         {/* Login Form */}
-        <form className="flex flex-col gap-5 w-full">
+        <form className="flex flex-col gap-5 w-full -mt-2">
           {/* name */}
           <div
             style={{ backgroundColor: "transparent" }}
@@ -60,17 +58,7 @@ const RegisterEmail = () => {
             />
           </div>
 
-          {/* <div
-            style={{ backgroundColor: "transparent" }}
-            className={`flex gap-2 items-center border-2 rounded-xl p-2 ${getBorder()}`}
-          >
-            <FaUserAlt />
-            <input
-              type="text"
-              placeholder="Nama User"
-              className="flex-grow p-1 bg-transparent rounded-xl outline-none"
-            />
-          </div> */}
+        
 
           {/* Email Input */}
           <div
@@ -146,17 +134,6 @@ const RegisterEmail = () => {
 
           <div className="fixed bottom-0  left-0 w-full bg-white p-5 shadow-md flex flex-col items-center">
             {/* Google Login Button */}
-            <button
-              onClick={handleRegisterEmail}
-              disabled={isLoading}
-              className={`p-4  w-full  mb-4  border-none rounded-xl ${getButtonClass()}`}
-            >
-              {isLoading ? (
-                <FiLoader className="animate-spin inline-block mr-2" />
-              ) : (
-                "Daftar"
-              )}
-            </button>
             <p className="flex justify-center -mt-3">
               Sudah memiliki akun ?{" "}
               <span
@@ -166,6 +143,17 @@ const RegisterEmail = () => {
                 Login
               </span>
             </p>
+            <button
+              onClick={handleRegisterEmail}
+              disabled={isLoading}
+              className={`p-3  w-full mt-2  border-none rounded-xl ${getButtonClass()}`}
+            >
+              {isLoading ? (
+                <FiLoader className="animate-spin inline-block mr-2" />
+              ) : (
+                "Daftar"
+              )}
+            </button>
           </div>
         </form>
       </div>

@@ -1,10 +1,20 @@
 import React, { useState } from "react";
 import { useTheme } from "../../context/ThemeContext";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {openModal} from "../../reducer/modalSlice";
 
 const TestIlmuIslam = () => {
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
   const { theme, getButtonClassListCategory, getBorderClass, getBorder } = useTheme();
   const [selectTingkatan, setSelectTingkatan] = useState(null);
+
+    const handleClick = () => {
+      dispatch(openModal()); // Aktifkan modal di Redux state
+      navigate("/page-satu"); // Pindah ke halaman 2
+    };
 
   const handleSelectTingkatan = (tingkatanId) => {
     setSelectTingkatan(tingkatanId);
@@ -54,42 +64,43 @@ const TestIlmuIslam = () => {
               key={tingkat.id}
               type="button"
               onClick={() => handleSelectTingkatan(tingkat.id)}
-              className={` w-full text-left rounded-xl p-3 pl-4  mb-4  ${getButtonClassListCategory(
+              className={` w-full text-left rounded-xl p-3 pl-4  mb-4 border-[2px]  ${getButtonClassListCategory(
                 selectTingkatan === tingkat.id
               )}`}
             >
               {tingkat.tingkatan}
             </button>
           ))}
-          <div className="mb-10 mt-5">
+          <div className=" mt-5">
             <p className="text-sm">
               * Pilihan level tidak mempengaruhi apapun. Hanya untuk mengukur
               kemampuan diri.
             </p>
           </div>
-        </div>
-        <div className="flex justify-center w-full mt-2">
-          <Link to={selectedRoute}>
-            <button
-              type="button"
-              className={`p-3 mb-5 w-[350px] border-none rounded-xl ${getBorderClass()} ${
-                selectTingkatan
-                  ? theme === "dark"
-                    ? "bg-gray-800 text-white "
-                    : theme === "cupcake"
-                    ? "bg-pink-500 text-white border-[#FFE6FA]   "
-                    : theme === "bumblebee"
-                    ? "bg-yellow-500 text-white "
-                    : theme === "lemonade"
-                    ? "bg-[#027A7D] text-white "
-                    : "bg-[hsl(218,93%,50%)] text-white  "
-                  : "bg-[#0961F5] text-[#0961F5]   "
-              }`}
-              disabled={!selectTingkatan}
-            >
-              Tes Sekarang
-            </button>
-          </Link>
+          <div className="flex justify-center items-center mt-7">
+            <Link to={selectedRoute} className="w-full">
+              <button
+                onClick={handleClick}
+                type="button"
+                className={`p-3 mb-10 w-full  border-none rounded-xl ${getBorderClass()} ${
+                  selectTingkatan
+                    ? theme === "dark"
+                      ? "bg-gray-800 text-white "
+                      : theme === "cupcake"
+                      ? "bg-pink-500 text-white border-[#FFE6FA]   "
+                      : theme === "bumblebee"
+                      ? "bg-yellow-500 text-white "
+                      : theme === "lemonade"
+                      ? "bg-[#027A7D] text-white "
+                      : "bg-[hsl(218,93%,50%)] text-white  "
+                    : "bg-[#0961F5] text-[#0961F5]   "
+                }`}
+                disabled={!selectTingkatan}
+              >
+                Tes Sekarang
+              </button>
+            </Link>
+          </div>
         </div>
       </form>
     </div>

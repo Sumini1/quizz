@@ -27,18 +27,16 @@ const RegisterGmail = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center min-h-screen relative px-5">
+    <div className="flex flex-col justify-center h-screen overflow-hidden relative px-5">
       {/* Judul EduLearn */}
       <h1 className="text-xl font-bold absolute top-5">EduLearn</h1>
 
-      
-        {/* Welcome Section */}
-        <div className="flex flex-col -mt-44 ">
-          <h2 className="text-lg font-semibold mb-2">Daftar dengan Google</h2>
-          <p className="text-md">
-            Untuk proses lebih lanjut mohon lengkapi data berikut
-          </p>
-        
+      {/* Welcome Section */}
+      <div className="flex flex-col -mt-44 ">
+        <h2 className="text-lg font-semibold mb-2">Daftar dengan Google</h2>
+        <p className="text-md">
+          Untuk proses lebih lanjut mohon lengkapi data berikut
+        </p>
 
         {/* Login Form */}
         <form className="flex flex-col gap-5 w-full mt-16">
@@ -79,19 +77,6 @@ const RegisterGmail = () => {
           </div>
 
           <div className="fixed bottom-0 left-0 w-full bg-white p-5 shadow-md flex flex-col items-center">
-            {/* Submit Button */}
-            <button
-              onClick={handleRegisterGmail}
-              disabled={isLoading}
-              className={`p-4 mb-2 w-full mt-5 border-none rounded-xl ${getButtonClass()}`}
-            >
-              {isLoading ? (
-                <FiLoader className="animate-spin inline-block mr-2 " />
-              ) : (
-                "Daftar"
-              )}
-            </button>
-
             {/* Login Redirect */}
             <p className="flex justify-center text-sm">
               Sudah memiliki akun?{" "}
@@ -102,6 +87,18 @@ const RegisterGmail = () => {
                 Login
               </span>
             </p>
+            {/* Submit Button */}
+            <button
+              onClick={handleRegisterGmail}
+              disabled={isLoading}
+              className={`p-3 w-full mt-2 border-none rounded-xl ${getButtonClass()}`}
+            >
+              {isLoading ? (
+                <FiLoader className="animate-spin inline-block mr-2 " />
+              ) : (
+                "Daftar"
+              )}
+            </button>
           </div>
         </form>
       </div>

@@ -8,9 +8,13 @@ import { MdMenuBook } from "react-icons/md";
 import { TbMapQuestion } from "react-icons/tb";
 import ModalTooltifWordIslam from "../../../../../components/ModalPageSatu/ModalTooltifIslam";
 import ModalTooltifWordRukun from "../../../../../components/ModalPageSatu/ModalTooltifWordRukun";
+import { FaHeart } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import Tutorial1 from "../../Keimanan/Level2-keimanan/ModalTutorial/Tutorial1";
+
 
 const PageSatu = () => {
-  const { theme, getBorder, getIconTheme, getIconBookSoal, getButtonClass,  } = useTheme();
+  const { theme, getBorder, getIconTheme, getIconBookSoal, getButton,  } = useTheme();
   const [progress, setProgress] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
   const [startTime, setStartTime] = useState(null);
@@ -21,13 +25,10 @@ const PageSatu = () => {
   const [isModalReferensiVisible, setIsModalReferensiVisible] = useState(false);
   const [activeTooltip, setActiveTooltip] = useState(null);
   const [activeModal, setActiveModal] = useState(null);
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state) => state.modal.isOpen);
 
   
-
-// const closeModal1 = () => {
-//   setActiveModal(null); // Tutup modal
-// };
-
 
     // Data dinamis
     const wordsWithTooltip = [
@@ -154,17 +155,7 @@ const PageSatu = () => {
       : "bg-[#EEE] text-[#333]";
   }
 
-  const getButton = () => {
-    return theme === "dark"
-      ? "bg-gray-800 text-white"
-      : theme === "cupcake"
-      ? "bg-pink-500 text-white"
-      : theme === "bumblebee"
-      ? "bg-yellow-500 text-white"
-      : theme === "lemonade"
-      ? "bg-green-500 text-white"
-      : "bg-[#D2E2FF] text-[#0961F5]  ";
-  } 
+
 
    const handleOverlayClick = (e) => {
      if (e.target === e.currentTarget) {
@@ -173,11 +164,13 @@ const PageSatu = () => {
    };
   
   return (
-    <div className="flex flex-col p-5 h-screen md:justify-start md:items-start md:ml-10 md:py-10 cursor-">
+    <div className="flex flex-col p-5 h-screen overflow-hidden md:justify-start md:items-start md:ml-10 md:py-10 cursor-">
       {/* Progress Bar */}
+      {isOpen && <Tutorial1 />}
       <div className="flex flex-col h-4 mb-2 mt-2 ">
-        <div className="flex w-[300px] h-2 ">
-          <IoClose className="m-1 -mt-3 text-3xl font-bold" />
+        <div className="flex w-[270px] h-2 ">
+           <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
+         
 
           <div className="w-full bg-gray-200 rounded-sm left-8 mx-1 -mt-1">
             <div
@@ -188,148 +181,143 @@ const PageSatu = () => {
         </div>
       </div>
 
-      <div>
-        <div className="flex flex-col mt-5">
-          <div className="flex gap-2">
-            <span className="italic">
-              <TbMapQuestion
-                className={`text-2xl font-extrabold ${getIconTheme()}`}
-                strokeWidth={2}
-              />
-            </span>
-            <h2 className="text-xl mb-5 italic font-bold">Soal Mudah</h2>
-          </div>
-          <div className="text-lg font-[500] gap-1 flex flex-wrap ">
-            {wordsWithTooltip.map((item, index) => (
-              <p>
-                <span
-                  key={index}
-                  className={`relative inline-block ${
-                    item.tooltip
-                      ? "underline decoration-dotted decoration-2 cursor-pointer"
-                      : ""
-                  }`}
-                  onClick={
-                    item.tooltip
-                      ? (e) => {
-                          e.stopPropagation();
-                          const rect = e.currentTarget. getBoundingClientRect();
-                          const viewportWidth = window.innerWidth;
-                          const tooltipWidth = 200;
-                          let xPosition, arrowPosition;
-
-                          // Check if word is in right third of viewport
-                          if (rect.right > viewportWidth * 0.7) {
-                            xPosition = rect.right - tooltipWidth;
-                            arrowPosition = tooltipWidth - rect.width / 2;
-                          }
-                          // Check if word is in left third of viewport
-                          else if (rect.left < viewportWidth * 0.3) {
-                            xPosition = rect.left;
-                            arrowPosition = rect.width / 2;
-                          }
-                          // Center positioning
-                          else {
-                            xPosition =
-                              rect.left + rect.width / 2 - tooltipWidth / 2;
-                            arrowPosition = tooltipWidth / 2;
-                          }
-
-                          // Ensure tooltip stays within viewport
-                          xPosition = Math.max(
-                            20,
-                            Math.min(
-                              xPosition,
-                              viewportWidth - tooltipWidth - 20
-                            )
-                          );
-
-                          handleTooltipToggle(index);
-
-                          requestAnimationFrame(() => {
-                            const tooltip = document.getElementById(
-                              `tooltip-${index}`
-                            );
-                            if (tooltip) {
-                              tooltip.style.left = `${xPosition}px`;
-                              tooltip.style.top = `${
-                                rect.bottom + window.scrollY + 8
-                              }px`;
-                              tooltip.querySelector(
-                                ".arrow"
-                              ).style.left = `${arrowPosition}px`;
-                            }
-                          });
-                        }
-                      : null
-                  }
-                >
-                  <span>{item.word}</span>
-
-                  {item.tooltip && activeTooltip === index && (
-                    <div
-                      id={`tooltip-${index}`}
-                      className={`fixed p-4 w-[200px] font-[300]  rounded-md text-[16px] shadow-lg ${getThemeTooltif()}`}
-                      style={{
-                        maxWidth: "270px",
-                        wordWrap: "break-word",
-                        zIndex: 1000,
-                      }}
-                    >
-                      {item.tooltip}
-                      <div
-                        className={`arrow absolute  -top-2 w-7 h-3 rotate-45 ${getThemeTooltif()}`}
-                      />
-                      <div className="w-full text-[#222]">
-                        <hr className="border-[#222] mt-10" />
-                      </div>
-                      <div className="mt-2">
-                        <button
-                          onClick={() => setActiveModal(item.id)}
-                          className={`text-md mt-1 font-[500] ml-12  underline ${getIconTheme()}`}
-                        >
-                          Selengkapnya
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </span>
-              </p>
-            ))}
-          </div>
-          {activeModal === 4 && (
-            <ModalTooltifWordIslam
-              isOpen={activeModal === 4}
-              onClose={() => setActiveModal(null)}
-            />
-          )}
-          {activeModal === 7 && (
-            <ModalTooltifWordRukun
-              isOpen={activeModal === 7}
-              onClose={() => setActiveModal(null)}
-            />
-          )}
+      <div className="flex items-center  justify-between mt-5">
+        <div className="flex gap-2 items-center bg-[#FFF2DC] p-2 rounded-xl">
+          <FaBook className="text-[#F59D09]" />
+          <h1 className="text-base font-medium">Materi</h1>
         </div>
-        <div className="flex flex-wrap gap-5 mt-10">
-          {["Empat", "Lima", "Enam", "Tiga"].map((answer, index) => (
-            <p
-              key={index}
-              className={`flex border ${getBorder()} p-2 w-24 text-center items-center justify-center cursor-pointer rounded-md ${
-                selectedAnswer === index ? `${getThemeClass()} border-none` : ""
-              }`}
-              onClick={() => handleAnswer(index === 1, index)} // \
-              style={{
-                color:
-                  selectedAnswer === index ? "white" : `${getThemeClass()} `,
-              }}
-            >
-              {answer}
+        <div className="flex gap-2 items-center bg-[#DCE6F8] p-2 rounded-xl">
+          <FaHeart className="text-[#0961F5]" />
+          <h1 className="text-base font-medium">Donatur</h1>
+        </div>
+      </div>
+      <div className="flex flex-col mt-7">
+        <div className="text-lg font-[500] gap-1 flex flex-wrap ">
+          {wordsWithTooltip.map((item, index) => (
+            <p>
+              <span
+                key={index}
+                className={`relative  inline-block ${
+                  item.tooltip
+                    ? "underline decoration-dotted decoration-2 cursor-pointer"
+                    : ""
+                }`}
+                onClick={
+                  item.tooltip
+                    ? (e) => {
+                        e.stopPropagation();
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        const viewportWidth = window.innerWidth;
+                        const tooltipWidth = 200;
+                        let xPosition, arrowPosition;
+
+                        // Check if word is in right third of viewport
+                        if (rect.right > viewportWidth * 0.7) {
+                          xPosition = rect.right - tooltipWidth;
+                          arrowPosition = tooltipWidth - rect.width / 2;
+                        }
+                        // Check if word is in left third of viewport
+                        else if (rect.left < viewportWidth * 0.3) {
+                          xPosition = rect.left;
+                          arrowPosition = rect.width / 2;
+                        }
+                        // Center positioning
+                        else {
+                          xPosition =
+                            rect.left + rect.width / 2 - tooltipWidth / 2;
+                          arrowPosition = tooltipWidth / 2;
+                        }
+
+                        // Ensure tooltip stays within viewport
+                        xPosition = Math.max(
+                          20,
+                          Math.min(xPosition, viewportWidth - tooltipWidth - 20)
+                        );
+
+                        handleTooltipToggle(index);
+
+                        requestAnimationFrame(() => {
+                          const tooltip = document.getElementById(
+                            `tooltip-${index}`
+                          );
+                          if (tooltip) {
+                            tooltip.style.left = `${xPosition}px`;
+                            tooltip.style.top = `${
+                              rect.bottom + window.scrollY + 8
+                            }px`;
+                            tooltip.querySelector(
+                              ".arrow"
+                            ).style.left = `${arrowPosition}px`;
+                          }
+                        });
+                      }
+                    : null
+                }
+              >
+                <span className="text-lg font-medium !important">{item.word}</span>
+
+                {item.tooltip && activeTooltip === index && (
+                  <div
+                    id={`tooltip-${index}`}
+                    className={`fixed p-4 w-[200px] font-[300]  rounded-md text-[16px] shadow-lg ${getThemeTooltif()}`} 
+                    style={{
+                      maxWidth: "270px",
+                      wordWrap: "break-word",
+                      zIndex: 1000,
+                    }}
+                  >
+                    {item.tooltip}
+                    <div
+                      className={`arrow absolute  -top-2 w-7 h-3 rotate-45 ${getThemeTooltif()}`}
+                    />
+                    <div className="w-full text-[#222]">
+                      <hr className="border-[#222] mt-10" />
+                    </div>
+                    <div className="mt-2">
+                      <button
+                        onClick={() => setActiveModal(item.id)}
+                        className={`text-md mt-1 font-[500] ml-12  underline ${getIconTheme()}`}
+                      >
+                        Selengkapnya
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </span>
             </p>
           ))}
         </div>
+        {activeModal === 4 && (
+          <ModalTooltifWordIslam
+            isOpen={activeModal === 4}
+            onClose={() => setActiveModal(null)}
+          />
+        )}
+        {activeModal === 7 && (
+          <ModalTooltifWordRukun
+            isOpen={activeModal === 7}
+            onClose={() => setActiveModal(null)}
+          />
+        )}
+      </div>
+      <div className="grid grid-cols-3 gap-5 mt-10 w-full">
+        {["Empat", "Lima", "Enam", "Tiga"].map((answer, index) => (
+          <p
+            key={index}
+            className={`flex border ${getBorder()} p-2 w-full text-center items-center justify-center cursor-pointer rounded-md ${
+              selectedAnswer === index ? `${getThemeClass()} border-none` : ""
+            }`}
+            onClick={() => handleAnswer(index === 1, index)}
+            style={{
+              color: selectedAnswer === index ? "white" : `${getThemeClass()}`,
+            }}
+          >
+            {answer}
+          </p>
+        ))}
       </div>
 
-      <div className="flex gap-5 mt-[280px] w-full">
+      <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-3 shadow-md flex justify-between gap-2">
         <button
           className={`p-3 w-[370px] rounded-xl border-none ${getButton()} ${
             selectedAnswer !== null ? `${getThemeClass()} border-none` : ""
@@ -446,15 +434,7 @@ const PageSatu = () => {
 const ModalAnswer = ({ setIsModalAnswerVisible }) => {
   const { theme } = useTheme();
 
-  const getThemeClass = () => {
-    return theme === "dark"
-      ? "bg-gray-800 text-white"
-      : theme === "cupcake"
-      ? "bg-pink-500 text-white"
-      : theme === "bumblebee"
-      ? "bg-yellow-500 text-white"
-      : "bg-blue-700 text-white";
-  };
+ 
   return (
     <div className="flex flex-col rounded-lg bg-[#DCFFD9] p-5">
       {/* Sticky heading */}

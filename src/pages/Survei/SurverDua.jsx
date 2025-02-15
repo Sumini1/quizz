@@ -3,8 +3,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { GoDotFill } from "react-icons/go";
 import { useTheme } from "../../context/ThemeContext";
 
-
-
 const SurveiDua = () => {
   const location = useLocation();
   const { theme, getDotClassSurvey, getButtonClass } = useTheme();
@@ -18,19 +16,18 @@ const SurveiDua = () => {
       console.log("Modal state set to true");
     } else {
       navigate("/survei-tiga", {
-          state: {
-            selectedOption: options.find(
-              (option) => option.id === selectedOption2
-            ),
-          },
-        });
-      }
-    };
+        state: {
+          selectedOption: options.find(
+            (option) => option.id === selectedOption2
+          ),
+        },
+      });
+    }
+  };
 
-     const handleOptionChange = (id) => {
-       setSelectedOption2(id);
-     };
-
+  const handleOptionChange = (id) => {
+    setSelectedOption2(id);
+  };
 
   const closeModal = () => {
     setIsModalOpen2(false);
@@ -48,11 +45,9 @@ const SurveiDua = () => {
     { id: 7, label: "Facebook" },
   ];
 
- 
-
   return (
-    <div className="flex flex-col p-9 h-screen md:justify-start md:items-start md:ml-10">
-      <div className="mt-7 flex flex-col">
+    <div className="flex flex-col p-9 h-screen overflow-hidden md:justify-start md:items-start md:ml-10">
+      <div className="mt-2 flex flex-col">
         <h2 className="text-xl  font-medium mb-3">
           Mengetahui Learn Quiz dari
         </h2>
@@ -80,12 +75,12 @@ const SurveiDua = () => {
           ))}
         </div>
       </div>
-      <div className="flex mt-[60px] mb-2 text-xl justify-center items-center">
+      <div className="flex fixed bottom-20 left-1/2 -translate-x-1/2 mb-2 text-xl justify-center items-center text-center">
         <GoDotFill className={getDotClassSurvey(0)} />
         <GoDotFill className={getDotClassSurvey(1)} />
         <GoDotFill className={getDotClassSurvey(2)} />
       </div>
-      <div className="flex flex-col justify-center items-center">
+      <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-3 shadow-md">
         <button
           onClick={handleNextClick}
           className={`text-white border-none w-full flex p-3 rounded-xl items-center justify-center ${getButtonClass()}`}

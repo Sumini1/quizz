@@ -16,13 +16,13 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center min-h-screen relative px-5">
+    <div className="flex flex-col justify-center h-screen overflow-hidden relative px-5">
       {/* Judul EduLearn */}
       <h1 className="text-xl font-bold absolute top-5">EduLearn</h1>
 
 
         {/* Welcome Section */}
-        <div className="flex flex-col  mt-7">
+        <div className="flex flex-col  mt-5">
           <h2 className="text-lg font-semibold mb-2 tracking-wide leading-[1.6]">
             Ahlan Wa Sahlan
           </h2>
@@ -33,7 +33,7 @@ const Login = () => {
         
 
         {/* Login Form */}
-        <form className="flex flex-col gap-5 w-full mt-5  items-center">
+        <form className="flex flex-col gap-5 w-full   items-center">
           {/* Email Input */}
           <div
             className={`flex gap-2 items-center rounded-xl p-3 border-2 w-full ${getBorder()}`}
@@ -72,7 +72,7 @@ const Login = () => {
 
           {/* Forgot Password */}
           <Link to="/forgot-password">
-            <p className="ml-[210px] text-sm">Lupa Password?</p>
+            <p className="ml-[210px] text-sm -mt-4">Lupa Password?</p>
           </Link>
 
           {/* Login Button */}

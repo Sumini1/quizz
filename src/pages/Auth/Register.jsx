@@ -6,7 +6,7 @@ const Register = () => {
   const { getButtonClass, getBorderClass } = useTheme();
 
   return (
-    <div className="h-screen flex flex-col items-center p-5 relative">
+    <div className="h-screen overflow-hidden flex flex-col items-center p-5 relative">
       {/* Logo */}
       <div className="w-full max-w-md flex justify-center mt-10">
         <img

@@ -71,6 +71,17 @@ export const ThemeProvider = ({ children }) => {
       ? "text-[#A7C050]"
       : "text-[#DCE6F8]";
   };
+    const getButton = () => {
+      return theme === "dark"
+        ? "bg-gray-800 text-white"
+        : theme === "cupcake"
+        ? "bg-pink-500 text-white"
+        : theme === "bumblebee"
+        ? "bg-yellow-500 text-white"
+        : theme === "lemonade"
+        ? "bg-green-500 text-white"
+        : "bg-[#D2E2FF] text-[#0961F5]  ";
+    }; 
 
    const getDotClassSurvey = (index) => {
      const currentScreen = ["/survei-satu", "/survei-dua", "/survei-tiga"];
@@ -364,7 +375,7 @@ export const ThemeProvider = ({ children }) => {
 
   return (
     <ThemeContext.Provider
-      value={{ theme, setTheme, getBorder, getDotClass, getButtonClass, getButtonClassSelected, getLanjutkanClass, getThemeShadow, getButtonClassListCategory, getKotakStyle, getIconColor, getThemeLoveClass, getThemeClass, getThemeBeranda, getBorderClass, getLatarBeranda, getTextTitle, getDotClassSurvey, getIconTheme, getIconBookSoal, getBorderColor, getThemeModalCategory, getIconColorAlert, getTextTitle1, borderColor }}
+      value={{ theme, setTheme, getBorder, getDotClass, getButtonClass, getButtonClassSelected, getLanjutkanClass, getThemeShadow, getButtonClassListCategory, getKotakStyle, getIconColor, getThemeLoveClass, getThemeClass, getThemeBeranda, getBorderClass, getLatarBeranda, getTextTitle, getDotClassSurvey, getIconTheme, getIconBookSoal, getBorderColor, getThemeModalCategory, getIconColorAlert, getTextTitle1, borderColor, getButton }}
     >
       {children}
     </ThemeContext.Provider>
