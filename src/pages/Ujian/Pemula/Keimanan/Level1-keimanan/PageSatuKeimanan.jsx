@@ -122,7 +122,6 @@ const PageSatuKeimanan = () => {
   };
 
 
-
   
 
   const handleOverlayClick = (e) => {
@@ -304,7 +303,7 @@ const PageSatuKeimanan = () => {
       {isModalReferensiVisible && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ">
           <div
-            className={`rounded-lg p-5 w-96 relative bg-white`}
+            className={`rounded-lg p-5 w-96 relative `}
             onClick={handleOverlayClick}
           >
           
@@ -449,13 +448,13 @@ const ModalAnswer = ({ setIsModalAnswerVisible }) => {
 // Modal Referensi
 const ModalReferensi = ({
   setIsModalReferensiVisible,
-  getThemeLatar,
+getThemeLatar,
   getTextSoal,
 }) => {
   const { theme } = useTheme();
 
   return (
-    <div className={`flex flex-col p-5 rounded-lg ${getThemeLatar()}`}>
+    <div className={`flex flex-col p-5 rounded-lg  ${getThemeLatar()}`}>
       <h1 className="text-xl font-bold mb-3  z-10 sticky top-0">
         Bantuan <span className={`${getTextSoal()} mx-1`}>Soal</span>
       </h1>
