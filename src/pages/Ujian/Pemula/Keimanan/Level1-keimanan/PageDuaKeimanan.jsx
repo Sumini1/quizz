@@ -5,23 +5,18 @@ import { FaCheckCircle } from "react-icons/fa";
 import { useTheme } from "../../../../../context/ThemeContext";
 import { Link } from "react-router-dom";
 import { MdMenuBook } from "react-icons/md";
-import { TbMapQuestion } from "react-icons/tb";
-import ModalTooltifWordIslam from "../../../../../components/ModalPageSatu/ModalTooltifIslam";
-import ModalTooltifWordRukun from "../../../../../components/ModalPageSatu/ModalTooltifWordRukun";
 import { FaHeart } from "react-icons/fa";
 
-
-const PageSatuKeimanan = () => {
+const PageDuaKeimanan = () => {
   const {
     theme,
     getBorder,
-    getIconTheme,
     getIconBookSoal,
     getButton,
     getThemeLatar,
     getTextSoal,
     getThemeTooltif,
-    getThemeClassPage
+    getThemeClassPage,
   } = useTheme();
   const [progress, setProgress] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
@@ -31,9 +26,6 @@ const PageSatuKeimanan = () => {
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [isModalAnswerVisible, setIsModalAnswerVisible] = useState(false);
   const [isModalReferensiVisible, setIsModalReferensiVisible] = useState(false);
-  const [activeTooltip, setActiveTooltip] = useState(null);
-  const [activeModal, setActiveModal] = useState(null);
-
 
   // Set overflow:hidden hanya saat halaman ini aktif
   useEffect(() => {
@@ -43,33 +35,6 @@ const PageSatuKeimanan = () => {
       document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
     };
   }, []);
-
-  // Data dinamis
-  const wordsWithTooltip = [
-    { id: 1, word: "Apa", tooltip: null },
-    { id: 2, word: "itu", tooltip: null },
-    { id: 3, word: "apa", tooltip: null },
-    { id: 4, word: "Islam ?", tooltip: "Agama yang haq" },
-    { id: 5, word: "Ada", tooltip: null },
-    { id: 6, word: "Berapa", tooltip: null },
-    {
-      id: 7,
-      word: "Rukun",
-      tooltip: "Segala sesuatu yang harus ada",
-    },
-    {
-      id: 8,
-      word: "Islam?",
-      tooltip:
-        "Agama yang diturunkan oleh Allah ta'ala kepada Nabi Muhammad sebagai nabi terakhir.",
-    },
-  ];
-
-  // Tooltip Toggle
-  const handleTooltipToggle = (index) => {
-    setActiveTooltip(activeTooltip === index ? null : index);
-  };
-
   const handleModalRefensi = () => {
     setIsModalReferensiVisible(true);
   };
@@ -79,10 +44,11 @@ const PageSatuKeimanan = () => {
   };
 
   useEffect(() => {
-    const currentTime = Date.now();
-    setStartTime(currentTime);
-    localStorage.removeItem("progress");
-    localStorage.removeItem("totalTime");
+    const savedProgress = Number(localStorage.getItem("progress"));
+    if (savedProgress) {
+      setProgress(savedProgress);
+      setStartTime(Date.now());
+    }
   }, []);
 
   const handleAnswer = (isCorrect, answerIndex) => {
@@ -92,6 +58,13 @@ const PageSatuKeimanan = () => {
   };
 
   const handleCheck = () => {
+    const endTime = Date.now();
+    const timeTaken = Math.round((endTime - startTime) / 1000); // Calculate time in seconds
+
+    // Update total time in localStorage
+    let totalTime = Number(localStorage.getItem("totalTime")) || 0;
+    totalTime += timeTaken;
+    localStorage.setItem("totalTime", totalTime);
     if (isAnswered) {
       setIsModalVisible(true); // Modal muncul setelah menjawab
       if (isAnswerCorrect) {
@@ -118,13 +91,7 @@ const PageSatuKeimanan = () => {
     setIsModalVisible(false);
     setIsAnswered(false);
     setSelectedAnswer(null);
-    setActiveModal(null);
   };
-
-
-
-  
-
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       setIsModalReferensiVisible(false);
@@ -132,13 +99,13 @@ const PageSatuKeimanan = () => {
   };
 
   return (
-    <div className="flex flex-col p-5 h-screen overflow-hidden md:justify-start md:items-start md:ml-10 md:py-10 cursor-">
+    <div className="flex flex-col p-5 h-screen overflow-hidden md:justify-start md:items-start md:ml-10 md:py-10 ">
       {/* Progress Bar */}
       <div className="flex flex-col h-4 mb-2 mt-2 ">
         <div className="flex w-[270px] h-2 ">
           <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
 
-          <div className="w-full bg-gray-200 rounded-sm left-8 mx-1 -mt-1">
+          <div className="w-full bg-gray-200 rounded-sm left-8  -mt-1">
             <div
               className={`h-full rounded-sm ${getThemeClassPage()}`}
               style={{ width: `${progress}%` }}
@@ -147,6 +114,7 @@ const PageSatuKeimanan = () => {
         </div>
       </div>
 
+      {/* materi donatur */}
       <div className="flex items-center  justify-between mt-5">
         <div className="flex gap-2 items-center bg-[#FFF2DC] p-2 rounded-xl">
           <FaBook className="text-[#F59D09]" />
@@ -157,132 +125,37 @@ const PageSatuKeimanan = () => {
           <h1 className="text-base font-medium">Donatur</h1>
         </div>
       </div>
-      <div className="flex flex-col mt-7">
-        <div className="text-lg font-[500] gap-1 flex flex-wrap ">
-          {wordsWithTooltip.map((item, index) => (
-            <p>
-              <span
-                key={index}
-                className={`relative  inline-block ${
-                  item.tooltip
-                    ? "underline decoration-dotted decoration-2 cursor-pointer"
-                    : ""
-                }`}
-                onClick={
-                  item.tooltip
-                    ? (e) => {
-                        e.stopPropagation();
-                        const rect = e.currentTarget.getBoundingClientRect();
-                        const viewportWidth = window.innerWidth;
-                        const tooltipWidth = 200;
-                        let xPosition, arrowPosition;
 
-                        // Check if word is in right third of viewport
-                        if (rect.right > viewportWidth * 0.7) {
-                          xPosition = rect.right - tooltipWidth;
-                          arrowPosition = tooltipWidth - rect.width / 2;
-                        }
-                        // Check if word is in left third of viewport
-                        else if (rect.left < viewportWidth * 0.3) {
-                          xPosition = rect.left;
-                          arrowPosition = rect.width / 2;
-                        }
-                        // Center positioning
-                        else {
-                          xPosition =
-                            rect.left + rect.width / 2 - tooltipWidth / 2;
-                          arrowPosition = tooltipWidth / 2;
-                        }
-
-                        // Ensure tooltip stays within viewport
-                        xPosition = Math.max(
-                          20,
-                          Math.min(xPosition, viewportWidth - tooltipWidth - 20)
-                        );
-
-                        handleTooltipToggle(index);
-
-                        requestAnimationFrame(() => {
-                          const tooltip = document.getElementById(
-                            `tooltip-${index}`
-                          );
-                          if (tooltip) {
-                            tooltip.style.left = `${xPosition}px`;
-                            tooltip.style.top = `${
-                              rect.bottom + window.scrollY + 8
-                            }px`;
-                            tooltip.querySelector(
-                              ".arrow"
-                            ).style.left = `${arrowPosition}px`;
-                          }
-                        });
-                      }
-                    : null
-                }
-              >
-                <span className="text-lg font-medium !important">
-                  {item.word}
-                </span>
-
-                {item.tooltip && activeTooltip === index && (
-                  <div
-                    id={`tooltip-${index}`}
-                    className={`fixed p-4 w-[200px] font-[300]  rounded-md text-[16px] shadow-lg ${getThemeTooltif()}`}
-                    style={{
-                      maxWidth: "270px",
-                      wordWrap: "break-word",
-                      zIndex: 1000,
-                    }}
-                  >
-                    {item.tooltip}
-                    <div
-                      className={`arrow absolute  -top-2 w-7 h-3 rotate-45 ${getThemeTooltif()}`}
-                    />
-                    <div className="w-full text-[#222]">
-                      <hr className="border-[#222] mt-10" />
-                    </div>
-                    <div className="mt-2">
-                      <button
-                        onClick={() => setActiveModal(item.id)}
-                        className={`text-md mt-1 font-[500] ml-12  underline ${getIconTheme()}`}
-                      >
-                        Selengkapnya
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </span>
+      <div>
+        <div className="flex flex-col mt-10">
+          <h1 className="text-lg font-medium">
+            Sebutkan rukun iman yang ke-2 ?
+          </h1>
+        </div>
+        <div className="flex flex-col  gap-5 mt-10 ">
+          {[
+            "Iman kepada Allah ",
+            "Iman kepada rasul-rasul Allah ",
+            "Iman kepada malaikat-malaikat Allah",
+            "Iman kepada hari akhir",
+          ].map((answer, index) => (
+            <p
+              key={index}
+              className={`flex border ${getBorder()} p-3 w-full   px-5 cursor-pointer rounded-md ${
+                selectedAnswer === index
+                  ? `${getThemeClassPage()} border-none`
+                  : ""
+              }`}
+              onClick={() => handleAnswer(index === 2, index)}
+              style={{
+                color:
+                  selectedAnswer === index ? "white" : `${getThemeClassPage()}`,
+              }}
+            >
+              {answer}
             </p>
           ))}
         </div>
-        {activeModal === 4 && (
-          <ModalTooltifWordIslam
-            isOpen={activeModal === 4}
-            onClose={() => setActiveModal(null)}
-          />
-        )}
-        {activeModal === 7 && (
-          <ModalTooltifWordRukun
-            isOpen={activeModal === 7}
-            onClose={() => setActiveModal(null)}
-          />
-        )}
-      </div>
-      <div className="grid grid-cols-3 gap-5 mt-10 w-full">
-        {["Empat", "Lima", "Enam", "Tiga"].map((answer, index) => (
-          <p
-            key={index}
-            className={`flex border ${getBorder()} p-2 w-full text-center items-center justify-center cursor-pointer rounded-md ${
-              selectedAnswer === index ? `${getThemeClassPage()} border-none` : ""
-            }`}
-            onClick={() => handleAnswer(index === 1, index)}
-            style={{
-              color: selectedAnswer === index ? "white" : `${getThemeClassPage()}`,
-            }}
-          >
-            {answer}
-          </p>
-        ))}
       </div>
 
       <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-3 shadow-md flex justify-between gap-2">
@@ -300,14 +173,13 @@ const PageSatuKeimanan = () => {
         />
       </div>
 
-      {/* Modal Referensi */}
+      {/* ModalReferensi */}
       {isModalReferensiVisible && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ">
           <div
             className={`rounded-lg p-5 w-96 relative bg-white`}
             onClick={handleOverlayClick}
           >
-          
             <ModalReferensi
               setIsModalReferensiVisible={setIsModalReferensiVisible}
               getThemeLatar={getThemeLatar}
@@ -333,7 +205,7 @@ const PageSatuKeimanan = () => {
               ></button>
               <h2
                 className={`text-xl font-bold mb-4 w-full flex 
-                }`}
+                     }`}
                 style={{ color: isAnswerCorrect ? "#28A745" : "#A74828" }}
               >
                 {isAnswerCorrect ? "Benar!" : "Salah!"}
@@ -492,4 +364,4 @@ const ModalReferensi = ({
   );
 };
 
-export default PageSatuKeimanan;
+export default PageDuaKeimanan;

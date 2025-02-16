@@ -96,6 +96,7 @@ import TranskipNilai from "./pages/Test/TranskipNilai";
 import TranskipNilaiLanjutan from "./pages/Test/TranskipNilaiLanjutan";
 import PageSebelas from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSebelas"
 import PageSatuKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSatuKeimanan"
+import PageDuaKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageDuaKeimanan"
 
 
 export const routes = [
@@ -485,6 +486,10 @@ export const routes = [
   {
     path: "/page-satu-keimanan",
     element: <PageSatuKeimanan />,
+  },
+  {
+    path: "/page-dua-keimanan",
+    element: <PageDuaKeimanan />,
   },
   {
     path: "*",
