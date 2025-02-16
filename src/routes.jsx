@@ -29,7 +29,6 @@ import TestIlmuIslam from "./pages/Test/TestIlmuIslam";
 import IntroTestDua from "./pages/Test/IntroTestDua";
 import ListCategoryPemula from "./pages/Category/ListCategoryPemula";
 import ListLevelKeimanan from "./pages/Category/ListLevelKeimanan";
-import PageSatuKeimanan from "./pages/Ujian/Pemula/Keimanan/Level2-keimanan/PageSatuKeimanan";
 import ChooseThemeQuiz from "./pages/Category/ChooseThemeQuiz";
 import AppearanceKotak from "./pages/AppearancePage/Kotak";
 import Settings from "./pages/ButtonMobile/Settings";
@@ -95,6 +94,9 @@ import DataDiriLanjutan from "./pages/Test/DataDiriLanjutan";
 import SertifikatKelulusan from "./pages/Test/SertifikatKelulusan";
 import TranskipNilai from "./pages/Test/TranskipNilai";
 import TranskipNilaiLanjutan from "./pages/Test/TranskipNilaiLanjutan";
+import PageSebelas from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSebelas"
+import PageSatuKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSatuKeimanan"
+
 
 export const routes = [
   {
@@ -217,10 +219,6 @@ export const routes = [
   {
     path: "/page-sepuluh",
     element: <PageSepuluh />,
-  },
-  {
-    path: "/page-satu-keimanan",
-    element: <PageSatuKeimanan />,
   },
   {
     path: "/choose-theme-quiz",
@@ -479,6 +477,14 @@ export const routes = [
   {
     path: "/test/transkip-nilai-lanjutan",
     element: <TranskipNilaiLanjutan />,
+  },
+  {
+    path: "/page-sebelas",
+    element: <PageSebelas />,
+  },
+  {
+    path: "/page-satu-keimanan",
+    element: <PageSatuKeimanan />,
   },
   {
     path: "*",

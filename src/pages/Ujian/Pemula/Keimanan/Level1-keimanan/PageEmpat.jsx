@@ -5,9 +5,13 @@ import { FaCheckCircle } from "react-icons/fa";
 import { useTheme } from "../../../../../context/ThemeContext";
 import { Link } from "react-router-dom";
 import { MdMenuBook } from "react-icons/md";
+import { FaHeart } from "react-icons/fa";
+import Tutorial4 from "../../Keimanan/Level2-keimanan/ModalTutorial/Tutorial4";
+import { useSelector, useDispatch } from "react-redux";
 
 const PageEmpat = () => {
-  const { theme } = useTheme();
+  const { theme, getBorder, getIconTheme, getIconBookSoal, getButton } =
+    useTheme();
   const [progress, setProgress] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
   const [startTime, setStartTime] = useState(null);
@@ -16,7 +20,17 @@ const PageEmpat = () => {
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [isModalAnswerVisible, setIsModalAnswerVisible] = useState(false);
   const [isModalReferensiVisible, setIsModalReferensiVisible] = useState(false);
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state) => state.modal.isOpen);
 
+  // Set overflow:hidden hanya saat halaman ini aktif
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
+    };
+  }, []);
   const handleModalRefensi = () => {
     setIsModalReferensiVisible(true);
   };
@@ -86,13 +100,15 @@ const PageEmpat = () => {
   };
 
   return (
-    <div className="flex flex-col p-5 h-screen md:justify-start md:items-start md:ml-10 md:py-10">
+    <div className="flex flex-col p-5 h-screen overflow-hidden md:justify-start md:items-start md:ml-10 md:py-10">
+      {isOpen && <Tutorial4 />}
       {/* Progress Bar */}
-      <div className="flex flex-col h-4 mb-2 mt-3">
-        <div className="flex w-[300px] h-2 ">
-          <IoClose className="mr-1 -mt-2 text-xl" />
 
-          <div className="w-full bg-gray-200 rounded-sm left-10 -mt-1">
+      <div className="flex flex-col h-4 mb-2 mt-2 ">
+        <div className="flex w-[270px] h-2 ">
+          <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
+
+          <div className="w-full bg-gray-200 rounded-sm left-8  -mt-1">
             <div
               className={`h-full rounded-sm ${getThemeClass()}`}
               style={{ width: `${progress}%` }}
@@ -101,25 +117,35 @@ const PageEmpat = () => {
         </div>
       </div>
 
+      {/* materi donatur */}
+      <div className="flex items-center  justify-between mt-5">
+        <div className="flex gap-2 items-center bg-[#FFF2DC] p-2 rounded-xl">
+          <FaBook className="text-[#F59D09]" />
+          <h1 className="text-base font-medium">Materi</h1>
+        </div>
+        <div className="flex gap-2 items-center bg-[#DCE6F8] p-2 rounded-xl">
+          <FaHeart className="text-[#0961F5]" />
+          <h1 className="text-base font-medium">Donatur</h1>
+        </div>
+      </div>
+
       <div>
         <div className="flex flex-col mt-24">
-          <h1 className="text-lg">Berapa jumlah malaikat yang wajib diketahui ?</h1>
+          <h1 className="text-lg font-medium">
+            Berapa jumlah malaikat yang wajib diketahui ?
+          </h1>
         </div>
-        <div className="flex flex-row  gap-5 mt-10 ">
-          {[
-            "Empat ",
-            "Lima",
-            "Enam ",
-            "Sepuluh",
-          ].map((answer, index) => (
+        <div className="grid grid-cols-3 w-full  gap-5 mt-10 ">
+          {["Empat ", "Lima", "Enam ", "Sepuluh"].map((answer, index) => (
             <p
               key={index}
-              className={`flex border p-2 w-full  cursor-pointer   rounded-md ${
-                selectedAnswer === index ? getThemeClass() : ""
+              className={`flex border ${getBorder()} p-2 w-full text-center items-center justify-center cursor-pointer rounded-md ${
+                selectedAnswer === index ? `${getThemeClass()} border-none` : ""
               }`}
-              onClick={() => handleAnswer(index === 3, index)}
+              onClick={() => handleAnswer(index === 1, index)}
               style={{
-                color: selectedAnswer === index ? "white" : getThemeClass(),
+                color:
+                  selectedAnswer === index ? "white" : `${getThemeClass()}`,
               }}
             >
               {answer}
@@ -128,16 +154,20 @@ const PageEmpat = () => {
         </div>
       </div>
 
-      <div className="flex gap-5 mt-80 w-full">
+      <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-3 shadow-md flex justify-between gap-2">
         <button
-          className={`p-2 w-[300px] rounded-md ${getThemeClass()}`}
+          className={`p-3 w-[370px] rounded-xl border-none ${getButton()} ${
+            selectedAnswer !== null ? `${getThemeClass()} border-none` : ""
+          }`}
           onClick={handleCheck}
         >
           Cek
         </button>
-        <FaBook onClick={handleModalRefensi} className="border text-3xl mt-1" />
+        <FaBook
+          onClick={handleModalRefensi}
+          className={`border text-4xl mt-1 ${getIconBookSoal()}`}
+        />
       </div>
-
       {/* ModalReferensi */}
       {isModalReferensiVisible && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

@@ -8,9 +8,9 @@ import { MdMenuBook } from "react-icons/md";
 import { FaHeart } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import ModalHumbergerMenu from "../../../../../components/Theme/ModalHumbergerMenu";
-import Tutorial7 from "../../Keimanan/Level2-keimanan/ModalTutorial/Tutorial7";
+import Tutorial11 from "../../Keimanan/Level2-keimanan/ModalTutorial/Tutorial11";
 
-const PageTujuh = () => {
+const PageSebelas = () => {
   const { theme, getBorder, getButton, getIconBookSoal } = useTheme();
   const [progress, setProgress] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
@@ -20,7 +20,6 @@ const PageTujuh = () => {
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [isModalAnswerVisible, setIsModalAnswerVisible] = useState(false);
   const [isModalReferensiVisible, setIsModalReferensiVisible] = useState(false);
-  const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.modal.isOpen);
   const [isHumbergerOpen, setIsHumbergerOpen] = useState(true);
 
@@ -103,7 +102,7 @@ const PageTujuh = () => {
   return (
     <div className="flex flex-col p-5 h-screen overflow-hidden md:justify-start md:items-start md:ml-10 md:py-10">
       <ModalHumbergerMenu isOpen={isHumbergerOpen} />
-      {isOpen && <Tutorial7 />}
+      {isOpen && <Tutorial11 />}
       {/* Progress Bar */}
       <div className="flex flex-col h-4 mb-2 mt-2 ">
         <div className="flex w-[270px] h-2 ">
@@ -132,16 +131,14 @@ const PageTujuh = () => {
 
       <div>
         <div className="flex flex-col mt-10">
-          <h1 className="text-lg font-medium">
-            Siapakah yang pertama kali menjadi khalifah setelah Nabi Muhammad ﷺ?
-          </h1>
+          <h1 className="text-lg font-medium">Apa itu syahadat ?</h1>
         </div>
         <div className="flex flex-col   gap-5 mt-10 ">
           {[
-            "Umar bin Khattab",
-            "Ali bin Abi Thalib",
-            "Abu Bakar Ash-Shiddiq",
-            "Utsman bin Affan",
+            "Ucapan pujian",
+            "Tantangan iman",
+            "Pernyataan keimanan",
+            "Zakat wajib",
           ].map((answer, index) => (
             <p
               key={index}
@@ -160,6 +157,7 @@ const PageTujuh = () => {
         </div>
       </div>
 
+      {/* Button Cek */}
       <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-3 shadow-md flex justify-between gap-2">
         <button
           className={`p-3 w-[370px] rounded-xl border-none ${getButton()} ${
@@ -217,7 +215,7 @@ const PageTujuh = () => {
               )}
             </div>
             <div className="flex gap-5 w-[250px] ">
-              <Link to={"/page-delapan"}>
+              <Link to={"/intro-test-dua"}>
                 <button
                   className={`p-1 w-[200px] rounded-md mt-4 text-white ${
                     isAnswerCorrect ? "bg-green-500" : "bg-rose-600"
@@ -355,4 +353,4 @@ const ModalReferensi = ({ setIsModalReferensiVisible }) => {
   );
 };
 
-export default PageTujuh;
+export default PageSebelas;

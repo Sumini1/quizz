@@ -115,7 +115,7 @@ const PageDua = () => {
         </div>
       </div>
 
-      {/* msteri donatur */}
+      {/* materi donatur */}
       <div className="flex items-center  justify-between mt-5">
         <div className="flex gap-2 items-center bg-[#FFF2DC] p-2 rounded-xl">
           <FaBook className="text-[#F59D09]" />

@@ -6,6 +6,7 @@ import { BiSolidColor } from "react-icons/bi";
 import { VscColorMode } from "react-icons/vsc";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { MdLiveHelp } from "react-icons/md";
+import { IoDiamond } from "react-icons/io5";
 
 const ModalHumbergerMenu = ({ isOpen, onClose }) => {
   if (!isOpen) {
@@ -35,7 +36,7 @@ const ModalHumbergerMenu = ({ isOpen, onClose }) => {
       id: 1,
       name: "Sistem dan Arsip",
       link: "#",
-      icon: <IoSettings />,
+      icon: <IoDiamond />,
       symbol: <MdKeyboardArrowRight />,
     },
     {

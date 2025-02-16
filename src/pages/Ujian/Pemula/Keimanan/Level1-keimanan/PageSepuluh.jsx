@@ -5,9 +5,14 @@ import { FaCheckCircle } from "react-icons/fa";
 import { useTheme } from "../../../../../context/ThemeContext";
 import { Link } from "react-router-dom";
 import { MdMenuBook } from "react-icons/md";
+import { FaHeart } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import ModalHumbergerMenu from "../../../../../components/Theme/ModalHumbergerMenu";
+import Tutorial10 from "../../Keimanan/Level2-keimanan/ModalTutorial/Tutorial10";
+
 
 const PageSepuluh = () => {
-  const { theme } = useTheme();
+  const { theme, getBorder, getButton, getIconBookSoal } = useTheme();
   const [progress, setProgress] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
   const [startTime, setStartTime] = useState(null);
@@ -16,7 +21,17 @@ const PageSepuluh = () => {
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [isModalAnswerVisible, setIsModalAnswerVisible] = useState(false);
   const [isModalReferensiVisible, setIsModalReferensiVisible] = useState(false);
+  const isOpen = useSelector((state) => state.modal.isOpen);
+    const [isHumbergerOpen, setIsHumbergerOpen] = useState(true);
 
+  // Set overflow:hidden hanya saat halaman ini aktif
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
+    };
+  }, []);
   const handleModalRefensi = () => {
     setIsModalReferensiVisible(true);
   };
@@ -86,13 +101,15 @@ const PageSepuluh = () => {
   };
 
   return (
-    <div className="flex flex-col p-5 h-screen md:justify-start md:items-start md:ml-10 md:py-10">
+    <div className="flex flex-col p-5 h-screen overflow-hidden md:justify-start md:items-start md:ml-10 md:py-10">
+      <ModalHumbergerMenu isOpen={isHumbergerOpen} />
+      {isOpen && <Tutorial10 />}
       {/* Progress Bar */}
-      <div className="flex flex-col h-4 mb-2 mt-3">
-        <div className="flex w-[300px] h-2 ">
-          <IoClose className="mr-1 -mt-2 text-xl" />
+      <div className="flex flex-col h-4 mb-2 mt-2 ">
+        <div className="flex w-[270px] h-2 ">
+          <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
 
-          <div className="w-full bg-gray-200 rounded-sm left-10 -mt-1">
+          <div className="w-full bg-gray-200 rounded-sm left-8  -mt-1">
             <div
               className={`h-full rounded-sm ${getThemeClass()}`}
               style={{ width: `${progress}%` }}
@@ -101,11 +118,21 @@ const PageSepuluh = () => {
         </div>
       </div>
 
+      {/* materi donatur */}
+      <div className="flex items-center  justify-between mt-5">
+        <div className="flex gap-2 items-center bg-[#FFF2DC] p-2 rounded-xl">
+          <FaBook className="text-[#F59D09]" />
+          <h1 className="text-base font-medium">Materi</h1>
+        </div>
+        <div className="flex gap-2 items-center bg-[#DCE6F8] p-2 rounded-xl">
+          <FaHeart className="text-[#0961F5]" />
+          <h1 className="text-base font-medium">Donatur</h1>
+        </div>
+      </div>
+
       <div>
-        <div className="flex flex-col mt-24">
-          <h1 className="text-lg">
-            Apa itu syahadat ?
-          </h1>
+        <div className="flex flex-col mt-10">
+          <h1 className="text-lg font-medium">Apa itu syahadat ?</h1>
         </div>
         <div className="flex flex-col   gap-5 mt-10 ">
           {[
@@ -116,12 +143,13 @@ const PageSepuluh = () => {
           ].map((answer, index) => (
             <p
               key={index}
-              className={`flex border p-2 w-full   cursor-pointer   rounded-md ${
-                selectedAnswer === index ? getThemeClass() : ""
+              className={`flex border ${getBorder()} p-3 w-full   px-5 cursor-pointer rounded-md ${
+                selectedAnswer === index ? `${getThemeClass()} border-none` : ""
               }`}
               onClick={() => handleAnswer(index === 2, index)}
               style={{
-                color: selectedAnswer === index ? "white" : getThemeClass(),
+                color:
+                  selectedAnswer === index ? "white" : `${getThemeClass()}`,
               }}
             >
               {answer}
@@ -130,14 +158,20 @@ const PageSepuluh = () => {
         </div>
       </div>
 
-      <div className="flex gap-5 mt-36 w-full">
+      {/* Button Cek */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-3 shadow-md flex justify-between gap-2">
         <button
-          className={`p-2 w-[300px] rounded-md ${getThemeClass()}`}
+          className={`p-3 w-[370px] rounded-xl border-none ${getButton()} ${
+            selectedAnswer !== null ? `${getThemeClass()} border-none` : ""
+          }`}
           onClick={handleCheck}
         >
           Cek
         </button>
-        <FaBook onClick={handleModalRefensi} className="border text-3xl mt-1" />
+        <FaBook
+          onClick={handleModalRefensi}
+          className={`border text-4xl mt-1 ${getIconBookSoal()}`}
+        />
       </div>
 
       {/* ModalReferensi */}

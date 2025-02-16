@@ -3,11 +3,14 @@ import { FaBook, FaQuestion } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { FaCheckCircle } from "react-icons/fa";
 import { useTheme } from "../../../../../context/ThemeContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdMenuBook } from "react-icons/md";
+import { FaHeart } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import Tutorial3 from "../../Keimanan/Level2-keimanan/ModalTutorial/Tutorial3";
 
 const PageTiga = () => {
-  const { theme } = useTheme();
+  const { theme, getBorder, getButton, getIconBookSoal } = useTheme();
   const [progress, setProgress] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
   const [startTime, setStartTime] = useState(null);
@@ -16,7 +19,17 @@ const PageTiga = () => {
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [isModalAnswerVisible, setIsModalAnswerVisible] = useState(false);
   const [isModalReferensiVisible, setIsModalReferensiVisible] = useState(false);
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state) => state.modal.isOpen);
 
+  // Set overflow:hidden hanya saat halaman ini aktif
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
+    };
+  }, []);
   const handleModalRefensi = () => {
     setIsModalReferensiVisible(true);
   };
@@ -87,12 +100,13 @@ const PageTiga = () => {
 
   return (
     <div className="flex flex-col p-5 h-screen md:justify-start md:items-start md:ml-10 md:py-10">
+      {isOpen && <Tutorial3 />}
       {/* Progress Bar */}
-      <div className="flex flex-col h-4 mb-2 mt-3">
-        <div className="flex w-[300px] h-2 ">
-          <IoClose className="mr-1 -mt-2 text-xl" />
+      <div className="flex flex-col h-4 mb-2 mt-2 ">
+        <div className="flex w-[270px] h-2 ">
+          <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
 
-          <div className="w-full bg-gray-200 rounded-sm left-10 -mt-1">
+          <div className="w-full bg-gray-200 rounded-sm left-8  -mt-1">
             <div
               className={`h-full rounded-sm ${getThemeClass()}`}
               style={{ width: `${progress}%` }}
@@ -101,9 +115,21 @@ const PageTiga = () => {
         </div>
       </div>
 
+      {/* materi donatur */}
+      <div className="flex items-center  justify-between mt-5">
+        <div className="flex gap-2 items-center bg-[#FFF2DC] p-2 rounded-xl">
+          <FaBook className="text-[#F59D09]" />
+          <h1 className="text-base font-medium">Materi</h1>
+        </div>
+        <div className="flex gap-2 items-center bg-[#DCE6F8] p-2 rounded-xl">
+          <FaHeart className="text-[#0961F5]" />
+          <h1 className="text-base font-medium">Donatur</h1>
+        </div>
+      </div>
+
       <div>
-        <div className="flex flex-col mt-24">
-          <h1 className="text-lg">Siapakah Nabi terakhir ?</h1>
+        <div className="flex flex-col mt-10">
+          <h1 className="text-lg font-medium">Siapakah Nabi terakhir ?</h1>
         </div>
         <div className="flex flex-col  gap-5 mt-10 ">
           {[
@@ -114,12 +140,13 @@ const PageTiga = () => {
           ].map((answer, index) => (
             <p
               key={index}
-              className={`flex border p-2 w-full  cursor-pointer   rounded-md ${
-                selectedAnswer === index ? getThemeClass() : ""
+              className={`flex border ${getBorder()} p-3 w-full   px-5 cursor-pointer rounded-md ${
+                selectedAnswer === index ? `${getThemeClass()} border-none` : ""
               }`}
               onClick={() => handleAnswer(index === 2, index)}
               style={{
-                color: selectedAnswer === index ? "white" : getThemeClass(),
+                color:
+                  selectedAnswer === index ? "white" : `${getThemeClass()}`,
               }}
             >
               {answer}
@@ -128,14 +155,19 @@ const PageTiga = () => {
         </div>
       </div>
 
-      <div className="flex gap-5 mt-40 w-full">
+      <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-3 shadow-md flex justify-between gap-2">
         <button
-          className={`p-2 w-[300px] rounded-md ${getThemeClass()}`}
+          className={`p-3 w-[370px] rounded-xl border-none ${getButton()} ${
+            selectedAnswer !== null ? `${getThemeClass()} border-none` : ""
+          }`}
           onClick={handleCheck}
         >
           Cek
         </button>
-        <FaBook onClick={handleModalRefensi} className="border text-3xl mt-1" />
+        <FaBook
+          onClick={handleModalRefensi}
+          className={`border text-4xl mt-1 ${getIconBookSoal()}`}
+        />
       </div>
 
       {/* ModalReferensi */}
@@ -163,8 +195,7 @@ const PageTiga = () => {
               <button
                 className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
                 onClick={closeModal}
-              >
-              </button>
+              ></button>
               <h2
                 className={`text-xl font-bold mb-4 w-full items-center flex mx-auto ${
                   isAnswerCorrect ? "text-green-500" : "text-rose-600"

@@ -24,7 +24,7 @@ const Tutorial1 = () => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-5">
-      <div className="bg-white h-auto max-h-[24vh] -mt-20 rounded-lg shadow-lg p-5 w-full  flex flex-col ">
+      <div className="bg-white h-auto max-h-[25vh] -mt-20 rounded-lg shadow-lg p-4 w-full  flex flex-col ">
         {/* Bagian Atas: Judul & Pertanyaan */}
         <div className="mb-3 flex flex-col items-center">
           <h1 className="text-md font-semibold whitespace-nowrap">
@@ -64,10 +64,11 @@ const Tutorial1 = () => {
             Soal dan jawaban yang terkait materi pembahasan
           </p>
           <div
-          onClick={handleClick}
-          className="flex justify-end gap-2 items-center pt-2 text-blue-600 font-medium">
-            <span>1/8</span>
-            <button className="hover:underline underline underline-offset-2">
+            onClick={handleClick}
+            className="flex justify-end gap-2 items-center pt-2  font-medium"
+          >
+            <span>1/11</span>
+            <button className="hover:underline text-[#0961F5] underline underline-offset-2">
               Lanjut
             </button>
           </div>

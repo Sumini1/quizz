@@ -10,8 +10,9 @@ import ModalTooltifWordIslam from "../../../../../components/ModalPageSatu/Modal
 import ModalTooltifWordRukun from "../../../../../components/ModalPageSatu/ModalTooltifWordRukun";
 import { FaHeart } from "react-icons/fa";
 
+
 const PageSatuKeimanan = () => {
-  const { theme, getBorder, getIconTheme, getIconBookSoal, getButtonClass } =
+  const { theme, getBorder, getIconTheme, getIconBookSoal, getButton } =
     useTheme();
   const [progress, setProgress] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
@@ -23,6 +24,16 @@ const PageSatuKeimanan = () => {
   const [isModalReferensiVisible, setIsModalReferensiVisible] = useState(false);
   const [activeTooltip, setActiveTooltip] = useState(null);
   const [activeModal, setActiveModal] = useState(null);
+
+
+  // Set overflow:hidden hanya saat halaman ini aktif
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto"; // Pulihkan scroll saat keluar dari halaman
+    };
+  }, []);
 
   // Data dinamis
   const wordsWithTooltip = [
@@ -147,18 +158,6 @@ const PageSatuKeimanan = () => {
       : "bg-[#EEE] text-[#333]";
   };
 
-  const getButton = () => {
-    return theme === "dark"
-      ? "bg-gray-800 text-white"
-      : theme === "cupcake"
-      ? "bg-pink-500 text-white"
-      : theme === "bumblebee"
-      ? "bg-yellow-500 text-white"
-      : theme === "lemonade"
-      ? "bg-green-500 text-white"
-      : "bg-[#D2E2FF] text-[#0961F5]  ";
-  };
-
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       setIsModalReferensiVisible(false);
@@ -166,11 +165,11 @@ const PageSatuKeimanan = () => {
   };
 
   return (
-    <div className="flex flex-col p-5 h-screen md:justify-start md:items-start md:ml-10 md:py-10 cursor-">
+    <div className="flex flex-col p-5 h-screen overflow-hidden md:justify-start md:items-start md:ml-10 md:py-10 cursor-">
       {/* Progress Bar */}
       <div className="flex flex-col h-4 mb-2 mt-2 ">
-        <div className="flex w-[300px] h-2 ">
-          <IoClose className="m-1 -mt-3 text-3xl font-bold" />
+        <div className="flex w-[270px] h-2 ">
+          <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
 
           <div className="w-full bg-gray-200 rounded-sm left-8 mx-1 -mt-1">
             <div
@@ -181,7 +180,7 @@ const PageSatuKeimanan = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-between px-5 mt-5">
+      <div className="flex items-center  justify-between mt-5">
         <div className="flex gap-2 items-center bg-[#FFF2DC] p-2 rounded-xl">
           <FaBook className="text-[#F59D09]" />
           <h1 className="text-base font-medium">Materi</h1>
@@ -191,13 +190,13 @@ const PageSatuKeimanan = () => {
           <h1 className="text-base font-medium">Donatur</h1>
         </div>
       </div>
-      <div className="flex flex-col mt-5">
+      <div className="flex flex-col mt-7">
         <div className="text-lg font-[500] gap-1 flex flex-wrap ">
           {wordsWithTooltip.map((item, index) => (
             <p>
               <span
                 key={index}
-                className={`relative inline-block ${
+                className={`relative  inline-block ${
                   item.tooltip
                     ? "underline decoration-dotted decoration-2 cursor-pointer"
                     : ""
@@ -254,7 +253,9 @@ const PageSatuKeimanan = () => {
                     : null
                 }
               >
-                <span>{item.word}</span>
+                <span className="text-lg font-medium !important">
+                  {item.word}
+                </span>
 
                 {item.tooltip && activeTooltip === index && (
                   <div
@@ -300,16 +301,16 @@ const PageSatuKeimanan = () => {
           />
         )}
       </div>
-      <div className="flex flex-wrap gap-5 mt-10">
+      <div className="grid grid-cols-3 gap-5 mt-10 w-full">
         {["Empat", "Lima", "Enam", "Tiga"].map((answer, index) => (
           <p
             key={index}
-            className={`flex border ${getBorder()} p-2 w-24 text-center items-center justify-center cursor-pointer rounded-md ${
+            className={`flex border ${getBorder()} p-2 w-full text-center items-center justify-center cursor-pointer rounded-md ${
               selectedAnswer === index ? `${getThemeClass()} border-none` : ""
             }`}
-            onClick={() => handleAnswer(index === 1, index)} // \
+            onClick={() => handleAnswer(index === 1, index)}
             style={{
-              color: selectedAnswer === index ? "white" : `${getThemeClass()} `,
+              color: selectedAnswer === index ? "white" : `${getThemeClass()}`,
             }}
           >
             {answer}
@@ -400,7 +401,7 @@ const PageSatuKeimanan = () => {
               </div>
             </div>
             <div className="flex gap-5 ">
-              <Link to={"/page-dua"}>
+              <Link to={"/page-dua-keimanan"}>
                 <button
                   className={`p-3 w-[340px] rounded-xl mt-4 text-white ${
                     isAnswerCorrect ? "bg-green-500" : "bg-[#A74828]"
