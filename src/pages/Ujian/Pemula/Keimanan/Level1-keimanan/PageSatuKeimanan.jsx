@@ -318,7 +318,7 @@ const PageSatuKeimanan = () => {
       {isModalVisible && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div
-            className={`rounded-xl rounded-b-none p-6 w-96  mt-[550px] items-center justify-center fixed bottom-0 ${
+            className={`rounded-xl rounded-b-none w-full m-0 p-6  mt-[550px] items-center justify-center fixed bottom-0 ${
               isAnswerCorrect ? "bg-[#DCFFD9]" : "bg-[#FFD9D9]"
             }`}
           >
