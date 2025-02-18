@@ -50,7 +50,7 @@ const Tutorial8 = () => {
           </button>
         </div>
       </div>
-      <div className="flex justify-between bg-[#DCE6F8] p-3 rounded-lg shadow-md text-sm text-gray-800 w-[270px] -mt-[20px] items-center">
+      <div className="flex justify-between bg-[#DCE6F8] p-3 rounded-lg shadow-md text-sm text-gray-800 w-[300px] -mt-[20px] items-center">
         <div className="flex gap-2 items-center">
           <VscColorMode className="text-xl " />
 
