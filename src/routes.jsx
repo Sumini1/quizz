@@ -94,10 +94,17 @@ import DataDiriLanjutan from "./pages/Test/DataDiriLanjutan";
 import SertifikatKelulusan from "./pages/Test/SertifikatKelulusan";
 import TranskipNilai from "./pages/Test/TranskipNilai";
 import TranskipNilaiLanjutan from "./pages/Test/TranskipNilaiLanjutan";
-import PageSebelas from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSebelas"
-import PageSatuKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSatuKeimanan"
-import PageDuaKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageDuaKeimanan"
-
+import PageSebelas from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSebelas";
+import PageSatuKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSatuKeimanan";
+import PageDuaKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageDuaKeimanan";
+import PageTigaKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageTigaKeimanan";
+import PageEmpatKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageEmpatKeimanan";
+import PageLimaKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageLimaKeimanan";
+import PageEnamKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageEnamKeimanan";
+import PageTujuhKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageTujuhKeimanan";
+import PageDelapanKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageDelapanKeimanan";
+import PageSembilanKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSembilanKeimanan";
+import PageSepuluhKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSepuluhKeimanan";
 
 export const routes = [
   {
@@ -490,6 +497,38 @@ export const routes = [
   {
     path: "/page-dua-keimanan",
     element: <PageDuaKeimanan />,
+  },
+  {
+    path: "/page-tiga-keimanan",
+    element: <PageTigaKeimanan />,
+  },
+  {
+    path: "/page-empat-keimanan",
+    element: <PageEmpatKeimanan />,
+  },
+  {
+    path: "/page-lima-keimanan",
+    element: <PageLimaKeimanan />,
+  },
+  {
+    path: "/page-enam-keimanan",
+    element: <PageEnamKeimanan />,
+  },
+  {
+    path: "/page-tujuh-keimanan",
+    element: <PageTujuhKeimanan />,
+  },
+  {
+    path: "/page-delapan-keimanan",
+    element: <PageDelapanKeimanan />,
+  },
+  {
+    path: "/page-sembilan-keimanan",
+    element: <PageSembilanKeimanan />,
+  },
+  {
+    path: "/page-sepuluh-keimanan",
+    element: <PageSepuluhKeimanan />,
   },
   {
     path: "*",

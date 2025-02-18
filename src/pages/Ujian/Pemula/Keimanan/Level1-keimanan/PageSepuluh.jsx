@@ -10,7 +10,6 @@ import { useSelector, useDispatch } from "react-redux";
 import ModalHumbergerMenu from "../../../../../components/Theme/ModalHumbergerMenu";
 import Tutorial10 from "../../Keimanan/Level2-keimanan/ModalTutorial/Tutorial10";
 
-
 const PageSepuluh = () => {
   const { theme, getBorder, getButton, getIconBookSoal } = useTheme();
   const [progress, setProgress] = useState(0);
@@ -22,7 +21,7 @@ const PageSepuluh = () => {
   const [isModalAnswerVisible, setIsModalAnswerVisible] = useState(false);
   const [isModalReferensiVisible, setIsModalReferensiVisible] = useState(false);
   const isOpen = useSelector((state) => state.modal.isOpen);
-    const [isHumbergerOpen, setIsHumbergerOpen] = useState(true);
+  const [isHumbergerOpen, setIsHumbergerOpen] = useState(true);
 
   // Set overflow:hidden hanya saat halaman ini aktif
   useEffect(() => {
@@ -105,11 +104,11 @@ const PageSepuluh = () => {
       <ModalHumbergerMenu isOpen={isHumbergerOpen} />
       {isOpen && <Tutorial10 />}
       {/* Progress Bar */}
-      <div className="flex flex-col h-4 mb-2 mt-2 ">
-        <div className="flex w-[270px] h-2 ">
+      <div className="flex flex-col h-4 mb-2 mt-2 w-full">
+        <div className="flex w-full h-2 ">
           <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
 
-          <div className="w-full bg-gray-200 rounded-sm left-8  -mt-1">
+          <div className="w-full bg-gray-200 rounded-sm max-w-[265px] mx-1 -mt-1">
             <div
               className={`h-full rounded-sm ${getThemeClass()}`}
               style={{ width: `${progress}%` }}

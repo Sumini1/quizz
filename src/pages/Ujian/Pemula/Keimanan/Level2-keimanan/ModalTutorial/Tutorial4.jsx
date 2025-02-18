@@ -19,7 +19,7 @@ const Tutorial4 = () => {
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex flex-col items-center h-screen p-10  ">
       <div className="w-[300px] ">
         {/* Konten */}
-        <div className="fixed top-14  bg-white p-3 rounded-lg shadow-md text-sm text-gray-800 w-[310px]">
+        <div className="fixed top-14  bg-white p-3 rounded-lg shadow-md text-sm text-gray-800 w-[310px] ml-3">
           {/* Panah kecil di atas */}
           <div className="absolute -top-2 right-4 ">
             <svg

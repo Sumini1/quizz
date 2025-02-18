@@ -20,7 +20,7 @@ const Tutorial7 = () => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-5">
       {/* Bagian Informasi Tambahan */}
-      <div className=" bg-white p-3 fixed top-24 w-[250px] rounded-lg shadow-md text-sm text-gray-800   ">
+      <div className=" bg-white p-3 fixed top-28 w-[250px] rounded-lg shadow-md text-sm text-gray-800   ">
         {/* Konten Informasi */}
         <p className="border-b border-gray-400 pb-2">
           Pengaturan tampilan seperti tombol dan huruf
@@ -49,7 +49,7 @@ const Tutorial7 = () => {
           </button>
         </div>
       </div>
-      <div className="flex justify-between bg-[#DCE6F8] p-3 rounded-lg shadow-md text-sm text-gray-800 w-[270px] -mt-[130px] items-center">
+      <div className="flex justify-between bg-[#DCE6F8] p-3 rounded-lg shadow-md text-sm text-gray-800 w-[300px] -mt-[130px] items-center">
         <div className="flex gap-2 items-center">
           <BiSolidColor className="text-xl " />
 

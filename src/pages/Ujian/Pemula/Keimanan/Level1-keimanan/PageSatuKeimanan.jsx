@@ -10,7 +10,6 @@ import ModalTooltifWordIslam from "../../../../../components/ModalPageSatu/Modal
 import ModalTooltifWordRukun from "../../../../../components/ModalPageSatu/ModalTooltifWordRukun";
 import { FaHeart } from "react-icons/fa";
 
-
 const PageSatuKeimanan = () => {
   const {
     theme,
@@ -21,7 +20,7 @@ const PageSatuKeimanan = () => {
     getThemeLatar,
     getTextSoal,
     getThemeTooltif,
-    getThemeClassPage
+    getThemeClassPage,
   } = useTheme();
   const [progress, setProgress] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
@@ -33,7 +32,6 @@ const PageSatuKeimanan = () => {
   const [isModalReferensiVisible, setIsModalReferensiVisible] = useState(false);
   const [activeTooltip, setActiveTooltip] = useState(null);
   const [activeModal, setActiveModal] = useState(null);
-
 
   // Set overflow:hidden hanya saat halaman ini aktif
   useEffect(() => {
@@ -121,9 +119,6 @@ const PageSatuKeimanan = () => {
     setActiveModal(null);
   };
 
-
-  
-
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       setIsModalReferensiVisible(false);
@@ -133,11 +128,11 @@ const PageSatuKeimanan = () => {
   return (
     <div className="flex flex-col p-5 h-screen overflow-hidden md:justify-start md:items-start md:ml-10 md:py-10 cursor-">
       {/* Progress Bar */}
-      <div className="flex flex-col h-4 mb-2 mt-2 ">
-        <div className="flex w-[270px] h-2 ">
+      <div className="flex flex-col h-4 mb-2 mt-2 w-full">
+        <div className="flex w-full h-2 ">
           <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
 
-          <div className="w-full bg-gray-200 rounded-sm left-8 mx-1 -mt-1">
+          <div className="w-full bg-gray-200 rounded-sm max-w-[265px] mx-1 -mt-1">
             <div
               className={`h-full rounded-sm ${getThemeClassPage()}`}
               style={{ width: `${progress}%` }}
@@ -269,18 +264,21 @@ const PageSatuKeimanan = () => {
       </div>
       <div className="grid grid-cols-3 gap-5 mt-10 w-full">
         {["Empat", "Lima", "Enam", "Tiga"].map((answer, index) => (
-          <p
+          <h5
             key={index}
             className={`flex border ${getBorder()} p-2 w-full text-center items-center justify-center cursor-pointer rounded-md ${
-              selectedAnswer === index ? `${getThemeClassPage()} border-none` : ""
+              selectedAnswer === index
+                ? `${getThemeClassPage()} border-none`
+                : ""
             }`}
             onClick={() => handleAnswer(index === 1, index)}
             style={{
-              color: selectedAnswer === index ? "white" : `${getThemeClassPage()}`,
+              color:
+                selectedAnswer === index ? "text-white" : `${getThemeClassPage()}`,
             }}
           >
             {answer}
-          </p>
+          </h5>
         ))}
       </div>
 
@@ -306,7 +304,6 @@ const PageSatuKeimanan = () => {
             className={`rounded-lg p-5 w-96 relative `}
             onClick={handleOverlayClick}
           >
-          
             <ModalReferensi
               setIsModalReferensiVisible={setIsModalReferensiVisible}
               getThemeLatar={getThemeLatar}
@@ -321,7 +318,7 @@ const PageSatuKeimanan = () => {
       {isModalVisible && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div
-            className={`rounded-lg p-6 w-96  mt-[550px] items-center justify-center  ${
+            className={`rounded-xl rounded-b-none p-6 w-96  mt-[550px] items-center justify-center fixed bottom-0 ${
               isAnswerCorrect ? "bg-[#DCFFD9]" : "bg-[#FFD9D9]"
             }`}
           >
@@ -448,7 +445,7 @@ const ModalAnswer = ({ setIsModalAnswerVisible }) => {
 // Modal Referensi
 const ModalReferensi = ({
   setIsModalReferensiVisible,
-getThemeLatar,
+  getThemeLatar,
   getTextSoal,
 }) => {
   const { theme } = useTheme();

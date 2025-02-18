@@ -20,9 +20,9 @@ const PageDelapan = () => {
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
   const [isModalAnswerVisible, setIsModalAnswerVisible] = useState(false);
   const [isModalReferensiVisible, setIsModalReferensiVisible] = useState(false);
-    const dispatch = useDispatch();
-    const isOpen = useSelector((state) => state.modal.isOpen);
-    const [isHumbergerOpen, setIsHumbergerOpen] = useState(true);
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state) => state.modal.isOpen);
+  const [isHumbergerOpen, setIsHumbergerOpen] = useState(true);
 
   // Set overflow:hidden hanya saat halaman ini aktif
   useEffect(() => {
@@ -105,11 +105,11 @@ const PageDelapan = () => {
       <ModalHumbergerMenu isOpen={isHumbergerOpen} />
       {isOpen && <Tutorial8 />}
       {/* Progress Bar */}
-      <div className="flex flex-col h-4 mb-2 mt-2 ">
-        <div className="flex w-[270px] h-2 ">
+      <div className="flex flex-col h-4 mb-2 mt-2 w-full">
+        <div className="flex w-full h-2 ">
           <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
 
-          <div className="w-full bg-gray-200 rounded-sm left-8  -mt-1">
+          <div className="w-full bg-gray-200 rounded-sm max-w-[265px] mx-1 -mt-1">
             <div
               className={`h-full rounded-sm ${getThemeClass()}`}
               style={{ width: `${progress}%` }}

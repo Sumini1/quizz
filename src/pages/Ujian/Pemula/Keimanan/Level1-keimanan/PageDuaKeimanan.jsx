@@ -101,11 +101,11 @@ const PageDuaKeimanan = () => {
   return (
     <div className="flex flex-col p-5 h-screen overflow-hidden md:justify-start md:items-start md:ml-10 md:py-10 ">
       {/* Progress Bar */}
-      <div className="flex flex-col h-4 mb-2 mt-2 ">
-        <div className="flex w-[270px] h-2 ">
+      <div className="flex flex-col h-4 mb-2 mt-2 w-full">
+        <div className="flex w-full h-2 ">
           <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
 
-          <div className="w-full bg-gray-200 rounded-sm left-8  -mt-1">
+          <div className="w-full bg-gray-200 rounded-sm max-w-[265px] mx-1 -mt-1">
             <div
               className={`h-full rounded-sm ${getThemeClassPage()}`}
               style={{ width: `${progress}%` }}
@@ -139,21 +139,23 @@ const PageDuaKeimanan = () => {
             "Iman kepada malaikat-malaikat Allah",
             "Iman kepada hari akhir",
           ].map((answer, index) => (
-            <p
+            <h5
               key={index}
-              className={`flex border ${getBorder()} p-3 w-full   px-5 cursor-pointer rounded-md ${
+              className={`flex border ${getBorder()} p-2 w-full text-center px-5 cursor-pointer rounded-md ${
                 selectedAnswer === index
                   ? `${getThemeClassPage()} border-none`
                   : ""
               }`}
-              onClick={() => handleAnswer(index === 2, index)}
+              onClick={() => handleAnswer(index === 1, index)}
               style={{
                 color:
-                  selectedAnswer === index ? "white" : `${getThemeClassPage()}`,
+                  selectedAnswer === index
+                    ? "text-white"
+                    : `${getThemeClassPage()}`,
               }}
             >
               {answer}
-            </p>
+            </h5>
           ))}
         </div>
       </div>
@@ -194,7 +196,7 @@ const PageDuaKeimanan = () => {
       {isModalVisible && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div
-            className={`rounded-lg p-6 w-96  mt-[550px] items-center justify-center  ${
+            className={`rounded-xl rounded-b-none fixed bottom-0 p-6 w-96  mt-[550px] items-center justify-center  ${
               isAnswerCorrect ? "bg-[#DCFFD9]" : "bg-[#FFD9D9]"
             }`}
           >
@@ -234,7 +236,7 @@ const PageDuaKeimanan = () => {
               </div>
             </div>
             <div className="flex gap-5 ">
-              <Link to={"/page-dua-keimanan"}>
+              <Link to={"/page-tiga-keimanan"}>
                 <button
                   className={`p-3 w-[340px] rounded-xl mt-4 text-white ${
                     isAnswerCorrect ? "bg-green-500" : "bg-[#A74828]"

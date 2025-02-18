@@ -106,18 +106,18 @@ const PageEnam = () => {
 
       {isOpen && <Tutorial6 />}
       {/* Progress Bar */}
-      <div className="flex flex-col h-4 mb-2 mt-2 ">
-        <div className="flex w-[270px] h-2 ">
-          <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
-
-          <div className="w-full bg-gray-200 rounded-sm left-8  -mt-1">
-            <div
-              className={`h-full rounded-sm ${getThemeClass()}`}
-              style={{ width: `${progress}%` }}
-            ></div>
-          </div>
-        </div>
-      </div>
+       <div className="flex flex-col h-4 mb-2 mt-2 w-full">
+              <div className="flex w-full h-2 ">
+                <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
+      
+                <div className="w-full bg-gray-200 rounded-sm max-w-[265px] mx-1 -mt-1">
+                  <div
+                    className={`h-full rounded-sm ${getThemeClass()}`}
+                    style={{ width: `${progress}%` }}
+                  ></div>
+                </div>
+              </div>
+            </div>
 
       {/* Materi dan Donatur */}
       <div className="flex items-center  justify-between mt-5">

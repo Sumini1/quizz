@@ -7,6 +7,7 @@ import { MdFactCheck } from "react-icons/md";
 import { FaHourglassEnd } from "react-icons/fa6";
 import { RiCoinFill } from "react-icons/ri";
 import { MdOutlineError } from "react-icons/md";
+import { FaArrowRight } from "react-icons/fa6";
 
 const IntroTestDua = () => {
   const { theme, getIconTheme, getBorderColor, getIconColorAlert } = useTheme();
@@ -49,19 +50,19 @@ const IntroTestDua = () => {
     {
       id: 1,
       title: "Point Diperoleh",
-      icon: <MdFactCheck className="text-3xl" />,
+      icon: <MdFactCheck className="text-xl" />,
       value: `${score} %`,
     },
     {
       id: 2,
       title: "Waktu",
-      icon: <FaHourglassEnd className="text-3xl" />,
+      icon: <FaHourglassEnd className="text-xl" />,
       value: formatTime(totalTime),
     },
     {
       id: 3,
       title: "Penilaian",
-      icon: <RiCoinFill className="text-3xl" />,
+      icon: <RiCoinFill className="text-xl" />,
       value: "100",
     },
   ];
@@ -71,7 +72,9 @@ const IntroTestDua = () => {
       {showConfetti && <Confetti />}
       <div className="flex flex-col p-5 bg-[#DCE6F8]">
         <div className="flex gap-2">
-          <h2 className="text-base font-semibold mb-2">Hanya dengan Rp. 10.000</h2>
+          <h2 className="text-base font-semibold mb-2">
+            Hanya dengan Rp. 10.000
+          </h2>
 
           <MdOutlineError className={` ${getIconColorAlert()} `} />
         </div>
@@ -107,7 +110,7 @@ const IntroTestDua = () => {
               </div>
               <h1
                 className={`text-sm font-medium text-center ${
-                  [2, 3].includes(item.id) ? "mt-6" : "mt-3"
+                  item.id === 2 ? "mt-4" : item.id === 3 ? " mt-6" : "mt-3"
                 }`}
               >
                 {item.title}
@@ -131,12 +134,22 @@ const IntroTestDua = () => {
       </div>
       {isModalOpen && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center p-7 z-50">
-          <div className="bg-[#DCFFD9] p-5 rounded-xl flex flex-col items-center gap-4">
+          <div className="bg-[#DCFFD9] p-5 rounded-xl flex flex-col  w-[350px] items-center gap-4">
             <HiBadgeCheck className="text-7xl text-[#28A745]" />
-            <p className="text-lg font-semibold">Password Berhasil Dirubah</p>
-            <div className="text-center mb-2">
-              <p>Alhamdulillah pemulihan akun selesai</p>
-              <p>Silahkan kembali login untuk melanjutkan pembelajaran</p>
+            <p className="text-lg font-semibold">Mulai Tahapan Belajar</p>
+            <div className="flex flex-col">
+              <p className="text-center mb-2"> Setelah ini akan memilih</p>
+              <p className="flex flex-wrap justify-center text-center gap-1 items-center text-base font-medium">
+                Tingkat
+                <FaArrowRight />
+                <span>Kategory</span>
+                <FaArrowRight />
+                <span>Tema</span>
+                <FaArrowRight />
+                <span>Pelajaran</span>
+                <FaArrowRight />
+                <span>Materi</span>
+              </p>
             </div>
             <button
               onClick={handleCloseModal}

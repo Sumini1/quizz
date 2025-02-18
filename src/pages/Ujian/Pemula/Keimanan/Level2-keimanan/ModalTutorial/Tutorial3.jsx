@@ -18,7 +18,7 @@ const Tutorial3 = () => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-5">
       {/* Bagian Informasi Tambahan */}
-      <div className=" bg-white p-3 fixed bottom-16 w-[250px] rounded-lg shadow-md text-sm text-gray-800 ml-24">
+      <div className=" bg-white p-3 fixed bottom-16 w-[250px] rounded-lg shadow-md text-sm text-gray-800 ml-28">
         {/* Konten Informasi */}
         <p className="border-b border-gray-400 pb-2">
           Artikel untuk membantu menjawab soal  

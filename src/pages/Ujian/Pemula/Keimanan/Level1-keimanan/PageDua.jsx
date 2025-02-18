@@ -99,14 +99,14 @@ const PageDua = () => {
   };
 
   return (
-    <div className="flex flex-col p-5 h-screen overflow-hidden md:justify-start md:items-start md:ml-10 md:py-10 ">
+    <div className="flex flex-col p-5 h-screen overflow-hidden md:justify-start md:items-start md:ml-10 md:py-10 cursor-pointer">
       {/* Progress Bar */}
       {isOpen && <Tutorial2 />}
-      <div className="flex flex-col h-4 mb-2 mt-2 ">
-        <div className="flex w-[270px] h-2 ">
+      <div className="flex flex-col h-4 mb-2 mt-2 w-full">
+        <div className="flex w-full h-2 ">
           <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
 
-          <div className="w-full bg-gray-200 rounded-sm left-8  -mt-1">
+          <div className="w-full bg-gray-200 rounded-sm max-w-[265px] mx-1 -mt-1">
             <div
               className={`h-full rounded-sm ${getThemeClass()}`}
               style={{ width: `${progress}%` }}
