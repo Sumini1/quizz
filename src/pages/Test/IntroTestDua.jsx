@@ -118,7 +118,7 @@ const IntroTestDua = () => {
             </div>
           ))}
         </div>
-        <div className="flex flex-col fixed bottom-5  justify-center items-center gap-4 mt-20 w-full max-w-xs mx-auto">
+        <div className="flex flex-col fixed bottom-5  justify-center items-center gap-4 mt-20 w-full max-w-[350px] mx-auto">
           <Link to="/accordion" className="w-full">
             <button className="p-3 rounded-xl w-full text-white bg-[#F59D09]">
               Ulasan
