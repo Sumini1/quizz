@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "../../context/ThemeContext";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { MdOutlineError } from "react-icons/md";
 import ModalKeimanan from "../../components/ModalListCategory/ModalKeimanan";
@@ -9,8 +9,13 @@ import ModalAkhlak from "../../components/ModalListCategory/ModalAkhlak";
 import ModalMuamalah from "../../components/ModalListCategory/ModalMuamalah";
 import ModalSejarah from "../../components/ModalListCategory/ModalSejarah";
 import { IoSearch } from "react-icons/io5";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCategoryDifficultiesById } from "../../reducer/categoryDifficultiesSlice";
+import { fetchListCategory } from "../../reducer/listCategorySlice";
 
 const ListCategoryPemula = () => {
+  const navigate = useNavigate();
   const {
     getButtonClassListCategory,
     getButtonClass,
@@ -22,11 +27,30 @@ const ListCategoryPemula = () => {
   const [selectCategory, setSelectCategory] = useState(null);
   const [activeModal, setActiveModal] = useState(null);
   const [isSearchActive, setIsSearchActive] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { detail } = useSelector((state) => state.categoryDifficulties);
+  const description_short =
+    detail?.description_short || "Deskripsi tidak tersedia";
+  const { data, status } = useSelector((state) => state.listCategory);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchCategoryDifficultiesById(id));
+    }
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    dispatch(fetchListCategory());
+  }, [dispatch]);
+
   const handleSelectCategory = (categoryId) => {
     setSelectCategory(categoryId);
   };
 
-  const handleIconClick = (categoryId) => {
+  const handleIconClick = (categoryId, e) => {
+    e.stopPropagation(); // Mencegah event klik menyebar ke parent button
     console.log("Icon clicked for category:", categoryId);
     setActiveModal(categoryId);
   };
@@ -36,41 +60,47 @@ const ListCategoryPemula = () => {
     setActiveModal(null);
   };
 
-  const categoryPemula = [
-    { id: 1, category: "Keimanan", route: "/list-level-keimanan", level: 2 },
-    { id: 2, category: "Ibadah", route: "/page", level: 4, status: "Update" },
-    { id: 3, category: "Akhlak", route: "/page", level: 10, status: "Baru" },
-    {
-      id: 4,
-      category: "Muamalah",
-      route: "/page",
-      level: " 9 ",
-      status: "Sedang Dikerjakan",
-    },
-    {
-      id: 5,
-      category: "Sejarah Nabi Muhammad",
-      route: "/page",
-      level: "2 tema terselesaikan",
-      status: "Tuntas",
-    },
-  ];
   const [sortBy, setSortBy] = useState("Abjad Minimalis");
 
-  const sortedCategories = [...categoryPemula].sort((a, b) => {
-    if (sortBy === "Abjad Minimalis")
-      return a.category.localeCompare(b.category);
+  // Filter data berdasarkan difficulty_id yang cocok dengan id dari params
+  const categoriesForDifficulty = data.filter(
+    (category) => category.difficulty_id === parseInt(id)
+  );
+
+  // Filter data berdasarkan pencarian
+  const filteredCategories = categoriesForDifficulty.filter((category) =>
+    category.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Urutkan data yang sudah difilter
+  const sortedCategories = [...filteredCategories].sort((a, b) => {
+    if (sortBy === "Abjad Minimalis") return a.name.localeCompare(b.name);
     if (sortBy === "Abjad Informatif")
-      return (b.status || "").localeCompare(a.status || "");
-    if (sortBy === "Kelas Terbaru") return b.id - a.id; // Misal ID terbesar adalah kelas terbaru
+      return (a.status || "").localeCompare(b.status || "");
+    if (sortBy === "Kelas Terbaru")
+      return new Date(b.created_at) - new Date(a.created_at);
     return 0;
   });
 
-  const selectRoute = () => {
-    const selectedCategory = categoryPemula.find(
-      (category) => category.id === selectCategory
-    );
-    return selectedCategory ? selectedCategory.route : null;
+const selectRoute = () => {
+  return selectCategory ? `/list-level-keimanan` : "#";
+};
+
+
+
+  // Konversi status API ke status UI
+  const getUIStatus = (apiStatus) => {
+    // Jika perlu mapping status dari API ke tampilan UI
+    switch (apiStatus) {
+      case "active":
+        return "Aktif";
+      case "pending":
+        return "Sedang Dikerjakan";
+      case "completed":
+        return "Tuntas";
+      default:
+        return apiStatus;
+    }
   };
 
   return (
@@ -78,19 +108,21 @@ const ListCategoryPemula = () => {
       <div className="flex justify-between items-center mr-20">
         <div
           onClick={() => navigate(-1)}
-          className="flex items-center gap-3 mt-5 px-5 text-lg mb-8"
+          className="flex flex-col gap-3 mt-5 px-5 text-lg mb-8"
         >
           <FaArrowLeft />
-          <h1 className="font-semibold text-xl">Materi dasar Islam</h1>
+          <h1 className="font-semibold text-xl">
+            {description_short ? description_short : "Deskripsi belum tersedia"}
+          </h1>
         </div>
 
         <IoSearch
-          className="text-2xl -mt-4 cursor-pointer"
-          onClick={() => setIsSearchActive((prev) => !prev)} // Toggle input search
+          className="text-2xl -mt-[43px] cursor-pointer"
+          onClick={() => setIsSearchActive((prev) => !prev)}
         />
       </div>
 
-      {/* Main Contect */}
+      {/* Main Content */}
       <div className="flex flex-col p-5 -mt-7">
         {isSearchActive && (
           <div className="relative flex items-center w-full bg-[#EEEEEE] border border-gray-300 rounded-xl p-2 mb-5">
@@ -98,13 +130,17 @@ const ListCategoryPemula = () => {
               type="text"
               placeholder="Cari level belajar..."
               className="bg-transparent w-full pl-10 rounded-xl outline-none"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             <IoSearch className="absolute left-3 text-xl text-gray-500" />
           </div>
         )}
-        <h2 className="text-lg font-[500]">Tersedian 7 kelas</h2>
+        <h2 className="text-lg font-[500]">
+          Tersedia {sortedCategories.length} kelas
+        </h2>
         <div className="flex gap-3 justify-between items-center mt-3">
-          <p className="text-sm   font-normal flex items-center">
+          <p className="text-sm font-normal flex items-center">
             Urutkan berdasarkan:
           </p>
           <div className="border border-gray-200 rounded-xl p-2 flex items-center">
@@ -119,7 +155,15 @@ const ListCategoryPemula = () => {
             </select>
           </div>
         </div>
-        <form action="" className="  mt-5">
+
+        {status === "loading" && (
+          <p className="text-center py-4">Memuat data...</p>
+        )}
+        {status === "failed" && (
+          <p className="text-center py-4 text-red-500">Gagal memuat data</p>
+        )}
+
+        <form action="" className="mt-5">
           <div className="flex flex-col">
             {sortedCategories.map((category) => (
               <button
@@ -127,47 +171,43 @@ const ListCategoryPemula = () => {
                 type="button"
                 onClick={() => handleSelectCategory(category.id)}
                 className={`flex flex-col w-full text-md text-left 
-  ${
-    category.status === "Tuntas"
-      ? sortBy === "Abjad Minimalis"
-        ? "bg-none "
-        : "bg-yellow-300"
-      : ""
-  } 
-  rounded-xl p-3 border-[2px] mb-4  
-  ${getButtonClassListCategory(selectCategory === category.id)}`}
+                ${
+                  category.status === "completed"
+                    ? sortBy === "Abjad Minimalis"
+                      ? "bg-none "
+                      : "bg-yellow-300"
+                    : ""
+                } 
+                rounded-xl p-3 border-[2px] mb-4  
+                ${getButtonClassListCategory(selectCategory === category.id)}`}
               >
                 {/* Header Kategori */}
                 <div className="flex justify-between items-center w-full">
                   <h5 className="flex items-center gap-2">
-                    <span className="text-sm font-normal">
-                      {category.category}
-                    </span>
+                    <span className="text-sm font-normal">{category.name}</span>
                     {/* Label Status */}
                     {category.status && (
                       <span
-                        className={`text-xs  ${
+                        className={`text-xs ${
                           sortBy === "Abjad Minimalis" ? "hidden" : ""
                         } font-normal px-2 py-1 rounded-lg ${
-                          category.status === "Baru"
-                            ? "bg-[#F59D09] text-white"
-                            : category.status === "Update"
+                          category.status === "active"
                             ? "bg-[#28A745] text-white"
-                            : category.status === "Sedang Dikerjakan"
+                            : category.status === "pending"
                             ? "bg-gray-200 text-gray-600"
-                            : category.status === "Tuntas"
+                            : category.status === "completed"
                             ? "bg-[#0961F5] text-white"
                             : ""
                         }`}
                       >
-                        {category.status}
+                        {getUIStatus(category.status)}
                       </span>
                     )}
                   </h5>
 
                   {/* Ikon info di ujung kanan */}
                   <MdOutlineError
-                    onClick={() => handleIconClick(category.id)}
+                    onClick={(e) => handleIconClick(category.id, e)}
                     className={`${getIconColorAlert()} ${
                       selectCategory === category.id ? "text-[#FFF]" : ""
                     }`}
@@ -175,34 +215,40 @@ const ListCategoryPemula = () => {
                 </div>
 
                 {/* Level Informasi */}
-                <h5 className={`text-xs mt-1  text-[#777]`}>
-                  {category.level} level
+                <h5 className={`text-xs mt-1 text-[#777]`}>
+                  {category.total_subcategories || 0} level
                 </h5>
               </button>
             ))}
           </div>
-          <div className="flex flex-col justify-center w-full mt-[20px] ">
+
+          {sortedCategories.length === 0 && status === "succeeded" && (
+            <p className="text-center py-4">
+              Tidak ada kategori yang tersedia untuk tingkat kesulitan ini
+            </p>
+          )}
+
+          <div className="flex flex-col justify-center w-full mt-[20px]">
             <Link to={"/accordion-dasar-islam"}>
               <h3 className="text-sm text-center mb-5">
                 Ada yang ingin ditanyakan?
               </h3>
             </Link>
             <Link
-              to={
-                selectCategory
-                  ? {
-                      pathname: selectRoute(),
-                      state: { categoryId: selectCategory },
-                    }
-                  : "#"
-              }
+              to={selectCategory ? selectRoute() : "#"}
+              onClick={(e) => {
+                if (!selectCategory) {
+                  e.preventDefault();
+                  alert("Silakan pilih kategori terlebih dahulu!");
+                }
+              }}
             >
               <button
                 type="button"
-                className={`p-3 w-[340px] -mt-2 rounded-xl  ${
+                className={`p-3 w-[340px] -mt-2 rounded-xl ${
                   selectCategory
                     ? `${getButtonClass()} border-none`
-                    : `bg-[#DCE6F8] text-[#0961F5] border-none`
+                    : "bg-[#DCE6F8] text-[#0961F5] border-none"
                 }`}
                 disabled={!selectCategory}
               >
@@ -212,20 +258,26 @@ const ListCategoryPemula = () => {
           </div>
         </form>
       </div>
-      {activeModal === 1 && (
-        <ModalKeimanan isOpen={true} onClose={handleCloseModal} />
-      )}
-      {activeModal === 2 && (
-        <ModalIbadah isOpen={true} onClose={handleCloseModal} />
-      )}
-      {activeModal === 3 && (
-        <ModalAkhlak isOpen={true} onClose={handleCloseModal} />
-      )}
-      {activeModal === 4 && (
-        <ModalMuamalah isOpen={true} onClose={handleCloseModal} />
-      )}
-      {activeModal === 5 && (
-        <ModalSejarah isOpen={true} onClose={handleCloseModal} />
+
+      {/* Modal handling - perlu disesuaikan dengan kategori dinamis */}
+      {activeModal && (
+        <>
+          {activeModal === 1 && (
+            <ModalKeimanan isOpen={true} onClose={handleCloseModal} />
+          )}
+          {activeModal === 2 && (
+            <ModalIbadah isOpen={true} onClose={handleCloseModal} />
+          )}
+          {activeModal === 3 && (
+            <ModalAkhlak isOpen={true} onClose={handleCloseModal} />
+          )}
+          {activeModal === 4 && (
+            <ModalMuamalah isOpen={true} onClose={handleCloseModal} />
+          )}
+          {activeModal === 5 && (
+            <ModalSejarah isOpen={true} onClose={handleCloseModal} />
+          )}
+        </>
       )}
     </div>
   );

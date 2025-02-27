@@ -6,7 +6,7 @@ export const fetchRegister = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        "https://arabiya-syari-test-production.up.railway.app/register",
+        "https://arabiya-syari-fiber-production.up.railway.app/auth/register",
         {
           method: "POST",
           headers: {

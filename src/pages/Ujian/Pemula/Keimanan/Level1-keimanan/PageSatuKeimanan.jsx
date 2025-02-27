@@ -9,6 +9,8 @@ import { TbMapQuestion } from "react-icons/tb";
 import ModalTooltifWordIslam from "../../../../../components/ModalPageSatu/ModalTooltifIslam";
 import ModalTooltifWordRukun from "../../../../../components/ModalPageSatu/ModalTooltifWordRukun";
 import { FaHeart } from "react-icons/fa";
+import MateriPageSatuKeimanan from "../../../../../components/ModalMateriLevel1Keimanan/MateriPageSatuKeimanan";
+import DonaturPageSatuKeimanan from "../../../../../components/ModalDonaturLevel1Keimanan/DonaturPageSatuKeimanan";
 
 const PageSatuKeimanan = () => {
   const {
@@ -32,9 +34,22 @@ const PageSatuKeimanan = () => {
   const [isModalReferensiVisible, setIsModalReferensiVisible] = useState(false);
   const [activeTooltip, setActiveTooltip] = useState(null);
   const [activeModal, setActiveModal] = useState(null);
+  const [ismodalMateriopen, setIsModalMateriOpen] = useState(false);
+  const [ismodalDonaturopen, setIsModalDonaturOpen] = useState(false);
+
+  // Modal Materi
+  const handleMateri = () => {
+    setIsModalMateriOpen(true);
+  };
+
+  // Modal Donatur
+  const handleDonatur = () => {
+    setIsModalDonaturOpen(true);
+  };
 
   // Set overflow:hidden hanya saat halaman ini aktif
   useEffect(() => {
+    document.body.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
 
     return () => {
@@ -142,14 +157,28 @@ const PageSatuKeimanan = () => {
       </div>
 
       <div className="flex items-center  justify-between mt-5">
-        <div className="flex gap-2 items-center bg-[#FFF2DC] p-2 rounded-xl">
+        <div
+          onClick={() => handleMateri(true)}
+          className="flex gap-2 items-center bg-[#FFF2DC] p-2 rounded-xl"
+        >
           <FaBook className="text-[#F59D09]" />
           <h1 className="text-base font-medium">Materi</h1>
         </div>
-        <div className="flex gap-2 items-center bg-[#DCE6F8] p-2 rounded-xl">
+        {
+          ismodalMateriopen &&
+          <MateriPageSatuKeimanan isOpen={ismodalMateriopen} onClose={() => setIsModalMateriOpen(false)} />
+        }
+        <div
+          onClick={() => handleDonatur(true)}
+          className="flex gap-2 items-center bg-[#DCE6F8] p-2 rounded-xl"
+        >
           <FaHeart className="text-[#0961F5]" />
           <h1 className="text-base font-medium">Donatur</h1>
         </div>
+        {
+          ismodalDonaturopen &&
+          <DonaturPageSatuKeimanan isOpen={ismodalDonaturopen} onClose={() => setIsModalDonaturOpen(false)} />
+        }
       </div>
       <div className="flex flex-col mt-7">
         <div className="text-lg font-[500] gap-1 flex flex-wrap ">
@@ -266,7 +295,7 @@ const PageSatuKeimanan = () => {
         {["Empat", "Lima", "Enam", "Tiga"].map((answer, index) => (
           <h5
             key={index}
-            className={`flex border ${getBorder()} p-2 w-full text-center items-center justify-center cursor-pointer rounded-md ${
+            className={`flex border ${getBorder()} p-3 w-full text-center items-center justify-center cursor-pointer rounded-md ${
               selectedAnswer === index
                 ? `${getThemeClassPage()} border-none`
                 : ""
@@ -274,7 +303,9 @@ const PageSatuKeimanan = () => {
             onClick={() => handleAnswer(index === 1, index)}
             style={{
               color:
-                selectedAnswer === index ? "text-white" : `${getThemeClassPage()}`,
+                selectedAnswer === index
+                  ? "text-white"
+                  : `${getThemeClassPage()}`,
             }}
           >
             {answer}
@@ -283,6 +314,11 @@ const PageSatuKeimanan = () => {
       </div>
 
       <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-3 shadow-md flex justify-between gap-2">
+        <img
+          src={"/lamp.png"}
+          onClick={handleModalRefensi}
+          className={`border text-4xl mt-1 ${getIconBookSoal()} border-none`}
+        />
         <button
           className={`p-3 w-[370px] rounded-xl border-none ${getButton()} ${
             selectedAnswer !== null ? `${getThemeClassPage()} border-none` : ""
@@ -291,10 +327,6 @@ const PageSatuKeimanan = () => {
         >
           Cek
         </button>
-        <FaBook
-          onClick={handleModalRefensi}
-          className={`border text-4xl mt-1 ${getIconBookSoal()}`}
-        />
       </div>
 
       {/* Modal Referensi */}
@@ -322,20 +354,20 @@ const PageSatuKeimanan = () => {
               isAnswerCorrect ? "bg-[#DCFFD9]" : "bg-[#FFD9D9]"
             }`}
           >
-            <div className="flex">
-              <button
+            <div className="flex justify-between">
+              {/* <button
                 className="top-2 flex text-gray-500 hover:text-gray-700"
                 onClick={closeModal}
-              ></button>
-              <h2
-                className={`text-xl font-bold mb-4 w-full flex 
-                }`}
-                style={{ color: isAnswerCorrect ? "#28A745" : "#A74828" }}
-              >
-                {isAnswerCorrect ? "Benar!" : "Salah!"}
-              </h2>
+              ></button> */}
 
-              <div className="flex h-auto mx-2  ">
+              <div className="flex h-auto   ">
+                <h2
+                  className={`text-xl font-bold mb-4 w-full flex  
+                }`}
+                  style={{ color: isAnswerCorrect ? "#28A745" : "#A74828" }}
+                >
+                  {isAnswerCorrect ? "Benar!" : "Salah!"}
+                </h2>
                 {isAnswerCorrect ? (
                   <FaCheckCircle className="text-green-500 text-3xl " />
                 ) : (
@@ -348,7 +380,7 @@ const PageSatuKeimanan = () => {
                 <p className="">
                   <MdMenuBook
                     onClick={handleModalAnswer}
-                    className={`text-5xl  bg-white  w-[50px] h-[50px]  -mt-7 ml-[180px] p-2 rounded-full ${
+                    className={`text-5xl  bg-white  w-[50px] h-[50px]  -mt-7 ml-auto p-2 rounded-full ${
                       isAnswerCorrect
                         ? "text-[#F59D09] "
                         : "text-[#F59D09] bg-[#FEEFB3]"
@@ -358,9 +390,9 @@ const PageSatuKeimanan = () => {
               </div>
             </div>
             <div className="flex gap-5 ">
-              <Link to={"/page-dua-keimanan"}>
+              <Link to={"/page-dua-keimanan"} className="w-full">
                 <button
-                  className={`p-3 w-[340px] rounded-xl mt-4 text-white ${
+                  className={`p-3 w-full rounded-xl mt-4 text-white ${
                     isAnswerCorrect ? "bg-green-500" : "bg-[#A74828]"
                   }`}
                   onClick={closeModal}

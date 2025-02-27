@@ -141,7 +141,7 @@ const PageDuaKeimanan = () => {
           ].map((answer, index) => (
             <h5
               key={index}
-              className={`flex border ${getBorder()} p-2 w-full text-center px-5 cursor-pointer rounded-md ${
+              className={`flex border ${getBorder()} p-3 w-full text-center px-5 cursor-pointer rounded-md ${
                 selectedAnswer === index
                   ? `${getThemeClassPage()} border-none`
                   : ""
@@ -161,6 +161,11 @@ const PageDuaKeimanan = () => {
       </div>
 
       <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-3 shadow-md flex justify-between gap-2">
+        <img
+          src={"/lamp.png"}
+          onClick={handleModalRefensi}
+          className={`border text-4xl mt-1 border-none`}
+        />
         <button
           className={`p-3 w-[370px] rounded-xl border-none ${getButton()} ${
             selectedAnswer !== null ? `${getThemeClassPage()} border-none` : ""
@@ -169,10 +174,6 @@ const PageDuaKeimanan = () => {
         >
           Cek
         </button>
-        <FaBook
-          onClick={handleModalRefensi}
-          className={`border text-4xl mt-1 ${getIconBookSoal()}`}
-        />
       </div>
 
       {/* ModalReferensi */}
@@ -200,20 +201,15 @@ const PageDuaKeimanan = () => {
               isAnswerCorrect ? "bg-[#DCFFD9]" : "bg-[#FFD9D9]"
             }`}
           >
-            <div className="flex">
-              <button
-                className="top-2 flex text-gray-500 hover:text-gray-700"
-                onClick={closeModal}
-              ></button>
-              <h2
-                className={`text-xl font-bold mb-4 w-full flex 
-                     }`}
-                style={{ color: isAnswerCorrect ? "#28A745" : "#A74828" }}
-              >
-                {isAnswerCorrect ? "Benar!" : "Salah!"}
-              </h2>
-
-              <div className="flex h-auto mx-2  ">
+            <div className="flex justify-between">
+              <div className="flex h-auto   ">
+                <h2
+                  className={`text-xl font-bold mb-4 w-full flex  
+                         }`}
+                  style={{ color: isAnswerCorrect ? "#28A745" : "#A74828" }}
+                >
+                  {isAnswerCorrect ? "Benar!" : "Salah!"}
+                </h2>
                 {isAnswerCorrect ? (
                   <FaCheckCircle className="text-green-500 text-3xl " />
                 ) : (
@@ -226,7 +222,7 @@ const PageDuaKeimanan = () => {
                 <p className="">
                   <MdMenuBook
                     onClick={handleModalAnswer}
-                    className={`text-5xl  bg-white  w-[50px] h-[50px]  -mt-7 ml-[180px] p-2 rounded-full ${
+                    className={`text-5xl  bg-white  w-[50px] h-[50px]  -mt-7 ml-auto p-2 rounded-full ${
                       isAnswerCorrect
                         ? "text-[#F59D09] "
                         : "text-[#F59D09] bg-[#FEEFB3]"
@@ -236,9 +232,9 @@ const PageDuaKeimanan = () => {
               </div>
             </div>
             <div className="flex gap-5 ">
-              <Link to={"/page-tiga-keimanan"}>
+              <Link to={"/page-tiga-keimanan"} className="w-full">
                 <button
-                  className={`p-3 w-[340px] rounded-xl mt-4 text-white ${
+                  className={`p-3 w-full rounded-xl mt-4 text-white ${
                     isAnswerCorrect ? "bg-green-500" : "bg-[#A74828]"
                   }`}
                   onClick={closeModal}

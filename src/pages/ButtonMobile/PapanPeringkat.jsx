@@ -69,7 +69,7 @@ const PapanPeringkat = () => {
         <div className="mt-5">
           {activeTab === "prestasi" && (
             <div className="flex flex-col w-full">
-              <div className="flex justify-center pb-4 gap-3">
+              <div className="overflow-x-auto whitespace-nowrap pb-4 flex gap-3   scrollbar-thin scrollbar-thumb-scrollbarThumb scrollbar-track-scrollbarTrack">
                 {tablePrestasi.map((item) => (
                   <div
                     key={item.id}

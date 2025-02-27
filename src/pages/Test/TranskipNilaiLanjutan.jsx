@@ -115,10 +115,10 @@ const TranskipNilaiLanjutan = () => {
       {/* Button */}
       <div className="bg-white flex justify-between gap-4 p-5">
         <button
-          onClick={() => navigate("/test/transkip-nilai-lanjutan")}
+          onClick={() => navigate("/test/data-diri-lanjutan")}
           className={`${getButtonClass()} border-none p-2 w-3/4 rounded-xl`}
         >
-          Lanjut
+          Kembali
         </button>
         <button className={`${getBorderClass()} p-2 rounded-xl w-1/3`}>
           Unduh

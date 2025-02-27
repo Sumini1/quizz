@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoDiamond } from "react-icons/io5";
 
-
 const Tutorial6 = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.modal.isOpen);
@@ -52,7 +51,7 @@ const Tutorial6 = () => {
       </div>
       <div className="flex justify-between bg-[#DCE6F8] p-3 rounded-lg shadow-md text-sm text-gray-800 w-[300px] -mt-56 items-center">
         <div className="flex gap-2 items-center">
-          <IoDiamond  className="text-xl"/>
+          <IoDiamond className="text-xl" />
           <p className="text-base font-medium">Sistem dan Arsip</p>
         </div>
         <IoIosArrowForward className="text-xl" />

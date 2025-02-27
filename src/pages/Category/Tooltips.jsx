@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+  import { useSelector, useDispatch } from "react-redux";
 import { fetchTooltips } from "../../reducer/tooltipsSlice";
 
 const Tooltips = () => {

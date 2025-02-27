@@ -17,28 +17,49 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!email || !password) {
-      setErrorMessage("Please fill in all fields.");
-      return;
-    }
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!email || !password) {
+    setErrorMessage("Please fill in all fields.");
+    return;
+  }
 
-    try {
-      setErrorMessage(""); // Clear any existing error message
-      await dispatch(fetchLogin({ email, password })).unwrap();
-      navigate("/survei-satu"); // Navigate after successful login
-    } catch (error) {
-      setErrorMessage(error.message || "Login failed"); // Update with error message
+  try {
+    setErrorMessage(""); // Reset error message
+    await dispatch(fetchLogin({ email, password })).unwrap();
+
+    // Ambil jumlah login dari localStorage
+    let loginCount = parseInt(localStorage.getItem("loginCount")) || 0;
+    loginCount += 1; // Tambah 1 setiap kali login berhasil
+    localStorage.setItem("loginCount", loginCount); // Simpan kembali ke localStorage
+
+    if (loginCount >= 2) {
+      navigate("/beranda"); // Arahkan ke halaman beranda jika sudah login 2 kali
+    } else {
+      navigate("/survei-satu"); // Arahkan ke survei-satu untuk pertama kali login
     }
-  };
+  } catch (error) {
+    if (error.message === "Email atau password salah") {
+      setErrorMessage("Email atau password salah");
+    } else {
+      setErrorMessage("Login gagal");
+    }
+  }
+};
+
+
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, []);
+     const hasCompletedSurvey = localStorage.getItem("hasCompletedSurvey");
+
+     if (hasCompletedSurvey) {
+       navigate("/beranda"); // Jika survei sudah selesai, arahkan ke beranda
+     }
+  }, [navigate]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);

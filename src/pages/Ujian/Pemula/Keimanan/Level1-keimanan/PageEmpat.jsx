@@ -104,18 +104,18 @@ const PageEmpat = () => {
       {isOpen && <Tutorial4 />}
       {/* Progress Bar */}
 
-     <div className="flex flex-col h-4 mb-2 mt-2 w-full">
-            <div className="flex w-full h-2 ">
-              <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
-    
-              <div className="w-full bg-gray-200 rounded-sm max-w-[265px] mx-1 -mt-1">
-                <div
-                  className={`h-full rounded-sm ${getThemeClass()}`}
-                  style={{ width: `${progress}%` }}
-                ></div>
-              </div>
-            </div>
+      <div className="flex flex-col h-4 mb-2 mt-2 w-full">
+        <div className="flex w-full h-2 ">
+          <IoClose className=" -mt-3 text-3xl font-bold items-center -ml-2" />
+
+          <div className="w-full bg-gray-200 rounded-sm max-w-[265px] mx-1 -mt-1">
+            <div
+              className={`h-full rounded-sm ${getThemeClass()}`}
+              style={{ width: `${progress}%` }}
+            ></div>
           </div>
+        </div>
+      </div>
 
       {/* materi donatur */}
       <div className="flex items-center  justify-between mt-5">
@@ -154,19 +154,21 @@ const PageEmpat = () => {
         </div>
       </div>
 
+{/* Button Cek */}
       <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-3 shadow-md flex justify-between gap-2">
+        <img
+          src={"/lamp.png"}
+          onClick={handleModalRefensi}
+          className={`border text-4xl mt-1 ${getIconBookSoal()} border-none`}
+        />
         <button
           className={`p-3 w-[370px] rounded-xl border-none ${getButton()} ${
-            selectedAnswer !== null ? `${getThemeClass()} border-none` : ""
+            selectedAnswer !== null ? `${getThemeClassPage()} border-none` : ""
           }`}
           onClick={handleCheck}
         >
           Cek
         </button>
-        <FaBook
-          onClick={handleModalRefensi}
-          className={`border text-4xl mt-1 ${getIconBookSoal()}`}
-        />
       </div>
       {/* ModalReferensi */}
       {isModalReferensiVisible && (

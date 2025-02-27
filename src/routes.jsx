@@ -80,7 +80,7 @@ import BeritaTerbaru from "./pages/Settings/ProgressPage/DukungKamiPage/BeritaTe
 import RiwayatDana from "./pages/Settings/ProgressPage/DukungKamiPage/RiwayatDana";
 import PencairanDana from "./pages/Settings/ProgressPage/DukungKamiPage/PencairanDana";
 import PencairanDanaEmpat from "./pages/Settings/ProgressPage/DukungKamiPage/PencairanDanaPage/PencairanDanaEmpat";
-import CategoryId from "./pages/Category/CategoryId";
+// import CategoryId from "./pages/Category/CategoryId";
 import StatisticDetail from "./pages/Settings/ProgressPage/Statistik/StatisticDetail";
 import LevelDonatur from "./pages/Settings/ProgressPage/Statistik/LevelDonatur";
 import LevelDonaturSebelumnya from "./pages/Settings/ProgressPage/Statistik/LevelDonaturSebelumnya";
@@ -105,6 +105,12 @@ import PageTujuhKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/Pag
 import PageDelapanKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageDelapanKeimanan";
 import PageSembilanKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSembilanKeimanan";
 import PageSepuluhKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSepuluhKeimanan";
+import PapanPeringkatPrestasi from "./components/ModalTutorialPengguna/PapanPeringkatPrestasi";
+import PapanPeringkatNamaPrestasi from "./components/ModalTutorialPengguna/PapanPringkatNamaPrestasi";
+import PapanPeringkatDonatur from "./components/ModalTutorialDonatur/PapanPeringkatDonatur";
+import PapanPeringkatNamaDonatur from "./components/ModalTutorialDonatur/PapanPeringkatNamaDonatur"
+import Users from "./pages/Category/Users"
+import DifficultiesPageAdmin from "./pages/AdminPage/DifficultiesAdmin/DifficultiesPageAdmin";
 
 export const routes = [
   {
@@ -188,7 +194,7 @@ export const routes = [
     element: <PilihCategory />,
   },
   {
-    path: "/list-category-pemula",
+    path: "/category/:id",
     element: <ListCategoryPemula />,
   },
   {
@@ -429,10 +435,10 @@ export const routes = [
     path: "/dukung-kami/riwayat-dana/pencairan-dana-empat",
     element: <PencairanDanaEmpat />,
   },
-  {
-    path: "/category/:id",
-    element: <CategoryId />,
-  },
+  // {
+  //   path: "/category/:id",
+  //   element: <CategoryId />,
+  // },
   {
     path: "/progress-statistic/detail",
     element: <StatisticDetail />,
@@ -529,6 +535,30 @@ export const routes = [
   {
     path: "/page-sepuluh-keimanan",
     element: <PageSepuluhKeimanan />,
+  },
+  {
+    path: "/papan-peringkat-prestasi",
+    element: <PapanPeringkatPrestasi />,
+  },
+  {
+    path: "/papan-peringkat-nama-prestasi",
+    element: <PapanPeringkatNamaPrestasi />,
+  },
+  {
+    path: "/papan-peringkat-donatur",
+    element: <PapanPeringkatDonatur />,
+  },
+  {
+    path: "/papan-peringkat-nama-donatur",
+    element: <PapanPeringkatNamaDonatur />
+  },
+  {
+    path: "/users",
+    element: <Users />
+  },
+  {
+    path: "/difficulties-page-admin",
+    element: <DifficultiesPageAdmin />
   },
   {
     path: "*",

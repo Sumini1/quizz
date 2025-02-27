@@ -10,6 +10,8 @@ const SurveiSatu = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  
+
    // Set overflow:hidden hanya saat halaman ini aktif
     useEffect(() => {
       document.body.style.overflow = "hidden";

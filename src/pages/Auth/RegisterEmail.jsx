@@ -79,7 +79,7 @@ const RegisterEmail = () => {
       ).unwrap();
       navigate("/login");
     } catch (error) {
-      console.error("Register error:", error);
+      console.error("Register error");
     }
   };
 
