@@ -239,7 +239,7 @@ export const routes = [
     element: <ChooseThemeQuiz />,
   },
   {
-    path: "/appearance-kotak",
+    path: "/themes-or-levels/:id",
     element: <AppearanceKotak />,
   },
   {

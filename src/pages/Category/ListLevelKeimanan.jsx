@@ -48,7 +48,7 @@ const ListLevelKeimanan = () => {
             <div className="flex justify-between items-center">
               <h2
                 className="text-lg font-medium cursor-pointer"
-                onClick={() => navigate("/appearance-kotak")}
+                onClick={() => navigate(`/themes-or-levels/${item.id}`)}
               >
                 {item.name}
               </h2>

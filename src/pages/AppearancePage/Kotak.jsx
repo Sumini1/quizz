@@ -1,43 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "../../context/ThemeContext";
 import { PiNotebookBold } from "react-icons/pi";
 import { MdLibraryBooks } from "react-icons/md";
 import { FaTrophy } from "react-icons/fa";
-import { AiOutlineCheck } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ButtonMobileKotak from "../../components/Appearance/ButtonMobileKotak";
-import { HiOutlineArrowTrendingUp } from "react-icons/hi2";
 import ModalOverView from "../../components/Appearance/ModalOverView";
-
-
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchThemesOrLevelsById } from "../../reducer/themesOrLevelsSlice";
 import Wavify from "react-wavify";
 import ModalNomorSatu from "../../components/Appearance/ModalNomorSatu";
 import ModalEvaluasi from "../../components/Appearance/ModalEvaluasi";
-import { useLocation, useNavigate } from "react-router-dom";
 import { TbGiftCardFilled } from "react-icons/tb";
 import ModalBonus from "../../components/Appearance/ModalBonus";
 import ModalUjianAkhir from "../../components/Appearance/ModalUjianAkhir";
 
-
 const AppearanceKotak = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { id } = useParams();
   const { getIconColor, getBorder, getKotakStyle, theme } = useTheme();
   const [selectedKotak, setSelectedKotak] = useState(null);
-  const location = useLocation();
   const [activeModal, setActiveModal] = useState(
     location.state?.returnToModal || null
   );
+   const dispatch = useDispatch();
+   const {detail} = useSelector((state) => state.themesOrLevels);
+   const name = detail?.name || "Nama tidak tersedia";
+
+   useEffect(() => {
+    if (id) {
+      dispatch(fetchThemesOrLevelsById(id));
+    }
+   }, [dispatch, id])
   const getBorderKotak = () => {
-      return theme === "dark"
-        ? "border-[#333]"
-        : theme === "cupcake"
-        ? "border-[#4B4B4B]"
-        : theme === "bumblebee"
-        ? "border-yellow-500"
-        : theme === "lemonade"
-        ? "border-[#027A7D]"
-        : "border-[#0961F5]";
-  }
+    return theme === "dark"
+      ? "border-[#333]"
+      : theme === "cupcake"
+      ? "border-[#4B4B4B]"
+      : theme === "bumblebee"
+      ? "border-yellow-500"
+      : theme === "lemonade"
+      ? "border-[#027A7D]"
+      : "border-[#0961F5]";
+  };
   const closeModal = () => {
     setActiveModal(null); // Tutup modal
   };
@@ -57,7 +64,7 @@ const AppearanceKotak = () => {
         { id: 6, icon: 4, clicked: false },
         { id: 7, icon: 5, clicked: false },
         { id: 8, icon: <TbGiftCardFilled />, clicked: false },
-        { id: 9 , icon: <MdLibraryBooks />, clicked: false },
+        { id: 9, icon: <MdLibraryBooks />, clicked: false },
         { id: 10, icon: <FaTrophy />, clicked: false },
       ],
     },
@@ -118,49 +125,49 @@ const AppearanceKotak = () => {
     },
   ]);
 
- const handleKotakClick = (kotakId, index) => {
-  setKotak((prevKotak) =>
-    prevKotak.map((k) =>
-      k.id === kotakId
-        ? {
-            ...k,
-            value: k.value.map((v, i) =>
-              i === index ? { ...v, clicked: !v.clicked } : v // Toggle clicked state
-            ),
-          }
-        : k
-    )
-  );
+  const handleKotakClick = (kotakId, index) => {
+    setKotak((prevKotak) =>
+      prevKotak.map((k) =>
+        k.id === kotakId
+          ? {
+              ...k,
+              value: k.value.map(
+                (v, i) => (i === index ? { ...v, clicked: !v.clicked } : v) // Toggle clicked state
+              ),
+            }
+          : k
+      )
+    );
 
-  // Membuka modal hanya jika belum ada modal yang terbuka
-  if (!activeModal) {
-    if (kotakId === 1 && index === 0) {
-      setActiveModal("ModalOverView");
-    } else if (kotakId === 1 && index === 1) {
-      // Navigasi dengan React Router
-      navigate("/keterangan-artikel");
-      return;
-    } else if (kotakId === 1 && index === 2) {
-      setActiveModal("ModalNomorSatu");
-    } else if (kotakId === 1 && index === 4) {
-      setActiveModal("ModalNomorTiga");
-    } else if (kotakId === 1 && index === 7) {
-      setActiveModal("ModalBonus");
-    } else if (kotakId === 1 && index === 8) {
-      setActiveModal("ModalEvaluasi");
-    } else if (kotakId === 1 && index === 9) {
-      setActiveModal("ModalUjianAkhir");
-    } else {
-      setSelectedKotak(kotakId);
+    // Membuka modal hanya jika belum ada modal yang terbuka
+    if (!activeModal) {
+      if (kotakId === 1 && index === 0) {
+        setActiveModal("ModalOverView");
+      } else if (kotakId === 1 && index === 1) {
+        // Navigasi dengan React Router
+        navigate("/keterangan-artikel");
+        return;
+      } else if (kotakId === 1 && index === 2) {
+        setActiveModal("ModalNomorSatu");
+      } else if (kotakId === 1 && index === 4) {
+        setActiveModal("ModalNomorTiga");
+      } else if (kotakId === 1 && index === 7) {
+        setActiveModal("ModalBonus");
+      } else if (kotakId === 1 && index === 8) {
+        setActiveModal("ModalEvaluasi");
+      } else if (kotakId === 1 && index === 9) {
+        setActiveModal("ModalUjianAkhir");
+      } else {
+        setSelectedKotak(kotakId);
+      }
     }
-  }
-};
+  };
 
   return (
     <>
       <div className="justify-center p-4 min-h-screen">
         <h1 className="text-xl font-semibold p-3 -mt-2 mb-7 mx-auto flex flex-col">
-          Keimanan
+          {name}
         </h1>
         {kotak.map((k) => (
           <div
@@ -204,7 +211,7 @@ const AppearanceKotak = () => {
                       <span
                         className={`text-xl font-[400] ${getIconColor(
                           v.clicked
-                        )}`}  
+                        )}`}
                       >
                         {v.icon}
                       </span>

@@ -5,33 +5,48 @@ export const fetchCategoryDifficulties = createAsyncThunk(
   "categoryDifficulties/fetch",
   async (_, { rejectWithValue }) => {
     try {
+      const token = localStorage.getItem("accessToken");
+
+      if (!token) {
+        return rejectWithValue("Token tidak ditemukan, silakan login ulang.");
+      }
+
       const response = await fetch(
         "https://arabiya-syari-fiber-production.up.railway.app/api/difficulties",
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }
       );
 
+      // Cek apakah response sukses (200-299)
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text(); // Ambil teks error dari server
+        throw new Error(`HTTP error ${response.status}: ${errorText}`);
+      }
+
+      // Periksa apakah response memiliki isi sebelum parse JSON
+      const contentType = response.headers.get("Content-Type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Response bukan JSON yang valid.");
       }
 
       const data = await response.json();
 
       if (!Array.isArray(data)) {
-        throw new Error("Format data tidak valid");
+        throw new Error("Format data tidak valid, expected array.");
       }
 
       return data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.message || "Terjadi kesalahan.");
     }
   }
 );
+
 
 // get difficulties by ID
 export const fetchCategoryDifficultiesById = createAsyncThunk(

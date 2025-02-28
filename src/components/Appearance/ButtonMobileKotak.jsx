@@ -39,7 +39,7 @@ const ButtonMobileKotak = () => {
       // title: "Pembelajaran",
       link: "/pembelajaran",
     },
-    { id: 3, icon: <FaCirclePlay />, link: "/appearance-kotak" },
+    { id: 3, icon: <FaCirclePlay />, link: "/themes-or-levels/:id" },
     { id: 4, icon: <BsFillAwardFill />, link: "/papan-peringkat" },
     { id: 5, icon: <GiProgression />, link: "/progress" },
     {
