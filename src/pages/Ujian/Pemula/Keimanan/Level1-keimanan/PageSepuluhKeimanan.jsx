@@ -230,7 +230,7 @@ const PageSepuluhKeimanan = () => {
               </div>
             </div>
             <div className="flex gap-5 ">
-              <Link to={"/intro-test-dua"} className="w-full">
+              <Link to={"/final-scored"} className="w-full">
                 <button
                   className={`p-3 w-full rounded-xl mt-4 text-white ${
                     isAnswerCorrect ? "bg-green-500" : "bg-[#A74828]"

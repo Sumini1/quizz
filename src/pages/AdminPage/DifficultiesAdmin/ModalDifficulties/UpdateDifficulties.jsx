@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchUpdateCategoryDifficulties } from "../../../../reducer/categoryDifficultiesSlice";
+import { fetchUpdateDifficulties } from "../../../Features/Difficulties/Reducer/difficultiesSlice";
 
 const UpdateDifficulties = ({ isOpen, onClose, category }) => {
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ const UpdateDifficulties = ({ isOpen, onClose, category }) => {
 
     try {
       await dispatch(
-        fetchUpdateCategoryDifficulties({ id: category.id, ...formData })
+        fetchUpdateDifficulties({ id: category.id, ...formData })
       ).unwrap();
       setIsLoading(false);
       onClose(); // Close modal after update

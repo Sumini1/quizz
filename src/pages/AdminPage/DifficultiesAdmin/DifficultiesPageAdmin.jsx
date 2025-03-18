@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCategoryDifficulties } from "../../../reducer/categoryDifficultiesSlice";
-import CreateDofficultis from "./ModalDifficulties/CreateDofficultis";
+import { fetchDifficulties } from "../../Features/Difficulties/Reducer/difficultiesSlice";
+import CreateDifficultis from "./ModalDifficulties/CreateDifficulties";
 import UpdateDifficulties from "./ModalDifficulties/UpdateDifficulties";
-import {fetchDeleteCategoryDifficulties} from "../../../reducer/categoryDifficultiesSlice";
+import { fetchDeleteDifficulties } from "../../Features/Difficulties/Reducer/difficultiesSlice";
 import Swal from "sweetalert2";
-
 
 const DifficultiesPageAdmin = () => {
   const navigate = useNavigate();
@@ -26,9 +25,9 @@ const DifficultiesPageAdmin = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(fetchDeleteCategoryDifficulties(id)).then(() => {
+        dispatch(fetchDeleteDifficulties(id)).then(() => {
           Swal.fire("Deleted!", "Your file has been deleted.", "success");
-          dispatch(fetchCategoryDifficulties());
+          dispatch(fetchDifficulties());
         });
       }
     });
@@ -96,7 +95,7 @@ const DifficultiesPageAdmin = () => {
           Create
         </button>
         {isOpen && (
-          <CreateDofficultis isOpen={isOpen} onClose={handleModalClose} />
+          <CreateDifficultis isOpen={isOpen} onClose={handleModalClose} />
         )}
         <table className="min-w-full bg-white shadow-md rounded-lg">
           <thead>

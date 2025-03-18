@@ -7,7 +7,7 @@ import { FaList } from "react-icons/fa";
 import { useTheme } from "../../context/ThemeContext";
 import { MdOutlineError } from "react-icons/md";
 import { MdArrowForwardIos } from "react-icons/md";
-import ButtonMobileKotak from "../../components/Appearance/ButtonMobileKotak";
+import ButtonMobileKotak from "../Features/Units/Modal/ButtonMobileKotak";
 
 const JelajahiAplikasi = () => {
   const { getTextTitle, borderColor, theme, getIconColorAlert, getTextTitle1 } =
@@ -15,9 +15,6 @@ const JelajahiAplikasi = () => {
   const navigate = useNavigate();
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [activeTab, setActiveTab] = useState("Grid");
- 
-
-
 
   const tabs = [
     { label: "Grid", icon: <BsFillGrid3X3GapFill className="text-md" /> },

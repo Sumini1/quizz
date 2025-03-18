@@ -56,7 +56,7 @@ const ModalHumbergerMenu = ({ isOpen, onClose }) => {
     {
       id: 4,
       name: "Laporan Materi",
-      link: "#",
+      link: "laporan",
       icon: <BsFillTelephoneFill />,
       symbol: <MdKeyboardArrowRight />,
     },

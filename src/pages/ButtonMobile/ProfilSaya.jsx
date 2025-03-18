@@ -3,7 +3,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { useTheme } from "../../context/ThemeContext";
-import ButtonMobileKotak from "../../components/Appearance/ButtonMobileKotak";
+import ButtonMobileKotak from "../Features/Units/Modal/ButtonMobileKotak";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { CiEdit } from "react-icons/ci";
 
@@ -84,7 +84,11 @@ const ProfilSaya = () => {
 
   return (
     <div className="flex flex-col">
-      <div className={`flex flex-col bg-[#F7F7F7] ${visibility === "allow" ? "h-[200px]" : "h-[145px]"}`}>
+      <div
+        className={`flex flex-col bg-[#F7F7F7] ${
+          visibility === "allow" ? "h-[200px]" : "h-[145px]"
+        }`}
+      >
         <div className="flex gap-2 items-center p-5">
           <FaArrowLeft
             onClick={() => navigate(-1)}
@@ -110,10 +114,9 @@ const ProfilSaya = () => {
           </div>
           <p className="text-sm font-medium">Bergabung pada 3 November 2025</p>
           {/* Medali */}
-        
-           {
-            visibility === "allow" && (
-               <div className="flex gap-5 items-center mt-4">
+
+          {visibility === "allow" && (
+            <div className="flex gap-5 items-center mt-4">
               <div className="flex gap-2">
                 <img src="/medali1.png" alt="" />
                 <img src="/medali2.png" alt="" />
@@ -122,10 +125,8 @@ const ProfilSaya = () => {
               <p className="text-sm font-normal underline">
                 Lencana selengkapnya
               </p>
-            </div> 
-            )
-           }
-        
+            </div>
+          )}
         </div>
         {/* Penghargaan */}
         <div className="flex flex-col mt-5 p-5">

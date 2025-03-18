@@ -5,14 +5,13 @@ import { MdTimer } from "react-icons/md";
 import { IoDiamond, IoColorPaletteSharp } from "react-icons/io5";
 import { GrStarOutline } from "react-icons/gr";
 import { FaArrowRightLong } from "react-icons/fa6";
-import ButtonMobileKotak from "../../components/Appearance/ButtonMobileKotak";
-import ModalArticle from "../../components/Appearance/KeteranganArtikel";
+import ButtonMobileKotak from "../Features/Units/Modal/ButtonMobileKotak";
+import ModalArticle from "../Features/Units/Components/Readings";
 
 const Pembelajaran = () => {
   const { getButtonClass, getLatarBeranda, getBorderColor, getIconTheme } =
     useTheme();
 
-    
   const category = [
     {
       id: 1,

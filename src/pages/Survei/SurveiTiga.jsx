@@ -29,7 +29,7 @@ const SurveiTiga = () => {
 
   const handleSurvey = () => {
     setIsModalOpen(false);
-    navigate("/test-ilmu-islam");
+    navigate("/list-levels");
   };
   const handleOpenModal = () => {
     setIsModalOpen(true);

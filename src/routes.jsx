@@ -5,7 +5,6 @@ import SurveiDua from "./pages/Survei/SurverDua";
 import SurveiTiga from "./pages/Survei/SurveiTiga";
 import PageSatu from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSatu";
 import PageDua from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageDua";
-import PilihCategory from "./pages/Category/PilihCategory";
 import PageTiga from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageTiga";
 import PageEmpat from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageEmpat";
 import PageLima from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageLima";
@@ -17,39 +16,32 @@ import PageSembilan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSemb
 import PageSepuluh from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSepuluh";
 import Screen2 from "./pages/onBoarding/Screen2";
 import Screen3 from "./pages/onBoarding/Screen3";
-import LoginRegister from "./pages/Auth/LoginRegister";
-import Login from "./pages/Auth/Login";
-import Register from "./pages/Auth/Register";
-import RegisterEmail from "./pages/Auth/RegisterEmail";
-import RegisterGmail from "./pages/Auth/RegisterGmail";
-import ForgotPassword from "./pages/Auth/ForgotPassword";
-import VerifikasiEmail from "./pages/Auth/VerifikasiEmail";
-import NewPassword from "./pages/Auth/NewPassword";
-import TestIlmuIslam from "./pages/Test/TestIlmuIslam";
-import IntroTestDua from "./pages/Test/IntroTestDua";
-import ListCategoryPemula from "./pages/Category/ListCategoryPemula";
-import ListLevelKeimanan from "./pages/Category/ListLevelKeimanan";
+import { authRoutes } from "./pages/Features/Auth/routes";
+import ListLevels from "./pages/Test/ListLevels";
+import FinalScored from "./pages/Test/FinalScored";
+import { listCategoriesRoutes } from "./pages/Features/ListCategories/routes";
+// import ListLevelKeimanan from "./pages/Category/ListLevelKeimanan";
 import ChooseThemeQuiz from "./pages/Category/ChooseThemeQuiz";
-import AppearanceKotak from "./pages/AppearancePage/Kotak";
+// import AppearanceKotak from "./pages/Features/Units/Components/AppearanceKotak";
 import Settings from "./pages/ButtonMobile/Settings";
-import Profil from "./pages/Settings/Profil";
+import Profil from "./pages/Settings/SettingsPage/Profil";
 import Beranda from "./pages/ButtonMobile/Beranda";
 import Pembelajaran from "./pages/ButtonMobile/Pembelajaran";
 import Progress from "./pages/ButtonMobile/Progress";
-import Accordion from "./pages/Test/Accordion";
+import UlasanSoal from "./pages/Test/UlasanSoal";
 import AccordionTingkatBelajar from "./components/ModalAccordion/AccordionTingkatBelajar";
 import AccordionDasarIslam from "./components/ModalAccordion/AccordionDasarIslam";
-import DonaturPage from "./components/Appearance/DonaturPage";
-import Notifikasi from "./pages/Settings/Notifikasi";
-import SaranMasukan from "./pages/Settings/SaranMasukan";
-import Sertifikat from "./pages/Settings/Sertifikat";
+import DonaturPage from "./pages/Features/Units/Modal/DonaturPage";
+import Notifikasi from "./pages/Settings/SettingsPage/Notifikasi";
+import SaranMasukan from "./pages/Settings/SettingsPage/SaranMasukan";
+import Sertifikat from "./pages/Settings/SettingsPage/Sertifikat";
 import Pengingat from "./pages/Settings/NotifElement/Pengingat";
 import SertifikatDasarIslam from "./pages/Settings/SertifikatCategory/SertifikatDasarIslam";
 import KumpulanUjianDasarIslam from "./pages/Settings/SertifikatCategory/KumpulanUjianDasarIslam";
-import TanyaJawab from "./pages/Settings/TanyaJawab";
-import Tampilan from "./pages/Settings/Tampilan";
+import TanyaJawab from "./pages/Settings/SettingsPage/TanyaJawab";
+import Tampilan from "./pages/Settings/SettingsPage/Tampilan";
 import Kontributor from "./pages/Settings/Kontribusi/Kontributor";
-import ProfilPengguna from "./pages/Settings/ProfilPengguna";
+import ProfilPengguna from "./pages/Settings/SettingsPage/ProfilPengguna";
 import RiwayatDonasi from "./pages/Settings/ProfilKontributor/RiwayatDonasi";
 import Pangkat from "./pages/Settings/ProgressPage/Penghargaan/Pangkat";
 import PangkatSebelumnya from "./pages/Settings/ProgressPage/Penghargaan/PangkatSebelumnya";
@@ -61,7 +53,7 @@ import HadiahPencapaian from "./pages/Settings/ProgressPage/HadiahPencapaianPage
 import Warna from "./pages/Settings/ProgressPage/TampilanPage/Warna";
 import KhususDonatur from "./pages/Settings/ProgressPage/TampilanPage/KhususDonatur";
 import Arsip from "./pages/PembelajaranPage/Arsip";
-import KeteranganArtikel from "./components/Appearance/KeteranganArtikel";
+// import KeteranganArtikel from "./pages/Features/Units/Components/Readings";
 import LaporanDukungan from "./pages/BerandaPage/LaporanDukungan";
 import SedangDipelajari from "./pages/BerandaPage/SedangDipelajari";
 import MateriTerbaru from "./pages/BerandaPage/MateriTerbaru";
@@ -69,7 +61,7 @@ import DasarIslamKeimanan from "./pages/BerandaPage/MateriTerbaruPage/DasarIslam
 import JelajahiAplikasi from "./pages/BerandaPage/JelajahiAplikasi";
 import AiChatBox from "./pages/BerandaPage/AiChatBox";
 import LaporanDukunganMaret from "./pages/BerandaPage/LaporanDukunganPerBulan";
-import DukungKami from "./pages/Settings/DukungKami";
+import DukungKami from "./pages/Settings/SettingsPage/DukungKami";
 import Informasi from "./pages/Settings/ProgressPage/DukungKamiPage/Informasi";
 import Donatur from "./pages/Settings/ProgressPage/DukungKamiPage/Donatur";
 import LatarBelakang from "./pages/Settings/ProgressPage/DukungKamiPage/LatarBelakang";
@@ -90,10 +82,10 @@ import ProfilSaya from "./pages/ButtonMobile/ProfilSaya";
 import PapanPeringkat from "./pages/ButtonMobile/PapanPeringkat";
 import Tooltips from "./pages/Category/Tooltips";
 import DonasiPembayaran from "./pages/Settings/ProgressPage/Statistik/DonasiPembayaran";
-import DataDiriLanjutan from "./pages/Test/DataDiriLanjutan";
-import SertifikatKelulusan from "./pages/Test/SertifikatKelulusan";
-import TranskipNilai from "./pages/Test/TranskipNilai";
-import TranskipNilaiLanjutan from "./pages/Test/TranskipNilaiLanjutan";
+import DataDiriLanjutan from "./pages/Certificate/DataDiriLanjutan";
+import SertifikatKelulusan from "./pages/Certificate/SertifikatKelulusan";
+import TranskipNilai from "./pages/Certificate/TranskipNilai";
+import TranskipNilaiLanjutan from "./pages/Certificate/TranskipNilaiLanjutan";
 import PageSebelas from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSebelas";
 import PageSatuKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSatuKeimanan";
 import PageDuaKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageDuaKeimanan";
@@ -108,9 +100,14 @@ import PageSepuluhKeimanan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/P
 import PapanPeringkatPrestasi from "./components/ModalTutorialPengguna/PapanPeringkatPrestasi";
 import PapanPeringkatNamaPrestasi from "./components/ModalTutorialPengguna/PapanPringkatNamaPrestasi";
 import PapanPeringkatDonatur from "./components/ModalTutorialDonatur/PapanPeringkatDonatur";
-import PapanPeringkatNamaDonatur from "./components/ModalTutorialDonatur/PapanPeringkatNamaDonatur"
-import Users from "./pages/Category/Users"
+import PapanPeringkatNamaDonatur from "./components/ModalTutorialDonatur/PapanPeringkatNamaDonatur";
+import Users from "./pages/Category/Users";
 import DifficultiesPageAdmin from "./pages/AdminPage/DifficultiesAdmin/DifficultiesPageAdmin";
+import PageSatuSirrah from "./pages/Ujian/Pemula/SirrahNabawiyyah/PageSatuSirrah";
+import LaporanMateri from "./pages/Settings/ModalSettingsPage/LaporanMateri";
+import { difficultiesRoutes } from "./pages/Features/Difficulties/routes";
+import { themesOrLevelsRoutes } from "./pages/Features/ThemesOrLevels/routes";
+import { unitsRoutes } from "./pages/Features/Units/routes";
 
 export const routes = [
   {
@@ -125,38 +122,8 @@ export const routes = [
     path: "/screen3",
     element: <Screen3 />,
   },
-  {
-    path: "/login-register",
-    element: <LoginRegister />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/register-email",
-    element: <RegisterEmail />,
-  },
-  {
-    path: "/register-gmail",
-    element: <RegisterGmail />,
-  },
-  {
-    path: "/forgot-password",
-    element: <ForgotPassword />,
-  },
-  {
-    path: "/verifikasi-email",
-    element: <VerifikasiEmail />,
-  },
-  {
-    path: "/new-password",
-    element: <NewPassword />,
-  },
+  ...difficultiesRoutes,
+  ...unitsRoutes,
   {
     path: "/survei",
     element: <SurveiSatu />,
@@ -174,12 +141,12 @@ export const routes = [
     element: <SurveiTiga />,
   },
   {
-    path: "/test-ilmu-islam",
-    element: <TestIlmuIslam />,
+    path: "/list-levels",
+    element: <ListLevels />,
   },
   {
-    path: "/intro-test-dua",
-    element: <IntroTestDua />,
+    path: "/final-scored",
+    element: <FinalScored />,
   },
   {
     path: "/page-satu",
@@ -189,18 +156,10 @@ export const routes = [
     path: "/page-dua",
     element: <PageDua />,
   },
-  {
-    path: "/pilih-category",
-    element: <PilihCategory />,
-  },
-  {
-    path: "/category/:id",
-    element: <ListCategoryPemula />,
-  },
-  {
-    path: "/list-level-keimanan",
-    element: <ListLevelKeimanan />,
-  },
+  // {
+  //   path: "/list-level-keimanan",
+  //   element: <ListLevelKeimanan />,
+  // },
 
   {
     path: "/page-tiga",
@@ -238,10 +197,10 @@ export const routes = [
     path: "/choose-theme-quiz",
     element: <ChooseThemeQuiz />,
   },
-  {
-    path: "/themes-or-levels/:id",
-    element: <AppearanceKotak />,
-  },
+  // {
+  //   path: "/themes-or-levels/:id",
+  //   element: <AppearanceKotak />,
+  // },
   {
     path: "/settings",
     element: <Settings />,
@@ -263,8 +222,8 @@ export const routes = [
     element: <Progress />,
   },
   {
-    path: "/accordion",
-    element: <Accordion />,
+    path: "/ulasan-soal",
+    element: <UlasanSoal />,
   },
   {
     path: "/accordion-tingkat-belajar",
@@ -358,10 +317,10 @@ export const routes = [
     path: "/arsip",
     element: <Arsip />,
   },
-  {
-    path: "/keterangan-artikel",
-    element: <KeteranganArtikel />,
-  },
+  // {
+  //   path: "/keterangan-artikel/:id",
+  //   element: <KeteranganArtikel />,
+  // },
   {
     path: "/laporan-dukungan",
     element: <LaporanDukungan />,
@@ -393,6 +352,10 @@ export const routes = [
   {
     path: "/dukung-kami",
     element: <DukungKami />,
+  },
+  {
+    path: "/laporan",
+    element: <LaporanMateri />,
   },
   {
     path: "/dukung-kami/informasi",
@@ -550,24 +513,33 @@ export const routes = [
   },
   {
     path: "/papan-peringkat-nama-donatur",
-    element: <PapanPeringkatNamaDonatur />
+    element: <PapanPeringkatNamaDonatur />,
   },
   {
     path: "/users",
-    element: <Users />
+    element: <Users />,
   },
   {
     path: "/difficulties-page-admin",
-    element: <DifficultiesPageAdmin />
+    element: <DifficultiesPageAdmin />,
   },
+  {
+    path: "/page-satu-sirrah",
+    element: <PageSatuSirrah />,
+  },
+
   {
     path: "*",
     element: <ErrorPage />,
   },
+
   {
     path: "/kumpulan-ujian-dasar-islam",
     element: <KumpulanUjianDasarIslam />,
   },
+  ...authRoutes,
+  ...listCategoriesRoutes,
+  ...themesOrLevelsRoutes,
 ];
 
 export default routes;

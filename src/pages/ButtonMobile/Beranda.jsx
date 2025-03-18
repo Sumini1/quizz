@@ -2,12 +2,12 @@ import React from "react";
 import { FaFileArchive } from "react-icons/fa";
 import { FaCircleUser } from "react-icons/fa6";
 import { useTheme } from "../../context/ThemeContext";
-import ButtonMobileKotak from "../../components/Appearance/ButtonMobileKotak";
+import ButtonMobileKotak from "../Features/Units/Modal/ButtonMobileKotak";
 import { MdOutlineError } from "react-icons/md";
 import { MdAccessTimeFilled } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 const Beranda = () => {
-  const navigate = useNavigate();   
+  const navigate = useNavigate();
   const kotak = [
     {
       id: 1,
@@ -274,7 +274,6 @@ const Beranda = () => {
             <div className="h-2 w-4/5 bg-[#EEEEEE] rounded-r-xl p-2"></div>
           </div>
         </div>
-        
 
         {/* Bagian Kotak-kotak */}
         <div className="flex flex-col gap-4 px-4   mb-5 ">
@@ -412,9 +411,7 @@ const Beranda = () => {
           </div>
         </div>
         {/* Sticky Button */}
-        <div className="sticky bottom-0 w-full h-full">
-          <ButtonMobileKotak className="p-0 m-0  text-white flex justify-center items-center h-12" />
-        </div>
+        <ButtonMobileKotak className="sticky bottom-0 w-full" />
       </div>
     </>
   );

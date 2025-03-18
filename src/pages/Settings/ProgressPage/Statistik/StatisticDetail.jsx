@@ -4,7 +4,7 @@ import { FaStarOfDavid, FaAward, FaCirclePlus } from "react-icons/fa6";
 import { AiTwotoneTags } from "react-icons/ai";
 import { IoDiamond, IoColorPaletteSharp } from "react-icons/io5";
 import { useTheme } from "../../../../context/ThemeContext";
-import ButtonMobileKotak from "../../../../components/Appearance/ButtonMobileKotak";
+import ButtonMobileKotak from "../../../Features/Units/Modal/ButtonMobileKotak";
 import { FaArrowRightLong } from "react-icons/fa6";
 import ModalMidnight from "../../../../components/ModalProgress/ModalMidnight";
 import ModalSkyBlue from "../../../../components/ModalProgress/ModalSkyBlue"; // Impor modal khusus SkyBlue
@@ -22,7 +22,6 @@ const StatisticDetail = () => {
   } = useTheme();
   const [activeModal, setActiveModal] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState(null);
-
 
   const closeModal = () => {
     setActiveModal(false);
@@ -107,50 +106,50 @@ const StatisticDetail = () => {
     },
   ];
 
-const analisis = [
-  {
-    id: 1,
-    progress: 100,
-    link: "/progress-analisis",
-    position: "Pembelajaran Tuntas",
-    icon: <img src="/Books.png" alt="" srcset="" />,
-  },
-  {
-    id: 2,
-    progress: "100%",
-    link: "/progress-analisis",
-    position: "Total hari belajar",
-    icon: <img src="/Calendar.png" alt="" srcset="" />,
-  },
-  {
-    id: 3,
-    progress: 100,
-    link: "/progress-analisis",
-    position: "Durasi belajar",
-    icon: <img src="/timbangan.png" alt="" srcset="" />,
-  },
-  {
-    id: 4,
-    progress: 100,
-    link: "/progress-analisis",
-    position: "Soal terjawab",
-    icon: <img src="/question.png" alt="" srcset="" />,
-  },
-  {
-    id: 5,
-    progress: 100,
-    link: "/progress-analisis",
-    position: "Jawaban benar",
-    icon: <img src="/Done.png" alt="" srcset="" />,
-  },
-  {
-    id: 6,
-    progress: 100,
-    link: "/progress-analisis",
-    position: "Artikel dibaca",
-    icon: <img src="/Books.png" alt="" srcset="" />,
-  },
-];
+  const analisis = [
+    {
+      id: 1,
+      progress: 100,
+      link: "/progress-analisis",
+      position: "Pembelajaran Tuntas",
+      icon: <img src="/Books.png" alt="" srcset="" />,
+    },
+    {
+      id: 2,
+      progress: "100%",
+      link: "/progress-analisis",
+      position: "Total hari belajar",
+      icon: <img src="/Calendar.png" alt="" srcset="" />,
+    },
+    {
+      id: 3,
+      progress: 100,
+      link: "/progress-analisis",
+      position: "Durasi belajar",
+      icon: <img src="/timbangan.png" alt="" srcset="" />,
+    },
+    {
+      id: 4,
+      progress: 100,
+      link: "/progress-analisis",
+      position: "Soal terjawab",
+      icon: <img src="/question.png" alt="" srcset="" />,
+    },
+    {
+      id: 5,
+      progress: 100,
+      link: "/progress-analisis",
+      position: "Jawaban benar",
+      icon: <img src="/Done.png" alt="" srcset="" />,
+    },
+    {
+      id: 6,
+      progress: 100,
+      link: "/progress-analisis",
+      position: "Artikel dibaca",
+      icon: <img src="/Books.png" alt="" srcset="" />,
+    },
+  ];
 
   return (
     <>
@@ -161,31 +160,31 @@ const analisis = [
         <div className="flex flex-col mt-5">
           <h2 className="text-lg font-[500] ">Penghargaan</h2>
           <div className="grid grid-cols-2 gap-2 mt-2">
-             {penghargaan.map((item) => (
-                         <Link to={item.link} key={item.id}>
-                           <div
-                             className={`flex flex-col w-full border-[3px] p-2 rounded-xl ${
-                               Number(item.id) === 1
-                                 ? "border-[#0961F5] bg-[#DCE6F8]"
-                                 : Number(item.id) === 2
-                                 ? "border-[#E4C726] bg-[#FFFEF1]"
-                                 : "border-[#DCE6F8] bg-white"
-                             } ${theme === "dark" && "bg-gray-800 text-white"} ${
-                               theme === "lemonade" && "border-gray-400"
-                             }`}
-                           >
-                             <div className="flex items-center gap-x-1">
-                               <div
-                                 className={`text-2xl w-6 h-6 flex ${getThemeLoveClass()}`}
-                               >
-                                 {item.icon}
-                               </div>
-                               <p className="text-center text-sm">{item.name}</p>
-                             </div>
-                             <p className="mt-3 text-xs font-[500] ">{item.level}</p>
-                           </div>
-                         </Link>
-                       ))}
+            {penghargaan.map((item) => (
+              <Link to={item.link} key={item.id}>
+                <div
+                  className={`flex flex-col w-full border-[3px] p-2 rounded-xl ${
+                    Number(item.id) === 1
+                      ? "border-[#0961F5] bg-[#DCE6F8]"
+                      : Number(item.id) === 2
+                      ? "border-[#E4C726] bg-[#FFFEF1]"
+                      : "border-[#DCE6F8] bg-white"
+                  } ${theme === "dark" && "bg-gray-800 text-white"} ${
+                    theme === "lemonade" && "border-gray-400"
+                  }`}
+                >
+                  <div className="flex items-center gap-x-1">
+                    <div
+                      className={`text-2xl w-6 h-6 flex ${getThemeLoveClass()}`}
+                    >
+                      {item.icon}
+                    </div>
+                    <p className="text-center text-sm">{item.name}</p>
+                  </div>
+                  <p className="mt-3 text-xs font-[500] ">{item.level}</p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
 

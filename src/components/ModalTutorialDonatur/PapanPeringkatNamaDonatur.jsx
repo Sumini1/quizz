@@ -4,7 +4,7 @@ import { AiOutlineGift } from "react-icons/ai";
 import { useTheme } from "../../context/ThemeContext";
 import TabelPekanIni from "../../pages/PapanPeringkatPage/TabelPekanIni";
 import TabelPekanIniDonatur from "../../pages/PapanPeringkatPage/TabelPekanIniDonatur";
-import ButtonMobileKotak from "../../components/Appearance/ButtonMobileKotak";
+import ButtonMobileKotak from "../../pages/Features/Units/Modal/ButtonMobileKotak";
 import { useSelector, useDispatch } from "react-redux";
 import TutorialNamaDonatur from "./TutorialNamaDonatur";
 

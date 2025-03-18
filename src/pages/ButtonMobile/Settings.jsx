@@ -1,5 +1,5 @@
 import React from "react";
-import { Link , useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaUserAlt, FaAffiliatetheme } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { MdNotificationsActive, MdEmail } from "react-icons/md";
@@ -7,18 +7,34 @@ import { BiSolidDonateHeart } from "react-icons/bi";
 import { FaUsers, FaPersonCircleQuestion } from "react-icons/fa6";
 import { TbWorldWww } from "react-icons/tb";
 import { AiFillSafetyCertificate } from "react-icons/ai";
-import ButtonMobileKotak from "../../components/Appearance/ButtonMobileKotak";
+import ButtonMobileKotak from "../Features/Units/Modal/ButtonMobileKotak";
 import { useTheme } from "../../context/ThemeContext";
 import { TbLogout } from "react-icons/tb";
 import { PiCertificateFill } from "react-icons/pi";
 import { IoColorPalette } from "react-icons/io5";
-
-
-
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLogout } from "../Features/Auth/Reducer/loginSlice";
 
 const Settings = () => {
-    const navigate = useNavigate();   
-    const { theme } = useTheme();
+  const navigate = useNavigate();
+  const { theme } = useTheme();
+  const dispatch = useDispatch();
+  const handleLogout = async () => {
+    try {
+      // Panggil thunk untuk logout
+      await dispatch(fetchLogout()).unwrap();
+      // Redirect ke halaman login setelah logout berhasil
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed:", error);
+      // Tampilkan pesan error jika diperlukan
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Terjadi kesalahan saat logout.",
+      });
+    }
+  };
   const listSettings = [
     {
       id: 1,
@@ -128,7 +144,7 @@ const Settings = () => {
       id: 1,
       name: "Keluar",
       icon: <TbLogout />,
-      link: "/keluar",
+      link: "/",
       symbol: <RiArrowRightSLine />,
     },
   ];
@@ -194,12 +210,13 @@ const Settings = () => {
           </div>
         </div>
 
-        <div className={`p-2 selection:${getThemeClass()}`}>
+        <div className={`p-2 ${getThemeClass()}`}>
           {keluar.map((item) => (
             <Link
               to={item.link}
               key={item.id}
-              className="flex items-center justify-between gap-4 p-1 py-3"
+              onClick={handleLogout}
+              className="flex items-center justify-between gap-4 p-1 py-1"
             >
               <div className="flex items-center gap-4">
                 <span className="text-xl">{item.icon}</span>

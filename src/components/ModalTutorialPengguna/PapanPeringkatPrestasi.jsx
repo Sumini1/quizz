@@ -4,18 +4,16 @@ import { AiOutlineGift } from "react-icons/ai";
 import { useTheme } from "../../context/ThemeContext";
 import TabelPekanIni from "../../pages/PapanPeringkatPage/TabelPekanIni";
 import TabelPekanIniDonatur from "../../pages/PapanPeringkatPage/TabelPekanIniDonatur";
-import ButtonMobileKotak from "../../components/Appearance/ButtonMobileKotak";
+import ButtonMobileKotak from "../../pages/Features/Units/Modal/ButtonMobileKotak";
 import { useSelector, useDispatch } from "react-redux";
 import TutorialPrestasi from "./TutorialPrestasi";
-
 
 const PapanPeringkatPrestasi = () => {
   const { getBorderColor, getButtonClass, getBorder } = useTheme();
   const [activeTab, setActiveTab] = useState("prestasi");
   const [activeTab2, setActiveTab2] = useState(1);
-  const [activeTab3, setActiveTab3] = useState(1); // 
+  const [activeTab3, setActiveTab3] = useState(1); //
   const isOpen = useSelector((state) => state.modal.isOpen);
-
 
   const tabs = [
     { id: "prestasi", icon: <FaGifts className="w-[20px] h-[20px]" /> },
@@ -37,14 +35,14 @@ const PapanPeringkatPrestasi = () => {
 
   return (
     <div className="flex flex-col">
-        {isOpen && <TutorialPrestasi />}
+      {isOpen && <TutorialPrestasi />}
       {/* Header */}
       <div className="flex p-5 items-center gap-2">
         <FaArrowLeft />
         <h1 className="font-semibold text-xl tracking-wide">Papan Peringkat</h1>
       </div>
 
-    {/* Tabs */}
+      {/* Tabs */}
       <div className="flex flex-col px-5">
         <div
           className={`flex gap-3 text-sm font-normal justify-between ${getBorder()}`}
