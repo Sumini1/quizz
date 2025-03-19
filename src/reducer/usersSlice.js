@@ -74,7 +74,14 @@ const usersSlice = createSlice({
     data: [],
     detail: null,
   },
-  reducers: {},
+  reducers: {
+    setUser: (state, action) => {
+      state.user = action.payload; // Mengatur pengguna
+    },
+    clearUser: (state) => {
+      state.user = null; // Menghapus pengguna
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUsers.pending, (state) => {
@@ -103,4 +110,5 @@ const usersSlice = createSlice({
   },
 });
 
+export const { setUser, clearUser } = usersSlice.actions;
 export default usersSlice.reducer;

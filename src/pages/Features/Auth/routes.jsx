@@ -5,7 +5,6 @@ import LoginRegister from "./Components/LoginRegister";
 import NewPassword from "./Components/NewPassword";
 import PertanyaanKeamanan from "./Components/PertanyaanKeamanan";
 import RegisterEmail from "./Components/RegisterEmail";
-import RegisterGmail from "./Components/RegisterGmail";
 import SecurityQuestion from "./Components/SecurityQuestion";
 
 export const authRoutes = [
@@ -37,10 +36,8 @@ export const authRoutes = [
         path: "/register-email",
         element: <RegisterEmail />,
     },
-    {
-        path: "/register-gmail",
-        element: <RegisterGmail />,
-    },
+  
+
     {
         path: "/security-question",
         element: <SecurityQuestion />,

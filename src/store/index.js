@@ -14,6 +14,7 @@ import readingsReducer from "../reducer/readingsSlice";
 import quizzesReducer from "../pages/Features/Units/Reducer/quizzesSlice";
 import quizQuestionsReducer from "../pages/Features/Units/Reducer/quizQuestionsSlice";
 import forgotPasswordReducer from "../pages/Features/Auth/Reducer/forgotPasswordSlice";
+import googleReducer from "../pages/Features/Auth/Reducer/googleSlice";
 
 const store = configureStore({
   reducer: {
@@ -32,6 +33,7 @@ const store = configureStore({
     quizzes: quizzesReducer,
     quizQuestions: quizQuestionsReducer,
     forgotPassword: forgotPasswordReducer,
+    google: googleReducer,
   },
 });
 

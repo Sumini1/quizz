@@ -39,16 +39,15 @@ const Register = () => {
             <button
               className={`p-3 w-full rounded-xl border-none ${getButtonClass()}`}
             >
-              Daftar dengan email
+              Daftar dengan Email
             </button>
           </Link>
-          <Link to="/register-gmail">
-            <button
-              className={`p-3 w-full rounded-xl border-none ${getBorderClass()}`}
-            >
-              daftar dengan google
-            </button>
-          </Link>
+
+          <button
+            className={`p-3 w-full rounded-xl border-none ${getBorderClass()}`}
+          >
+            Daftar dengan Google
+          </button>
         </div>
       </div>
     </div>
