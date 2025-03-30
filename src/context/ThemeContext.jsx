@@ -18,6 +18,7 @@ export const ThemeProvider = ({ children }) => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("sb-react-daisyui-preview-theme", theme);
   }, [theme]);
+  
 
   // Fungsi untuk menentukan border berdasarkan tema
   const getBorder = () => {
@@ -411,10 +412,22 @@ export const ThemeProvider = ({ children }) => {
       ? "bg-green-500 text-white"
       : "bg-blue-600 text-[#FFF]  ";
   };
+
+  const middleTheme  = () => {
+    return theme === "dark"
+      ? "bg-[#c0cee8]"
+      : theme === "cupcake"
+      ? "bg-[#FFCEFC] "
+      : theme === "bumblebee"
+      ? "bg-yellow-300 text-black"
+      : theme === "lemonade"
+      ? "bg-[#A7B968] text-white"
+      : "bg-[#c0cee8]";
+  }
   return (
     <ThemeContext.Provider
       value={{
-        theme,
+        theme ,
         setTheme,
         getBorder,
         getDotClass,
@@ -443,7 +456,8 @@ export const ThemeProvider = ({ children }) => {
         getThemeLatar,
         getTextSoal,
         getThemeTooltif,
-        getThemeClassPage
+        getThemeClassPage,
+        middleTheme
       }}
     >
       {children}

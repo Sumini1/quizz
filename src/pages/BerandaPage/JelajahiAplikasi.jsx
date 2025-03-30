@@ -7,7 +7,7 @@ import { FaList } from "react-icons/fa";
 import { useTheme } from "../../context/ThemeContext";
 import { MdOutlineError } from "react-icons/md";
 import { MdArrowForwardIos } from "react-icons/md";
-import ButtonMobileKotak from "../Features/Units/Modal/ButtonMobileKotak";
+import ButtonMobileKotak from "../../components/ListButton/ButtonMobileKotak";
 
 const JelajahiAplikasi = () => {
   const { getTextTitle, borderColor, theme, getIconColorAlert, getTextTitle1 } =

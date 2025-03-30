@@ -3,18 +3,21 @@ import { configureStore } from "@reduxjs/toolkit";
 // import categoryIdReducer from "../reducer/categoryIdSlice";
 import tooltipsReducer from "../reducer/tooltipsSlice";
 import modalReducer from "../reducer/modalSlice";
-import registerReducer from "../pages/Features/Auth/Reducer/registerSlice";
-import loginReducer from "../pages/Features/Auth/Reducer/loginSlice";
-import difficultiesReducer from "../pages/Features/Difficulties/Reducer/difficultiesSlice";
+import registerReducer from "../Features/Auth/Reducer/registerSlice";
+import loginReducer from "../Features/Auth/Reducer/loginSlice";
+import difficultiesReducer from "../Features/Difficulties/Reducer/difficultiesSlice";
 import usersReducer from "../reducer/usersSlice";
-import listCategoriesReducer from "../pages/Features/ListCategories/Reducer/listCategories";
-import themesOrLevelsReducer from "../pages/Features/ThemesOrLevels/Reducer/themesOrLevelsSlice";
-import unitsReducer from "../pages/Features/Units/Reducer/unitsSlice";
-import readingsReducer from "../reducer/readingsSlice";
-import quizzesReducer from "../pages/Features/Units/Reducer/quizzesSlice";
-import quizQuestionsReducer from "../pages/Features/Units/Reducer/quizQuestionsSlice";
-import forgotPasswordReducer from "../pages/Features/Auth/Reducer/forgotPasswordSlice";
-import googleReducer from "../pages/Features/Auth/Reducer/googleSlice";
+import listCategoriesReducer from "../Features/ListCategories/Reducer/listCategories";
+import themesOrLevelsReducer from "../Features/ThemesOrLevels/Reducer/themesOrLevelsSlice";
+import unitsReducer from "../Features/Units/Reducer/unitsSlice";
+import readingsReducer from "../Features/Units/Reducer/readingsSlice";
+import quizzesReducer from "../Features/Units/Reducer/quizzesSlice";
+import quizQuestionsReducer from "../Features/Units/Reducer/quizQuestionsSlice";
+import forgotPasswordReducer from "../Features/Auth/Reducer/forgotPasswordSlice";
+// import googleReducer from "../pages/Features/Auth/Reducer/googleSlice";
+import evaluationsReducer from "../Features/Units/Reducer/evaluationsSlice";
+import userQuizzesReducer from "../Features/QuizQuestions/Pemula/SirrahNabawiyyah/User/Reducer/userQuizzesSlice";
+import saveUserQuizProgressReducer from "../Features/QuizQuestions/Pemula/SirrahNabawiyyah/User/Reducer/userQuizzesSave";
 
 const store = configureStore({
   reducer: {
@@ -33,7 +36,10 @@ const store = configureStore({
     quizzes: quizzesReducer,
     quizQuestions: quizQuestionsReducer,
     forgotPassword: forgotPasswordReducer,
-    google: googleReducer,
+    // google: googleReducer,
+    evaluations: evaluationsReducer,
+    userQuizzes: userQuizzesReducer,
+    saveUserQuizProgress: saveUserQuizProgressReducer,
   },
 });
 

@@ -7,13 +7,13 @@ import { BiSolidDonateHeart } from "react-icons/bi";
 import { FaUsers, FaPersonCircleQuestion } from "react-icons/fa6";
 import { TbWorldWww } from "react-icons/tb";
 import { AiFillSafetyCertificate } from "react-icons/ai";
-import ButtonMobileKotak from "../Features/Units/Modal/ButtonMobileKotak";
+import ButtonMobileKotak from "../../components/ListButton/ButtonMobileKotak";
 import { useTheme } from "../../context/ThemeContext";
 import { TbLogout } from "react-icons/tb";
 import { PiCertificateFill } from "react-icons/pi";
 import { IoColorPalette } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLogout } from "../Features/Auth/Reducer/loginSlice";
+import { fetchLogout } from "../../Features/Auth/Reducer/loginSlice";
 
 const Settings = () => {
   const navigate = useNavigate();

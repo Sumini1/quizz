@@ -4,7 +4,7 @@ import { AiOutlineGift } from "react-icons/ai";
 import { useTheme } from "../../context/ThemeContext";
 import TabelPekanIni from "../PapanPeringkatPage/TabelPekanIni";
 import TabelPekanIniDonatur from "../PapanPeringkatPage/TabelPekanIniDonatur";
-import ButtonMobileKotak from "../Features/Units/Modal/ButtonMobileKotak";
+import ButtonMobileKotak from "../../components/ListButton/ButtonMobileKotak";
 
 const PapanPeringkat = () => {
   const { getBorderColor, getButtonClass, getBorder } = useTheme();

@@ -3,7 +3,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { useTheme } from "../../context/ThemeContext";
-import ButtonMobileKotak from "../Features/Units/Modal/ButtonMobileKotak";
+import ButtonMobileKotak from "../../components/ListButton/ButtonMobileKotak";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { CiEdit } from "react-icons/ci";
 

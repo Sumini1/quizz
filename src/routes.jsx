@@ -16,10 +16,10 @@ import PageSembilan from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSemb
 import PageSepuluh from "./pages/Ujian/Pemula/Keimanan/Level1-keimanan/PageSepuluh";
 import Screen2 from "./pages/onBoarding/Screen2";
 import Screen3 from "./pages/onBoarding/Screen3";
-import { authRoutes } from "./pages/Features/Auth/routes";
+import { authRoutes } from "./Features/Auth/routes";
 import ListLevels from "./pages/Test/ListLevels";
-import FinalScored from "./pages/Test/FinalScored";
-import { listCategoriesRoutes } from "./pages/Features/ListCategories/routes";
+// import FinalScored from "./Features/QuizQuestions/Pemula/SirrahNabawiyyah/FinalScored";
+import { listCategoriesRoutes } from "./Features/ListCategories/routes";
 // import ListLevelKeimanan from "./pages/Category/ListLevelKeimanan";
 import ChooseThemeQuiz from "./pages/Category/ChooseThemeQuiz";
 // import AppearanceKotak from "./pages/Features/Units/Components/AppearanceKotak";
@@ -31,7 +31,7 @@ import Progress from "./pages/ButtonMobile/Progress";
 import UlasanSoal from "./pages/Test/UlasanSoal";
 import AccordionTingkatBelajar from "./components/ModalAccordion/AccordionTingkatBelajar";
 import AccordionDasarIslam from "./components/ModalAccordion/AccordionDasarIslam";
-import DonaturPage from "./pages/Features/Units/Modal/DonaturPage";
+import DonaturPage from "./Features/Units/Users/Modal/DonaturPage";
 import Notifikasi from "./pages/Settings/SettingsPage/Notifikasi";
 import SaranMasukan from "./pages/Settings/SettingsPage/SaranMasukan";
 import Sertifikat from "./pages/Settings/SettingsPage/Sertifikat";
@@ -102,12 +102,14 @@ import PapanPeringkatNamaPrestasi from "./components/ModalTutorialPengguna/Papan
 import PapanPeringkatDonatur from "./components/ModalTutorialDonatur/PapanPeringkatDonatur";
 import PapanPeringkatNamaDonatur from "./components/ModalTutorialDonatur/PapanPeringkatNamaDonatur";
 import Users from "./pages/Category/Users";
-import DifficultiesPageAdmin from "./pages/AdminPage/DifficultiesAdmin/DifficultiesPageAdmin";
-import PageSatuSirrah from "./pages/Ujian/Pemula/SirrahNabawiyyah/PageSatuSirrah";
+import DifficultiesPageAdmin from "./Features/Difficulties/Admin/Pages/DifficultiesPageAdmin";
+// import PageSatuSirrah from "./Features/QuizQuestions/Pemula/SirrahNabawiyyah/PageSatuSirrah";
+import { sirrahRoutes } from "./Features/QuizQuestions/Pemula/SirrahNabawiyyah/routes";
 import LaporanMateri from "./pages/Settings/ModalSettingsPage/LaporanMateri";
-import { difficultiesRoutes } from "./pages/Features/Difficulties/routes";
-import { themesOrLevelsRoutes } from "./pages/Features/ThemesOrLevels/routes";
-import { unitsRoutes } from "./pages/Features/Units/routes";
+// import ButtonMobileKotak from "./components/ListButton/ButtonMobileKotak";
+import { difficultiesRoutes } from "./Features/Difficulties/routes";
+import { themesOrLevelsRoutes } from "./Features/ThemesOrLevels/routes";
+import { unitsRoutes } from "./Features/Units/routes";
 
 export const routes = [
   {
@@ -144,10 +146,7 @@ export const routes = [
     path: "/list-levels",
     element: <ListLevels />,
   },
-  {
-    path: "/final-scored",
-    element: <FinalScored />,
-  },
+ 
   {
     path: "/page-satu",
     element: <PageSatu />,
@@ -523,10 +522,6 @@ export const routes = [
     path: "/difficulties-page-admin",
     element: <DifficultiesPageAdmin />,
   },
-  {
-    path: "/page-satu-sirrah",
-    element: <PageSatuSirrah />,
-  },
 
   {
     path: "*",
@@ -540,6 +535,7 @@ export const routes = [
   ...authRoutes,
   ...listCategoriesRoutes,
   ...themesOrLevelsRoutes,
+  ...sirrahRoutes,
 ];
 
 export default routes;
