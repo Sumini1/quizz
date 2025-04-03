@@ -6,6 +6,7 @@ import { useTheme } from "../../context/ThemeContext";
 const Home = () => {
   const navigate = useNavigate();
   const { getButtonClass, getDotClass, middleTheme } = useTheme();
+  console.log("middleTheme ", middleTheme());
 
   // Just control scrolling for this page specifically
   useEffect(() => {
@@ -17,9 +18,9 @@ const Home = () => {
   }, []);
 
   return (
-    <div className=" w-full  mx-auto h-screen overflow-hidden  md:p-0 flex flex-col">
+    <div className=" w-full  mx-auto h-screen overflow-auto  md:p-0 flex flex-col">
       <div
-        className={`w-full max-w-md mx-auto h-screen overflow-hidden  flex flex-col md:${middleTheme()}`}
+        className={`w-full max-w-md mx-auto h-screen overflow-auto  flex flex-col md:${middleTheme()}`}
       >
         <div className="flex flex-col flex-grow items-center justify-center">
           {/* Gambar di Atas */}
