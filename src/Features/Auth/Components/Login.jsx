@@ -132,7 +132,9 @@ const Login = () => {
 
   return (
     <div className=" w-full  mx-auto h-screen overflow-hidden  md:p-0 flex flex-col">
-      <div className="flex flex-col justify-center h-screen px-5 max-w-md mx-auto bg-none md:bg-[#c0cee8]">
+      <div
+        className={`flex flex-col justify-center h-screen px-5 max-w-md mx-auto md:${middleTheme()}`}
+      >
         <h1 className="text-xl font-bold absolute top-5">EduLearn</h1>
 
         <div className="flex flex-col mt-5">
@@ -157,7 +159,7 @@ const Login = () => {
                 <label
                   className={`absolute block text-sm transition-all duration-200 ${
                     focusedFields.identifier
-                      ? `-top-6 left-0 text-xs px-1 bg-[#8cd5f0] md:bg-[#c0cee8] rounded-sm text-gray-500`
+                      ? `-top-6 left-0 text-xs text-blue-500 bg-white px-1`
                       : "top-2 left-2 text-gray-500"
                   }`}
                 >
@@ -186,7 +188,7 @@ const Login = () => {
                 <label
                   className={`absolute text-sm transition-all duration-200 ${
                     focusedFields.password
-                      ? `-top-6 left-0 text-xs px-1 bg-[#8cd5f0] md:bg-[#c0cee8] rounded-sm text-gray-500`
+                      ? `-top-6 left-0 text-xs text-blue-500 bg-white px-1`
                       : "top-1 left-2 text-gray-500"
                   }`}
                 >

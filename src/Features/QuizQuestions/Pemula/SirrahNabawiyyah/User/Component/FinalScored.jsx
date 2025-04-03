@@ -39,12 +39,22 @@ const FinalScored = () => {
     }
   }, [location.state, navigate]);
 
-  const formatTime = (time) => {
-    const minutes = time / 60;
-    return minutes < 1
-      ? `${minutes.toFixed(1)} menit`
-      : `${Math.floor(minutes)} menit`;
-  };
+ const formatTime = (time) => {
+   if (time < 60) {
+     // Jika kurang dari 60 detik, tampilkan dalam detik
+     return `${time} detik`;
+   } else {
+     // Jika 60 detik atau lebih, tampilkan dalam menit
+     const minutes = Math.floor(time / 60);
+     const seconds = time % 60;
+
+     if (seconds === 0) {
+       return `${minutes} menit`;
+     } else {
+       return `${minutes} menit ${seconds} detik`;
+     }
+   }
+ };
 
   const calculatePercentage = () => {
     return ((score / totalQuestions) * 100).toFixed(0);
@@ -63,12 +73,6 @@ const FinalScored = () => {
       icon: <FaHourglassEnd className="text-xl" />,
       value: formatTime(totalTime),
     },
-    // {
-    //   id: 3,
-    //   title: "Penilaian",
-    //   icon: <RiCoinFill className="text-xl" />,
-    //   value: "100",
-    // },
   ];
 
   const handleCloseModal = () => {

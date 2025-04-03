@@ -26,6 +26,9 @@ const SecurityQuestion = () => {
     security_answer: "",
   });
 
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   // Cek apakah data registrasi sudah ada
   useEffect(() => {
     if (
@@ -65,6 +68,7 @@ const SecurityQuestion = () => {
       security_question: question,
     });
     setActiveIndex(null); // Close accordion after selection
+    setError(""); // Clear error when question is selected
   };
 
   // Handle answer input change
@@ -73,25 +77,48 @@ const SecurityQuestion = () => {
       ...securityData,
       security_answer: e.target.value,
     });
+    if (e.target.value.trim() !== "") {
+      setError("");
+    }
+  };
+
+  // Validate form data
+  const validateForm = () => {
+    if (!securityData.security_question) {
+      setError("Silakan pilih pertanyaan keamanan");
+      return false;
+    }
+
+    if (!securityData.security_answer.trim()) {
+      setError("Silakan berikan jawaban untuk pertanyaan keamanan");
+      return false;
+    }
+
+    if (securityData.security_answer.trim().length < 3) {
+      setError("Jawaban terlalu pendek (minimal 3 karakter)");
+      return false;
+    }
+
+    return true;
   };
 
   // Handle form submission
   const handleSubmit = () => {
-    if (!securityData.security_question || !securityData.security_answer) {
-      Swal.fire({
-        title: "Error",
-        text: "Silakan pilih pertanyaan keamanan dan berikan jawaban",
-        icon: "error",
-      });
+    setIsSubmitting(true);
+
+    if (!validateForm()) {
+      setIsSubmitting(false);
       return;
     }
 
     // Gabungkan data registrasi dengan data pertanyaan keamanan
-    const completeData = {
-      ...registerData,
-      security_question: securityData.security_question,
-      security_answer: securityData.security_answer,
-    };
+   const completeData = {
+     user_name: registerData.name, // Map name back to user_name
+     email: registerData.email,
+     password: registerData.password,
+     security_question: securityData.security_question,
+     security_answer: securityData.security_answer.trim(),
+   };
 
     // Dispatch ke Redux untuk registrasi
     dispatch(fetchRegister(completeData))
@@ -106,13 +133,16 @@ const SecurityQuestion = () => {
         });
       })
       .catch((error) => {
+        const errorMessage =
+          error.message || "Terjadi kesalahan saat registrasi";
         Swal.fire({
           title: "Error",
-          text:
-            "Terjadi kesalahan saat registrasi: " +
-            (error.message || "Unknown error"),
+          text: errorMessage,
           icon: "error",
         });
+      })
+      .finally(() => {
+        setIsSubmitting(false);
       });
   };
 
@@ -129,23 +159,34 @@ const SecurityQuestion = () => {
       </div>
 
       <div className="flex flex-col p-5 -mt-3">
-        <div className="bg-white  rounded-lg mb-5">
-          <p className="text-lg font-medium">
+        <div className="bg-white rounded-lg mb-5 p-3 shadow-sm">
+          <p className="text-md font-medium">
             Mohon diisi karena jawaban akan digunakan apabila lupa password
           </p>
         </div>
 
         {/* Selected question display */}
-        <div className="bg-white rounded-xl rounded-b-none overflow-hidden border border-gray-300">
+        <div
+          className={`bg-white rounded-xl overflow-hidden border ${
+            error && !securityData.security_question
+              ? "border-red-500"
+              : "border-gray-300"
+          }`}
+        >
           <div
-            className="flex justify-between items-center p-3 cursor-pointer"
+            className="flex justify-between items-center p-4 cursor-pointer"
             onClick={() => toggleAccordion(0)}
           >
-            <span>
-              {securityData.security_question ||
-                "Nama keluarga, saudara, guru, teman terdekat"}
+            <span
+              className={`${
+                !securityData.security_question && error
+                  ? "text-red-500"
+                  : "text-gray-700"
+              }`}
+            >
+              {securityData.security_question || "Pilih pertanyaan keamanan"}
             </span>
-            <span className="text-gray-400 flex items-center -mt-4">
+            <span className="text-gray-400 flex items-center">
               {activeIndex === 0 ? (
                 <FaChevronUp className="text-gray-500" />
               ) : (
@@ -156,11 +197,11 @@ const SecurityQuestion = () => {
 
           {/* Dropdown list of questions */}
           {activeIndex === 0 && (
-            <div className="border-t">
+            <div className="border-t max-h-60 overflow-y-auto">
               {questions.map((question, index) => (
                 <div
                   key={index}
-                  className="p-3 border-b last:border-b-0 cursor-pointer hover:bg-gray-50"
+                  className="p-4 border-b last:border-b-0 cursor-pointer hover:bg-gray-50"
                   onClick={() => handleQuestionSelect(question)}
                 >
                   <p>{question}</p>
@@ -171,28 +212,54 @@ const SecurityQuestion = () => {
         </div>
 
         {/* Answer input field */}
-        <div className="rounded-xl rounded-t-none overflow-hidden border border-gray-300 p-5">
+        <div
+          className={`mt-4 p-4 rounded-xl border ${
+            error &&
+            securityData.security_question &&
+            !securityData.security_answer.trim()
+              ? "border-red-500"
+              : "border-gray-300"
+          }`}
+        >
           <input
             type="text"
-            className="w-full p-3 border rounded-md"
+            className={`w-full p-3 border rounded-md outline-none ${
+              error &&
+              securityData.security_question &&
+              !securityData.security_answer.trim()
+                ? "border-red-500"
+                : "border-gray-300"
+            }`}
             placeholder="Jawaban Saya"
             value={securityData.security_answer}
             onChange={handleAnswerChange}
           />
         </div>
 
+        {/* Error message */}
+        {error && <div className="mt-2 text-red-500 text-sm">{error}</div>}
+
         <div className="flex flex-col fixed bottom-5 left-5 right-5">
           <button
-            className={`p-3 rounded-xl  border-none w-full  ${
-      securityData.security_question
-        ? `${getButtonClass()}`
-        : `${getBorderClass()}`
-    }`}
+            className={`p-3 rounded-xl border-none w-full ${
+              securityData.security_question &&
+              securityData.security_answer.trim()
+                ? getButtonClass()
+                : "bg-gray-300 text-gray-600"
+            }`}
             onClick={handleSubmit}
-            disabled={isLoading}
+            disabled={
+              isLoading ||
+              isSubmitting ||
+              !securityData.security_question ||
+              !securityData.security_answer.trim()
+            }
           >
-            {isLoading ? (
-              <FiLoader className="animate-spin inline-block mr-2" />
+            {isLoading || isSubmitting ? (
+              <>
+                <FiLoader className="animate-spin inline-block mr-2" />
+                Memproses...
+              </>
             ) : (
               "Daftar"
             )}
@@ -202,8 +269,8 @@ const SecurityQuestion = () => {
 
       {/* Loading Modal */}
       {isLoading && (
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-5 rounded-md flex flex-col items-center gap-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center gap-4">
             <HiBadgeCheck
               className={`${getIconTheme()} text-5xl border-none rounded-full`}
             />

@@ -74,7 +74,7 @@ export const fetchLogout = createAsyncThunk("login/fetchLogout", async () => {
 
     // Remove token from localStorage
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("userId");
+    localStorage.removeItem("id");
     localStorage.removeItem("role");
 
     Swal.fire({
