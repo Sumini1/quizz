@@ -18,7 +18,7 @@ const LoginRegister = () => {
   return (
     <div className=" w-full  mx-auto h-screen overflow-hidden  md:p-0 flex flex-col">
       <div
-        className={`w-full max-w-md mx-auto h-screen overflow-hidden  flex flex-col   md:${middleTheme()}`}
+        className={`w-full max-w-md mx-auto h-screen overflow-hidden  flex flex-col ${middleTheme()}`}
       >
         <div className="flex flex-col flex-grow items-center justify-center">
           {/* Gambar di Atas */}
@@ -30,10 +30,10 @@ const LoginRegister = () => {
 
           {/* Teks di Tengah */}
           <div className="mt-36 w-full px-5">
-            <h2 className="text-xl font-medium mb-2">
+            <h2 className="text-xl font-semibold mb-2">
               Mulai Perjalanan Menuntut Ilmu
             </h2>
-            <p className="text-md text-gray-600">
+            <p className="text-lg font-medium">
               Kami menyediakan sistem belajar yang menarik agar peserta merasa
               senang
             </p>
@@ -42,10 +42,13 @@ const LoginRegister = () => {
 
         {/* Tombol Fixed di Bawah */}
         <div className="fixed bottom-0 left-0 right-0 px-5 py-3  max-w-md mx-auto gap-y-5 flex flex-col">
-          <Button to="/register-email" className={getButtonClass()}>
+          <Button
+            to="/register-email"
+            className={`${getButtonClass()} text-base font-medium`}
+          >
             Daftar
           </Button>
-          <Button to="/login" className={getBorderClass()}>
+          <Button to="/login" className={`${getBorderClass()} text-base font-medium`}>
             Login
           </Button>
         </div>

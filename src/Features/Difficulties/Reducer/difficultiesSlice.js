@@ -6,11 +6,11 @@ export const fetchDifficulties = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        "https://arabiya-syari-fiber-production.up.railway.app/api/difficulties",
+        "https://quiz-fiber-production.up.railway.app/api/difficulties",
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
         }
@@ -20,13 +20,15 @@ export const fetchDifficulties = createAsyncThunk(
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
+      const responseData = await response.json();
 
-      if (!Array.isArray(data)) {
+      // Validate that responseData has a data property that is an array
+      if (!responseData.data || !Array.isArray(responseData.data)) {
         throw new Error("Format data tidak valid");
       }
 
-      return data;
+      // Return the whole response object
+      return responseData;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -39,11 +41,11 @@ export const fetchDifficultiesById = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `https://arabiya-syari-fiber-production.up.railway.app/api/difficulties/${id}`,
+        `https://quiz-fiber-production.up.railway.app/api/difficulties/${id}`,
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
         }
@@ -53,14 +55,18 @@ export const fetchDifficultiesById = createAsyncThunk(
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
+      const responseData = await response.json();
 
-      // Cek apakah data adalah objek
-      if (typeof data !== "object" || data === null) {
+      // Cek apakah responseData adalah objek dan memiliki property data
+      if (
+        typeof responseData !== "object" ||
+        responseData === null ||
+        responseData.data === undefined
+      ) {
         throw new Error("Format data tidak valid");
       }
 
-      return data;
+      return responseData;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -73,11 +79,11 @@ export const fetchCreateDifficulties = createAsyncThunk(
   async (newCategory, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        "https://arabiya-syari-fiber-production.up.railway.app/api/difficulties",
+        "https://quiz-fiber-production.up.railway.app/api/difficulties",
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify(newCategory),
@@ -104,11 +110,11 @@ export const fetchUpdateDifficulties = createAsyncThunk(
   async (updatedCategory, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `https://arabiya-syari-fiber-production.up.railway.app/api/difficulties/${updatedCategory.id}`,
+        `https://quiz-fiber-production.up.railway.app/api/difficulties/${updatedCategory.id}`,
         {
           method: "PUT",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify(updatedCategory),
@@ -135,11 +141,11 @@ export const fetchDeleteDifficulties = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `https://arabiya-syari-fiber-production.up.railway.app/api/difficulties/${id}`,
+        `https://quiz-fiber-production.up.railway.app/api/difficulties/${id}`,
         {
           method: "DELETE",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
         }
@@ -182,7 +188,7 @@ const difficultiesSlice = createSlice({
       })
       .addCase(fetchDifficulties.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.data = action.payload;
+        state.data = action.payload.data;
         state.error = null;
       })
       .addCase(fetchDifficulties.rejected, (state, action) => {
@@ -197,7 +203,7 @@ const difficultiesSlice = createSlice({
       })
       .addCase(fetchDifficultiesById.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.detail = action.payload; // Simpan detail kategori
+        state.detail = action.payload.data; // Simpan detail kategori
         state.error = null;
       })
       .addCase(fetchDifficultiesById.rejected, (state, action) => {
@@ -211,7 +217,7 @@ const difficultiesSlice = createSlice({
       })
       .addCase(fetchCreateDifficulties.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.data.push(action.payload); // Tambahkan kategori baru ke data
+        state.data.push(action.payload.data); // Tambahkan kategori baru ke data
         state.error = null;
       })
       .addCase(fetchCreateDifficulties.rejected, (state, action) => {
@@ -227,7 +233,7 @@ const difficultiesSlice = createSlice({
       .addCase(fetchUpdateDifficulties.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.data = state.data.map((category) => {
-          if (category.id === action.payload.id) {
+          if (category.id === action.payload.data.id) {
             return action.payload;
           }
           return category;
@@ -247,7 +253,7 @@ const difficultiesSlice = createSlice({
       .addCase(fetchDeleteDifficulties.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.data = state.data.filter(
-          (category) => category.id !== action.payload.id
+          (category) => category.id !== action.payload.data.id
         );
         state.error = null;
       })

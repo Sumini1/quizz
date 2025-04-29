@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import { FaCheckCircle, FaBook, FaHeart } from "react-icons/fa";
 import { MdMenuBook } from "react-icons/md";
+import { useTheme } from "../../../../../../context/ThemeContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchQuizQuestions } from "../../../../../Units/Reducer/quizQuestionsSlice";
@@ -11,6 +12,7 @@ const PageSatuSirrah = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const { theme, getButtonClass, getBorderClass } = useTheme();
 
   // State variables
   const [quizId, setQuizId] = useState(null);
@@ -46,6 +48,7 @@ const PageSatuSirrah = () => {
      setAccumulatedScore(parsedScore);
    }, []);
 
+
   useEffect(() => {
     // Retrieve previous quiz attempts for this specific quiz
     const quizAttemptsKey = `quiz_${quizId}_attempts`;
@@ -69,6 +72,7 @@ const PageSatuSirrah = () => {
       console.error("Error parsing previous attempts:", error);
     }
   }, [quizId]);
+  
 
   // Get query parameters from URL
   useEffect(() => {
@@ -300,14 +304,18 @@ const PageSatuSirrah = () => {
       </div>
 
       {/* Answer options */}
-      <div className="grid grid-cols-2 gap-5 mt-10 w-full">
+      <div
+        className={`mt-10 w-full gap-5 grid ${
+          currentQuestion?.question_answer?.some((ans) => ans.length > 10)
+            ? "grid-cols-1"
+            : "grid-cols-2"
+        }`}
+      >
         {currentQuestion?.question_answer?.map((answer, index) => (
           <h5
             key={index}
-            className={`flex border border-gray-500 p-3 w-full text-center items-center justify-center cursor-pointer rounded-xl ${
-              selectedAnswer === index
-                ? "bg-blue-500 text-white border-none"
-                : ""
+            className={`flex items-center justify-center text-center border border-gray-500 p-3 w-full cursor-pointer rounded-xl break-words whitespace-normal ${
+              selectedAnswer === index ? `${getButtonClass()} border-none` : ""
             }`}
             onClick={() => handleSelectAnswer(answer, index)}
           >
@@ -326,8 +334,8 @@ const PageSatuSirrah = () => {
         <button
           className={`p-3 w-[370px] rounded-xl border-none ${
             selectedAnswer !== null
-              ? "bg-blue-500 text-white"
-              : "bg-gray-300 text-gray-700"
+              ? `${getButtonClass()}`
+              : `${getBorderClass()}`
           }`}
           onClick={handleCheck}
           disabled={selectedAnswer === null}
@@ -356,8 +364,8 @@ const PageSatuSirrah = () => {
                 {isAnswerCorrect ? (
                   <FaCheckCircle className="text-green-500 text-3xl" />
                 ) : (
-                  <span className="bg-[#A74828] w-full h-[30px] rounded-lg">
-                    <IoClose className="text-white text-3xl font-semibold" />
+                  <span className="bg-[#A74828] w-full h-[30px] rounded-lg ml-2">
+                    <IoClose className="text-white text-3xl font-semibold " />
                   </span>
                 )}
               </div>

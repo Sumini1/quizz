@@ -158,7 +158,7 @@ const PageSepuluhKeimanan = () => {
       </div>
 
       {/* Button Cek */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-3 shadow-md flex justify-between gap-2">
+      <div className="fixed bottom-0 left-0 right-0 px-5 py-3 shadow-md flex justify-between gap-2">
         <img
           src={"/lamp.png"}
           onClick={handleModalRefensi}
@@ -230,7 +230,7 @@ const PageSepuluhKeimanan = () => {
               </div>
             </div>
             <div className="flex gap-5 ">
-              <Link to={"/final-scored"} className="w-full">
+              <Link to={"/pemula/sirrah-nabawiyyah/final-scored"} className="w-full">
                 <button
                   className={`p-3 w-full rounded-xl mt-4 text-white ${
                     isAnswerCorrect ? "bg-green-500" : "bg-[#A74828]"

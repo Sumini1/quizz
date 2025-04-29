@@ -7,14 +7,14 @@ export const saveUserQuizProgress = createAsyncThunk(
   async (quizProgressData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://arabiya-syari-fiber-production.up.railway.app/api/user_quizzes/save",
+        "https://arabiya-syari-fiber-production.up.railway.app/api/user-quizzes",
         quizProgressData,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );

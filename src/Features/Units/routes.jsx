@@ -1,5 +1,7 @@
 import AppearanceKotak from "./Users/Components/AppearanceKotak";
 import Readings from "./Users/Components/Readings";
+import TemaBelajar from "./Users/Components/TemaBelajar";
+import ReadingDetail from "./Users/Components/ReadingDetail";
 
 export const unitsRoutes = [
   {
@@ -9,5 +11,13 @@ export const unitsRoutes = [
   {
     path: "/readings/:id",
     element: <Readings />,
+  },
+  {
+    path: "/tema-belajar/:themeId",
+    element: <TemaBelajar />,
+  },
+  {
+    path: "/reading-detail/:id",
+    element: <ReadingDetail />,
   },
 ];

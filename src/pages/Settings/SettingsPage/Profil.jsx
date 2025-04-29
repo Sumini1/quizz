@@ -5,7 +5,7 @@ import { useTheme } from "../../../context/ThemeContext";
 import { Link } from "react-router-dom";
 
 const Profil = () => {
-  const { theme, getBorder, getButtonClass, getBorderClass } = useTheme();
+  const { theme, getBorder, getButtonClass, getBorderClass, middleTheme } = useTheme();
   const userProfil = [
     {
       id: 1,
@@ -95,55 +95,59 @@ const Profil = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-4 mt-4 px-5">
+    <div className="flex flex-col gap-4  md:px-5 min-h-screen w-full h-full">
       {/* Header */}
-      <Link to={"/settings"}>
-        <div className="flex items-center gap-2">
-          <FaArrowLeft className="text-2xl cursor-pointer" />
-          <h1 className="text-xl font-[600]">Profile</h1>
-        </div>
-      </Link>
-
-      {/* Description */}
-      <p className="text-gray-600 mt-4">
-        Harap diisi profil pengguna untuk kemajuan aplikasi. Data pengguna insya
-        Allah akan kami lindungi.
-      </p>
-
-      {/* Form */}
-      <form className="flex flex-col gap-4">
-        {userProfil.map((item) => (
-          <div key={item.id} className="flex flex-col gap-1">
-            <label
-              htmlFor={`input-${item.id}`}
-              className="text-sm font-medium text-gray-700"
-            >
-              {item.label}
-            </label>
-            <div
-              className={`flex items-center border ${getBorder()} rounded-lg p-2 `}
-            >
-              {item.input}
-              {item.icon}
-            </div>
-            {item.description && (
-              <p className="text-xs text-gray-500">{item.description}</p>
-            )}
-            {item.id === 2 && (
-              <h5 className="text-xs text-blue-500">Selengkapnya...</h5>
-            )}
+      <div
+        className={`py-2 flex flex-col text-xl  px-5 flex-grow max-w-md mx-auto w-full ${middleTheme()} `}
+      >
+        <Link to={"/settings"}>
+          <div className="flex items-center gap-2">
+            <FaArrowLeft className="text-2xl cursor-pointer" />
+            <h1 className="text-2xl font-semibold">Profil</h1>
           </div>
-        ))}
-      </form>
-      <div className="flex flex-col gap-4 mt-10">
-        <button className={`border-none rounded-xl p-3 ${getButtonClass()}`}>
-          Simpan
-        </button>
-        <button
-          className={`border-none rounded-xl p-3 mb-5 ${getBorderClass()}`}
-        >
-          Kembali
-        </button>
+        </Link>
+
+        {/* Description */}
+        <p className="text-gray-600 mt-4 text-lg font-medium mb-4">
+          Harap diisi profil pengguna untuk kemajuan aplikasi. Data pengguna
+          insya Allah akan kami lindungi.
+        </p>
+
+        {/* Form */}
+        <form className="flex flex-col gap-4">
+          {userProfil.map((item) => (
+            <div key={item.id} className="flex flex-col gap-1">
+              <label
+                htmlFor={`input-${item.id}`}
+                className="text-sm font-medium text-gray-700"
+              >
+                {item.label}
+              </label>
+              <div
+                className={`flex text-sm font-medium items-center border ${getBorder()} rounded-lg p-2 `}
+              >
+                {item.input}
+                {item.icon}
+              </div>
+              {item.description && (
+                <p className="text-xs text-gray-500">{item.description}</p>
+              )}
+              {item.id === 2 && (
+                <h5 className="text-xs text-blue-500">Selengkapnya...</h5>
+              )}
+            </div>
+          ))}
+        </form>
+        <div className="flex flex-col gap-4 mt-10 text-base font-medium">
+          <button className={`border-none rounded-xl p-3 ${getButtonClass()}`}>
+            Simpan
+          </button>
+          <button
+            className={`border-none rounded-xl p-3 mb-5 ${getBorderClass()}`}
+          >
+            Kembali
+          </button>
+        </div>
       </div>
     </div>
   );

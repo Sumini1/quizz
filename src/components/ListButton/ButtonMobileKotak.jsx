@@ -8,47 +8,31 @@ import { useTheme } from "../../context/ThemeContext";
 import { FiUser } from "react-icons/fi";
 import { BsFillAwardFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchThemesOrLevels,
-  fetchThemesOrLevelsById,
-} from "../../Features/ThemesOrLevels/Reducer/themesOrLevelsSlice";
-import { useParams } from "react-router-dom";
+import { fetchSubcategory } from "../../Features/Subcategory/Reducer/subcategory";
 
 const ButtonMobileKotak = () => {
   const location = useLocation();
   const { theme, getIconTheme } = useTheme();
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [selectedThemeId, setSelectedThemeId] = useState(null);
   const dispatch = useDispatch();
-  const { data, detail, status } = useSelector((state) => state.themesOrLevels);
+  const { data, status } = useSelector((state) => state.subcategory);
 
-  // Get the ID from the URL if available
-  const pathParts = location.pathname.split("/");
-  const indexOfThemesOrLevels = pathParts.indexOf("themes-or-levels");
-  const idFromPath =
-    indexOfThemesOrLevels !== -1 && pathParts.length > indexOfThemesOrLevels + 1
-      ? pathParts[indexOfThemesOrLevels + 1]
-      : null;
-
-  console.log("ID from path:", idFromPath);
-  console.log("Redux detail:", detail);
-  console.log("Redux data:", data);
-
-  // First fetch the list if we don't have it
   useEffect(() => {
     if (status === "idle" && data.length === 0) {
-      dispatch(fetchThemesOrLevels());
+      dispatch(fetchSubcategory());
     }
   }, [dispatch, status, data]);
 
-  // If we have an ID in the path, fetch that specific item
+  // Ambil selectedThemeId dari localStorage saat pertama load
   useEffect(() => {
-    if (idFromPath) {
-      dispatch(fetchThemesOrLevelsById(idFromPath));
+    const storedThemeId = localStorage.getItem("selectedThemeId");
+    if (storedThemeId) {
+      setSelectedThemeId(parseInt(storedThemeId, 10));
     }
-  }, [dispatch, idFromPath]);
+  }, []);
 
-  // Scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsVisible(window.scrollY <= lastScrollY);
@@ -58,26 +42,51 @@ const ButtonMobileKotak = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-  // Determine the best ID to use for the Play button
-  let activeThemeId = null;
+  // Cek location, kalau lagi di /tema-belajar/:id, update selectedThemeId
+  useEffect(() => {
+    const match = location.pathname.match(/^\/tema-belajar\/(\d+)/);
+    if (match) {
+      const idFromUrl = parseInt(match[1], 10);
+      setSelectedThemeId(idFromUrl);
+      localStorage.setItem("selectedThemeId", idFromUrl);
 
-  // First priority: ID from the current URL
-  if (idFromPath) {
-    activeThemeId = idFromPath;
-  }
-  // Second priority: ID from loaded detail
-  else if (detail && detail.id) {
-    activeThemeId = detail.id;
-  }
-  // Third priority: First item from the list
-  else if (data && data.length > 0) {
-    activeThemeId = data[0].id;
-  }
+      // Update juga themeDetail di localStorage jika ada di data
+      if (data.length > 0) {
+        const allThemes = data.flatMap(
+          (category) =>
+            category.subcategories?.flatMap(
+              (sub) => sub.themes_or_levels || []
+            ) || []
+        );
 
-  // Determine the play link based on the available ID
-  const playLink = activeThemeId
-    ? `/themes-or-levels/${activeThemeId}`
-    : "/themes-or-levels";
+        const matchingTheme = allThemes.find((theme) => theme.id === idFromUrl);
+        if (matchingTheme) {
+          localStorage.setItem(
+            "selectedThemeDetail",
+            JSON.stringify(matchingTheme)
+          );
+        }
+      }
+    }
+  }, [location.pathname, data]);
+
+  const firstTheme =
+    data.length > 0
+      ? data.flatMap(
+          (category) =>
+            category.subcategories?.flatMap(
+              (sub) => sub.themes_or_levels || []
+            ) || []
+        )[0]
+      : null;
+
+  const playLink = selectedThemeId
+    ? `/tema-belajar/${selectedThemeId}`
+    : firstTheme
+    ? `/tema-belajar/${firstTheme.id}`
+    : "/beranda"; // fallback kalau gak ada data
+
+  const playState = firstTheme ? { themeDetail: firstTheme } : {};
 
   const kotak = [
     { id: 1, icon: <FaHome />, link: "/beranda", title: "Beranda" },
@@ -87,7 +96,25 @@ const ButtonMobileKotak = () => {
       link: "/pembelajaran",
       title: "Pembelajaran",
     },
-    { id: 3, icon: <FaCirclePlay />, link: playLink, title: "Play" },
+    {
+      id: 3,
+      icon: <FaCirclePlay />,
+      link: playLink,
+      title: "Play",
+      state: {
+        themeDetail:
+          selectedThemeId && data.length > 0
+            ? data
+                .flatMap(
+                  (category) =>
+                    category.subcategories?.flatMap(
+                      (sub) => sub.themes_or_levels || []
+                    ) || []
+                )
+                .find((theme) => theme.id === selectedThemeId) || firstTheme
+            : firstTheme,
+      },
+    },
     {
       id: 4,
       icon: <BsFillAwardFill />,
@@ -112,8 +139,8 @@ const ButtonMobileKotak = () => {
               item.link === "/progress") ||
             (location.pathname === "/jelajahi-aplikasi" &&
               item.link === "/beranda") ||
-            (location.pathname.includes("/themes-or-levels/") &&
-              item.link.includes("/themes-or-levels"));
+            (location.pathname.includes("/tema-belajar/") &&
+              item.link.includes("/tema-belajar"));
 
           const activeIcon = isItemActive
             ? React.cloneElement(item.icon, { className: getIconTheme() })
@@ -123,17 +150,44 @@ const ButtonMobileKotak = () => {
             <Link
               to={item.link}
               key={item.id}
+              state={item.state}
               className="flex flex-col justify-center items-center text-center"
               style={{ flex: "1 1 20%" }}
+              onClick={() => {
+                if (item.title === "Play" && firstTheme) {
+                  // Jika tidak ada selectedThemeId, set ke firstTheme.id
+                  if (!selectedThemeId) {
+                    setSelectedThemeId(firstTheme.id);
+                    localStorage.setItem("selectedThemeId", firstTheme.id);
+                  }
+
+                  // Simpan detail theme lengkap ke localStorage untuk penggunaan saat refresh
+                  const themeToStore =
+                    selectedThemeId && data.length > 0
+                      ? data
+                          .flatMap(
+                            (category) =>
+                              category.subcategories?.flatMap(
+                                (sub) => sub.themes_or_levels || []
+                              ) || []
+                          )
+                          .find((theme) => theme.id === selectedThemeId) ||
+                        firstTheme
+                      : firstTheme;
+
+                  if (themeToStore) {
+                    localStorage.setItem(
+                      "selectedThemeDetail",
+                      JSON.stringify(themeToStore)
+                    );
+                  }
+                }
+                if (location.pathname === item.link) {
+                  window.location.reload();
+                }
+              }}
             >
               <p className="text-2xl font-extrabold">{activeIcon}</p>
-              {/* <h5
-                className={`text-xs ${
-                  isItemActive ? "text-blue-500" : "text-gray-500"
-                }`}
-              >
-                {item.title}
-              </h5> */}
             </Link>
           );
         })}

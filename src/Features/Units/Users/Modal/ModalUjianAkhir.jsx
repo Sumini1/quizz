@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "../../../../context/ThemeContext";
 import { FaHeart } from "react-icons/fa";
 import { ImLeaf } from "react-icons/im";
 import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai"; // Tambahkan ikon Close
 import ModalOverView from "./ModalOverView";
 import ModalHasilUjian from "./ModalHasilUjian";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-const ModalUjianAkhir = ({ isOpen, onClose }) => {
+
+const ModalUjianAkhir = ({ isOpen, onClose, unitId }) => {
   if (!isOpen) {
     return null;
   }
@@ -20,6 +23,22 @@ const ModalUjianAkhir = ({ isOpen, onClose }) => {
   const [isModalOverViewOpen, setIsModalOverViewOpen] = useState(false);
   const [isModalHasilUjianOpen, setIsModalHasilUjianOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { data: units } = useSelector((state) => state.units);
+  const { data: exams } = useSelector((state) => state.exams);
+  const [unitData, setUnitData] = useState(null);
+  const [examsData, setExamsData] = useState(null);
+
+  useEffect(() => {
+    if (unitId && units) {
+      const currentUnit = units.find((unit) => unit.id === unitId);
+      setUnitData(currentUnit);
+
+      if (exams) {
+        const unitExam = exams.find((exam) => exam.unit_id === unitId);
+        setExamsData(unitExam);
+      }
+    }
+  }, [unitId, units, exams]);
 
   const openModalOverView = () => {
     setIsModalOverViewOpen(true);
@@ -44,7 +63,7 @@ const ModalUjianAkhir = ({ isOpen, onClose }) => {
       className="fixed top-0 z-50 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center p-5"
       onClick={handleOverlayClick}
     >
-      <div className="bg-white p-5 rounded-xl shadow-lg w-full relative">
+      <div className="bg-white p-5 rounded-xl shadow-lg w-full relative max-w-md  mx-auto md:p-10">
         {/* Tombol Close */}
         <button
           className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 focus:outline-none"
@@ -57,27 +76,29 @@ const ModalUjianAkhir = ({ isOpen, onClose }) => {
           <FaHeart className={`${getIconTheme()} text-xl font-bold`} />
           <h1 className="text-base">Donatur</h1>
         </div>
-        <h1 className="text-xl font-semibold items-center justify-center flex">
-          Pengantar Rukun Iman
-        </h1>
+        {/* <h1 className="text-xl font-semibold items-center justify-center flex">
+          {unitData ? unitData.name : "Loading..."}
+        </h1> */}
         <div className="flex items-center justify-center mb-4 space-x-2">
-          <h1 className="text-lg mb-1">Ujian Akhir</h1>
+          <p className="text-center text-base mb-4">
+            {examsData
+              ? examsData?.name_exams
+              : "Ujian akhir untuk quizz ini belum tersedia"}
+          </p>
         </div>
-        <p className="text-center text-base mb-4">
-          Ujian dengan 20 soal. Persiapkan diri sebelum ujian agar mendapatkan
-          nilai terbaik.
-        </p>
-        <button
-          onClick={openModalOverView}
-          className={`mt-4 w-full text-[16px] font-normal py-2 px-4 rounded-xl border-none focus:outline-none focus:shadow-outline ${getBorderClass()}`}
-        >
-          Baca Materi Artikel
-        </button>
+
+        <Link to={`/readings/${unitId}`}>
+          <button
+            className={`mt-4 w-full text-[16px] font-normal py-2 px-4 rounded-xl border-none focus:outline-none focus:shadow-outline ${getBorderClass()}`}
+          >
+            Baca Materi Artikel
+          </button>
+        </Link>
         <button
           onClick={handleHasilUjian}
           className={`mt-4 w-full text-[16px] font-normal py-2 px-4 rounded-xl border-none focus:outline-none focus:shadow-outline ${getButtonClass()}`}
         >
-          Mulai Evaluasi +40 XP
+          Mulai Ujian + 40 XP
         </button>
         {isLoading && (
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -96,14 +117,12 @@ const ModalUjianAkhir = ({ isOpen, onClose }) => {
           </div>
         )}
       </div>
-      <ModalOverView
-        isOpen={isModalOverViewOpen}
-        onClose={() => setIsModalOverViewOpen(false)}
-      />
+      
       <ModalHasilUjian
         isOpen={isModalHasilUjianOpen}
         onClose={() => setIsModalHasilUjianOpen(false)}
-      />
+        unitId={unitId}
+      /> 
     </div>
   );
 };

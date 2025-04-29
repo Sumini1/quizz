@@ -3,11 +3,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchUnits = createAsyncThunk("units/fetchUnits", async () => {
   try {
     const response = await fetch(
-      "https://arabiya-syari-fiber-production.up.railway.app/api/units",
+      "https://quiz-fiber-production.up.railway.app/api/units",
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
       }
@@ -15,8 +15,15 @@ export const fetchUnits = createAsyncThunk("units/fetchUnits", async () => {
     if (!response.ok) {
       throw new Error("Gagal mengambil data units");
     }
-    const data = await response.json();
-    return data;
+    const responseData = await response.json();
+
+    // Validate that responseData has a data property that is an array
+    if (!responseData.data || !Array.isArray(responseData.data)) {
+      throw new Error("Format data tidak valid");
+    }
+
+    // Return the whole response object
+    return responseData;
   } catch (error) {
     throw "tolong login kembali";
   }
@@ -28,11 +35,11 @@ export const fetchUnitsById = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `https://arabiya-syari-fiber-production.up.railway.app/api/units/${id}`,
+        `https://quiz-fiber-production.up.railway.app/api/units/${id}`,
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
         }
@@ -65,7 +72,7 @@ const unitsSlice = createSlice({
       })
       .addCase(fetchUnits.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.data = action.payload;
+        state.data = action.payload.data;
       })
       .addCase(fetchUnits.rejected, (state, action) => {
         state.status = "failed";
@@ -78,7 +85,7 @@ const unitsSlice = createSlice({
       })
       .addCase(fetchUnitsById.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.detail = action.payload;
+        state.detail = action.payload.data;
       })
       .addCase(fetchUnitsById.rejected, (state, action) => {
         state.status = "failed";

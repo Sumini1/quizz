@@ -133,15 +133,15 @@ const Login = () => {
   return (
     <div className=" w-full  mx-auto h-screen overflow-hidden  md:p-0 flex flex-col">
       <div
-        className={`flex flex-col justify-center h-screen px-5 max-w-md mx-auto md:${middleTheme()}`}
+        className={`flex flex-col justify-center h-screen px-5 max-w-md mx-auto ${middleTheme()}`}
       >
-        <h1 className="text-xl font-bold absolute top-5">EduLearn</h1>
+        <h1 className="text-2xl font-semibold absolute top-5">EduLearn</h1>
 
-        <div className="flex flex-col mt-5">
-          <h2 className="text-lg font-semibold mb-2 tracking-wide leading-[1.6]">
+        <div className="flex flex-col mt-10">
+          <h2 className="text-xl font-semibold mb-2 tracking-wide leading-[1.6]">
             Ahlan Wa Sahlan
           </h2>
-          <p className="mb-7">
+          <p className="mb-7 text-base font-medium">
             Alhamdulillah bisa bertemu kembali, Login untuk melanjutkan
             pembelajaran
           </p>
@@ -159,8 +159,8 @@ const Login = () => {
                 <label
                   className={`absolute block text-sm transition-all duration-200 ${
                     focusedFields.identifier
-                      ? `-top-6 left-0 text-xs text-blue-500 bg-white px-1`
-                      : "top-2 left-2 text-gray-500"
+                      ? `-top-6 left-0 text-sm text-blue-500 bg-white px-1`
+                      : "top-2 left-2 text-gray-500 text-sm"
                   }`}
                 >
                   Email atau Username
@@ -188,8 +188,8 @@ const Login = () => {
                 <label
                   className={`absolute text-sm transition-all duration-200 ${
                     focusedFields.password
-                      ? `-top-6 left-0 text-xs text-blue-500 bg-white px-1`
-                      : "top-1 left-2 text-gray-500"
+                      ? `-top-6 left-0 text-sm text-blue-500 bg-white px-1`
+                      : "top-1 left-2 text-gray-500 text-sm"
                   }`}
                 >
                   Password
@@ -224,7 +224,7 @@ const Login = () => {
               </h5>
             </Link>
 
-            <Button type="submit" className={getButtonClass()}>
+            <Button type="submit" className={`${getButtonClass()} text-base`}>
               Login dengan Email
             </Button>
 
@@ -237,14 +237,14 @@ const Login = () => {
             <div className="flex items-center w-full justify-end">
               <Button
                 onClick={handleLogin}
-                className={`${getBorderClass()}  flex items-center justify-center`}
+                className={`${getBorderClass()} text-base font-medium  flex items-center justify-center`}
               >
                 <FcGoogle className="mr-2 text-xl" />
                 Login dengan Google
               </Button>
             </div>
 
-            <p className="text-center mt-5">
+            <p className="text-center mt-5 text-base font-medium">
               Belum Punya Akun?{" "}
               <Link
                 to="/login-register"

@@ -14,8 +14,7 @@ const PertanyaanKeamanan = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const {
     getThemeModalCategory,
-    getBorderColor,
-
+    middleTheme,
     getButtonClass,
     getBorderClass,
     getIconTheme,
@@ -108,7 +107,7 @@ const PertanyaanKeamanan = () => {
         Swal.fire({
           title: "Error",
           text:
-            "Terjadi kesalahan saat registrasi: " +
+            "Terjadi kesalahan saat registrasi: " + 
             (error.message || "Unknown error"),
           icon: "error",
         });
@@ -116,84 +115,92 @@ const PertanyaanKeamanan = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="flex items-center justify-between p-5">
-        <div className="flex items-center gap-3">
-          <FaArrowLeft
-            onClick={() => navigate(-1)}
-            className="cursor-pointer"
-          />
-          <h1 className="font-semibold text-xl">Pertanyaan Keamanan</h1>
-        </div>
-      </div>
-
-      <div className="flex flex-col p-5 -mt-3">
-        <div className="bg-white  rounded-lg mb-5">
-          <p className="text-lg font-medium">
-            Mohon diisi karena jawaban akan digunakan apabila lupa password
-          </p>
+    <div className="flex flex-col min-h-screen w-full h-full">
+      <div
+        className={`py-2 flex flex-col text-xl  flex-grow max-w-md mx-auto w-full ${middleTheme()} md:text-base`}
+      >
+        <div className="flex justify-between p-5 -mt-3">
+          <div className="flex flex-col  gap-3">
+            <FaArrowLeft
+              onClick={() => navigate(-1)}
+              className="cursor-pointer"
+            />
+            <h1 className="font-semibold text-2xl md:text-lg">Pertanyaan Keamanan</h1>
+          </div>
         </div>
 
-        {/* Selected question display */}
-        <div className="bg-white rounded-xl rounded-b-none overflow-hidden border border-gray-300">
-          <div
-            className="flex justify-between items-center p-3 cursor-pointer"
-            onClick={() => toggleAccordion(0)}
-          >
-            <span>
-              {securityData.security_question ||
-                "Nama keluarga, saudara, guru, teman terdekat"}
-            </span>
-            <span className="text-gray-400 flex items-center -mt-4">
-              {activeIndex === 0 ? (
-                <FaChevronUp className="text-gray-500" />
-              ) : (
-                <FaChevronDown className="text-gray-500" />
-              )}
-            </span>
+        <div className="flex flex-col p-5 ">
+          <div className="bg-white  rounded-lg mb-2">
+            <p className="text-lg font-medium md:text-base -mt-3">
+              Mohon diisi karena jawaban akan digunakan apabila lupa password
+            </p>
           </div>
 
-          {/* Dropdown list of questions */}
-          {activeIndex === 0 && (
-            <div className="border-t">
-              {questions.map((question, index) => (
-                <div
-                  key={index}
-                  className={`p-3 border-b last:border-b-0 cursor-pointer hover:bg-gray-50 
-                  }`}
-                  onClick={() => handleQuestionSelect(question)}
-                >
-                  <p>{question}</p>
-                </div>
-              ))}
+          {/* Selected question display */}
+          <div className="bg-white rounded-xl rounded-b-none overflow-hidden border border-gray-300">
+            <div
+              className="flex justify-between text-base font-medium items-center p-3 cursor-pointer"
+              onClick={() => toggleAccordion(0)}
+            >
+              <span>
+                {securityData.security_question ||
+                  "Nama keluarga, saudara, guru, teman terdekat"}
+              </span>
+              <span className="text-gray-400 text-base font-medium flex items-center -mt-4 md:mt-0">
+                {activeIndex === 0 ? (
+                  <FaChevronUp className="text-gray-500" />
+                ) : (
+                  <FaChevronDown className="text-gray-500" />
+                )}
+              </span>
             </div>
-          )}
-        </div>
 
-        {/* Answer input field */}
-        <div className="rounded-xl rounded-t-none overflow-hidden border border-gray-300 p-5">
-          <input
-            type="text"
-            className="w-full p-3 border rounded-md"
-            placeholder="Jawaban Saya"
-            value={securityData.security_answer}
-            onChange={handleAnswerChange}
-          />
-        </div>
+            {/* Dropdown list of questions */}
+            {activeIndex === 0 && (
+              <div className="border-t">
+                {questions.map((question, index) => (
+                  <div
+                    key={index}
+                    className={`p-3 border-b last:border-b-0 text-base font-medium cursor-pointer hover:bg-gray-50 
+                  }`}
+                    onClick={() => handleQuestionSelect(question)}
+                  >
+                    <p>{question}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
-        <div className="flex flex-col fixed bottom-5 left-5 right-5">
-          <button
-            className={`p-3 rounded-xl border-none w-full 
+          {/* Answer input field */}
+          <div className="rounded-xl rounded-t-none overflow-hidden border border-gray-300 p-5 md:text-base">
+            <input
+              type="text"
+              className="w-full p-3 border text-base font-medium rounded-md md:p-2"
+              placeholder="Jawaban Saya"
+              value={securityData.security_answer}
+              onChange={handleAnswerChange}
+            />
+          </div>
+
+          <div className="flex flex-col fixed bottom-3 left-5 right-5 justify-center mx-auto  max-w-md ">
+            <button
+              className={`p-3  text-base font-medium rounded-xl border-none w-full 
     ${
       securityData.security_question
         ? `${getButtonClass()}`
         : `${getBorderClass()}`
     }`}
-            onClick={handleSubmit}
-            disabled={isLoading}
-          >
-            {isLoading ? <FiLoader className="animate-spin  mr-2" /> : "Daftar"}
-          </button>
+              onClick={handleSubmit}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <FiLoader className="animate-spin  mr-2 " />
+              ) : (
+                "Daftar"
+              )}
+            </button>
+          </div>
         </div>
       </div>
 

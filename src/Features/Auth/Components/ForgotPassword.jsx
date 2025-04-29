@@ -18,7 +18,7 @@ const ForgotPassword = () => {
     getTextTitle,
     getThemeClass,
     getIconTheme,
-    middleTheme
+    middleTheme,
   } = useTheme();
 
   const [formData, setFormData] = useState({
@@ -65,21 +65,40 @@ const ForgotPassword = () => {
     );
 
     // Navigasi ke halaman pertanyaan keamanan
-    navigate("/pertanyaan-keamanan");
+    navigate("/pertanyaan-keamanan/forgot-password");
   };
 
+  // Track which fields are focused or filled
+  const [focusedFields, setFocusedFields] = useState({
+    identifier: false,
+    password: false,
+  });
+
+  const handleFocus = (field) => {
+    setFocusedFields((prev) => ({
+      ...prev,
+      [field]: true,
+    }));
+  };
+
+  const handleBlur = (field) => {
+    setFocusedFields((prev) => ({
+      ...prev,
+      [field]: formData[field] !== "",
+    }));
+  };
   return (
     <div className="w-full  mx-auto h-screen overflow-hidden  md:p-0 flex flex-col md:justify-center md:items-center">
       <div
-        className={`w-full max-w-md mx-auto h-screen overflow-hidden  flex flex-col md:${middleTheme()} `}
+        className={`w-full max-w-md mx-auto h-screen overflow-hidden  flex flex-col ${middleTheme()} `}
       >
         {/* Header */}
         <div className="flex items-center gap-3 mt-5  px-5">
-          <FaArrowLeft className="text-2xl cursor-pointer" />
-          <h1 className="text-xl font-semibold">Lupa Password</h1>
+          <FaArrowLeft className="text-xl cursor-pointer" />
+          <h1 className="text-2xl font-semibold">Pertanyaan</h1>
         </div>
 
-        <div className="p-5 flex flex-col md:justify-center  md:mx-auto md:mt-28 md:w-full md:m-0">
+        <div className="p-5 flex flex-col md:justify-center  md:mx-auto md:mt-44 md:w-full md:m-0">
           <h2 className="text-xl font-medium mt-10 md:mt-0 md:text-base">
             Insya Allah kami bantu pemulihan akun
           </h2>
@@ -95,14 +114,27 @@ const ForgotPassword = () => {
               className={`flex gap-2 items-center border-2 rounded-xl p-2 ${getBorder()} bg-transparent`}
             >
               <MdEmail className="mx-1" />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                className="flex-grow p-2 text-sm bg-transparent rounded-xl outline-none md:p-1"
-              />
+              <div className="flex-grow relative">
+                <label
+                  className={`absolute block text-sm transition-all duration-200 ${
+                    focusedFields.identifier
+                      ? `-top-5 left-0 text-sm text-blue-500 bg-white px-1`
+                      : "top-1 left-2 text-gray-500"
+                  }`}
+                >
+                  Email 
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder=""
+                  value={formData.email}
+                  onChange={handleChange}
+                  onFocus={() => handleFocus("identifier")}
+                  onBlur={() => handleBlur("identifier")}
+                  className="flex-grow p-2 text-sm bg-transparent rounded-xl outline-none md:p-1"
+                />
+              </div>
             </div>
             {/* Login Link and Submit Button */}
             <div className="fixed left-5 right-5 bottom-5 items-center max-w-md flex flex-col justify-center mx-auto  md:justify-center  md:mx-auto md:mt-0 md:sticky md:w-full">
@@ -112,12 +144,12 @@ const ForgotPassword = () => {
                 className={`p-3 w-full mt-2 border-none rounded-xl ${getButtonClass()}`}
               >
                 {isLoading ? (
-                  <FiLoader className="animate-spin inline-block mr-2" />
+                  <FiLoader className="animate-spin inline-block mr-2 text-base font-medium" />
                 ) : (
                   "Lanjutkan"
                 )}
               </button>
-              <p className="flex justify-center mt-2">
+              <p className="flex justify-center mt- text-base font-medium">
                 Sudah memiliki akun?{" "}
                 <span
                   className="underline cursor-pointer text-[#2F80ED] mx-2"

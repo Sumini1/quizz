@@ -14,7 +14,7 @@ const RegisterEmail = () => {
   const {
     getBorder,
     getButtonClass,
-    getTextTitle,
+    getLanjutkanClass,
     getThemeClass,
     getIconTheme,
     middleTheme,
@@ -41,6 +41,27 @@ const RegisterEmail = () => {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.register);
   const navigate = useNavigate();
+
+  // Check if form has any input
+  const hasInput = () => {
+    return (
+      formData.user_name !== "" ||
+      formData.email !== "" ||
+      formData.password !== "" ||
+      formData.confirmPassword !== ""
+    );
+  };
+
+  // Check if form is fully valid for submission
+  const isFormValid = () => {
+    return (
+      formData.user_name !== "" &&
+      formData.email !== "" &&
+      formData.password !== "" &&
+      formData.confirmPassword !== "" &&
+      Object.keys(formErrors).length === 0
+    );
+  };
 
   useEffect(() => {
     document.body.style.overflow = "auto";
@@ -150,7 +171,7 @@ const RegisterEmail = () => {
     );
 
     // Navigasi ke halaman pertanyaan keamanan
-    navigate("/security-question");
+    navigate("/security-question/register-email  ");
     setIsSubmitting(false);
   };
 
@@ -159,15 +180,15 @@ const RegisterEmail = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center w-full h-screen">
+    <div className="flex flex-col justify-center w-full h-screen overflow-hidden">
       <div
-        className={`w-full max-w-md mx-auto h-screen overflow-y-auto flex flex-col md:${middleTheme()} p-5`}
+        className={`w-full max-w-md mx-auto h-screen overflow-hidden flex flex-col ${middleTheme()} p-5`}
       >
-        <h1 className="text-xl font-bold absolute top-5">EduLearn</h1>
+        <h1 className="text-2xl font-semibold absolute top-5">EduLearn</h1>
 
         <div className="mt-20 md:mt-32 flex flex-col">
-          <h2 className="text-lg font-semibold mb-2">Daftar dengan Email</h2>
-          <p className="text-md mb-5">
+          <h2 className="text-xl font-semibold mb-2">Daftar dengan Email</h2>
+          <p className="text-base font-medium mb-5">
             Untuk proses lebih lanjut mohon lengkapi data berikut
           </p>
 
@@ -186,7 +207,7 @@ const RegisterEmail = () => {
                 <label
                   className={`absolute text-sm transition-all duration-200 ${
                     focusedFields.user_name
-                      ? "-top-5 left-0 text-xs text-blue-500 bg-white px-1"
+                      ? "-top-5 left-0 text-sm text-blue-500 bg-white px-1"
                       : "top-2 left-2 text-gray-500"
                   } ${formErrors.user_name ? "text-red-500" : ""}`}
                 >
@@ -220,7 +241,7 @@ const RegisterEmail = () => {
                 <label
                   className={`absolute text-sm transition-all duration-200 ${
                     focusedFields.email
-                      ? "-top-5 left-0 text-xs text-blue-500 bg-white px-1"
+                      ? "-top-5 left-0 text-sm text-blue-500 bg-white px-1"
                       : "top-2 left-2 text-gray-500"
                   } ${formErrors.email ? "text-red-500" : ""}`}
                 >
@@ -254,7 +275,7 @@ const RegisterEmail = () => {
                 <label
                   className={`absolute text-sm transition-all duration-200 ${
                     focusedFields.password
-                      ? "-top-3 left-0 text-xs text-blue-500 bg-white px-1"
+                      ? "-top-3 left-0 text-sm text-blue-500 bg-white px-1"
                       : "top-2 left-2 text-gray-500"
                   } ${formErrors.password ? "text-red-500" : ""}`}
                 >
@@ -301,7 +322,7 @@ const RegisterEmail = () => {
                 <label
                   className={`absolute text-sm transition-all duration-200 ${
                     focusedFields.confirmPassword
-                      ? "-top-3 left-0 text-xs text-blue-500 bg-white px-1"
+                      ? "-top-3 left-0 text-sm text-blue-500 bg-white px-1"
                       : "top-2 left-2 text-gray-500"
                   } ${formErrors.confirmPassword ? "text-red-500" : ""}`}
                 >
@@ -336,7 +357,7 @@ const RegisterEmail = () => {
             )}
 
             {/* Login Link and Submit Button */}
-            <div className="mt-10 flex flex-col items-center sticky md:mt-32 left-0 bottom-5">
+            <div className="mt-24 flex flex-col text-base font-medium items-center sticky md:mt-36 left-0 bottom-0">
               <p className="flex justify-center">
                 Sudah memiliki akun?{" "}
                 <span
@@ -348,8 +369,12 @@ const RegisterEmail = () => {
               </p>
               <button
                 type="submit"
-                disabled={isLoading || isSubmitting}
-                className={`p-3 w-full mt-2 border-none rounded-xl ${getButtonClass()} `}
+                disabled={isLoading || isSubmitting || !hasInput()}
+                className={`p-3 w-full mt-2 border-none rounded-xl ${
+                  hasInput()
+                    ? getButtonClass()
+                    : "bg-[#DCE6F8] text-[#0961F5] cursor-not-allowed"
+                } `}
               >
                 {isLoading || isSubmitting ? (
                   <FiLoader className="animate-spin inline-block mr-2" />

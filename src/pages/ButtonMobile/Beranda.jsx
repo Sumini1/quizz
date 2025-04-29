@@ -12,42 +12,42 @@ const Beranda = () => {
   const kotak = [
     {
       id: 1,
-      name: "Pilihan Qur'an Hadits",
+      name: "Mode Utama",
       icon: <img src="/BookReading.png" alt="" srcset="" />,
     },
     {
       id: 2,
-      name: "Persiapan Ramadhan",
+      name: "Kerjasama Lembaga",
       icon: <img src="/Quran.png" alt="" srcset="" />,
     },
     {
       id: 3,
-      name: "Tematik Pilihan",
+      name: "Agenda Spesial",
       icon: <img src="/Kaaba.png" alt="" srcset="" />,
     },
     {
       id: 4,
-      name: "Kuis Kilat 1 Menit",
+      name: "Tematik Pilihan",
       icon: <img src="/MultipleChoice.png" alt="" srcset="" />,
     },
     {
       id: 5,
-      name: "Kuis Marathon",
+      name: "Artikel",
       icon: <img src="/Magazine.png" alt="" srcset="" />,
     },
     {
       id: 6,
-      name: "Kuis Berhadiah",
+      name: "Kuis Kilat 1 Menit",
       icon: <img src="/FastForward.png" alt="" srcset="" />,
     },
     {
       id: 7,
-      name: "Tantangan Harian",
+      name: "Ikuti Tantangan",
       icon: <img src="/Ambition.png" alt="" srcset="" />,
     },
     {
       id: 8,
-      name: "Tantangan Pekanan",
+      name: "Mode Lainnya",
       icon: <img src="/View.png" alt="" srcset="" />,
     },
   ];
@@ -159,28 +159,29 @@ const Beranda = () => {
     getThemeClass,
     getThemeBeranda,
     theme,
-    getLatarBeranda,
+    middleTheme,
+    getIconTheme,
     getTextTitle,
     getIconColorAlert,
   } = useTheme();
 
   return (
     <>
-      <div className="flex justify-center w-full">
+      <div className="flex justify-center w-full h-full ">
         <div
-          className={`flex flex-col flex-grow max-w-md w-full ${getLatarBeranda()}`}
+          className={`flex flex-col flex-grow max-w-md w-full ${middleTheme()}`}
         >
           <div className="flex flex-col">
             <div className={`mt-1 rounded-lg m-2`}>
               {/* Kontainer Header */}
               <div className="flex items-center gap-4 px-2 py-3">
                 <div className="flex items-center gap-2">
-                  <h1 className={`text-xl font-semibold ${getTextTitle()}`}>
+                  <h1 className={`text-2xl font-semibold ${getTextTitle()}`}>
                     Edu Learn
                   </h1>
                 </div>
                 <FaCircleUser
-                  className={`ml-auto text-2xl mx-14 mt-1 md:mr-0 ${getTextTitle()}`}
+                  className={`ml-auto text-xl mx-14  md:mr-0 ${getTextTitle()}`}
                 />
               </div>
 
@@ -190,10 +191,10 @@ const Beranda = () => {
                   theme === "dark" && "m-1"
                 }`}
               >
-                <h1 className="text-md font-semibold">
+                <h1 className="text-xl font-semibold">
                   Assalamualaikum, Sdr. Budi
                 </h1>
-                <h1 className={`text-sm text-white`}>
+                <h1 className={`text-base font-semibold text-white`}>
                   " Sesungguhnya ilmu adalah rasa takut kepada Allah ta'ala ".
                 </h1>
 
@@ -203,7 +204,7 @@ const Beranda = () => {
                     className="flex items-center gap-2"
                   >
                     <img src="/iconPemula.png" alt="pemula" />
-                    <h5 className="text-xs">Pemula</h5>
+                    <h5 className="text-xs font-medium">Pemula</h5>
                   </div>
 
                   <div className="flex items-center gap-x-40">
@@ -212,18 +213,18 @@ const Beranda = () => {
                       className="flex items-center -mt-5 gap-2 whitespace-nowrap"
                     >
                       <img src="/iconLencana.png" alt="lencana" className="" />
-                      <h5 className="text-xs">
+                      <h5 className="text-xs font-medium">
                         22 <span className="ml-1">Lencana</span>
                       </h5>
                     </div>
 
-                    <div className="flex items-center justify-center -mt-5 bg-[#28A745] p rounded-full gap-2 p-1 w-[170px]">
+                    <div className="flex items-center justify-center -mt-5 bg-[#28A745] p rounded-full gap-2 p-1 w-[200px]">
                       <img
                         src="/emerald.png"
                         alt="emerald"
                         className="text-sm items-center"
                       />
-                      <h5 className="text-xs">Emerald</h5>
+                      <h5 className="text-xs font-medium">Emerald</h5>
                     </div>
                   </div>
                 </div>
@@ -243,7 +244,7 @@ const Beranda = () => {
                       <div className="flex bg-white rounded-full h-[50px] w-auto justify-center items-center p-2">
                         <h5>{item.image}</h5>
                       </div>
-                      <p className="text-xs text-center whitespace-nowrap">
+                      <p className="text-xs font-regular text-center whitespace-nowrap">
                         {item.name}
                       </p>
                     </div>
@@ -254,7 +255,7 @@ const Beranda = () => {
             {/*  Paragraf */}
             <div className="px-4 py-3 mb-5 bg-[#F8FFF6] mt-5 w-full flex flex-col">
               <div className="flex gap-2">
-                <h2 className="mb-3 font-[500] text-md">
+                <h2 className="mb-3  text-lg font-semibold">
                   Donasi Perkembangan Aplikasi ( 1 )
                 </h2>
                 <MdOutlineError className={`${getIconColorAlert()}`} />
@@ -264,11 +265,11 @@ const Beranda = () => {
                 untuk mewujudkan pendidikan islam gratis bagi muslimin dan umum.
               </p>
               <div className="flex justify-between">
-                <p className="text-sm font-normal mt-3">
+                <p className="text-sm font-medium mt-3">
                   Terkumpul :
                   <span className="text-[#28A745] ml-2">Rp. 5.000.000</span>
                 </p>
-                <p className="text-sm font-normal mt-3">
+                <p className="text-sm font-medium mt-3">
                   Sisa hari :<span className="text-[#28A745] ml-2">20</span>
                 </p>
               </div>
@@ -280,7 +281,7 @@ const Beranda = () => {
 
             {/* Bagian Kotak-kotak */}
             <div className="flex flex-col gap-4 px-4 mb-5 ">
-              <h2 className={`text-md font-[500] ${getTextTitle()}`}>
+              <h2 className={`text-lg font-semibold ${getTextTitle()}`}>
                 Mode Belajar
               </h2>
               <div className="grid grid-cols-4 gap-2 mt-1 text-center ">
@@ -297,7 +298,7 @@ const Beranda = () => {
                       {item.icon}
                     </div>
                     <p
-                      className={`text-center text-sm font-normal w-full ${getTextTitle()}`}
+                      className={`text-center text-sm font-medium w-full ${getTextTitle()}`}
                     >
                       {item.name}
                     </p>
@@ -309,10 +310,10 @@ const Beranda = () => {
 
             <div className="px-4 mb-5 w-full flex flex-col">
               <div className="flex gap-2">
-                <h2 className="mb-5 font-[500] text-md ">Sedang Dipelajari</h2>
+                <h2 className="mb-5 font-semibold text-lg ">Sedang Dipelajari</h2>
                 <MdOutlineError className={`${getIconColorAlert()}`} />
                 <Link to={"/sedang-dipelajari"} className="ml-auto">
-                  <h5 className="text-sm font-medium mt-2 items-center text-[#F59D09]">
+                  <h5 className="text-sm font-semibold mt-2 items-center text-[#F59D09]">
                     Selengkapnya
                   </h5>
                 </Link>
@@ -326,10 +327,10 @@ const Beranda = () => {
                     <h1 className="text-green-600 text-xs font-semibold">
                       {item.name}
                     </h1>
-                    <p className="text-gray-800 font-medium">{item.title}</p>
+                    <p className="text-gray-800 font-medium text-xs">{item.title}</p>
                     <div className="flex items-center gap-1">
-                      <MdAccessTimeFilled className="text-gray-400" />
-                      <p className="text-xs text-gray-500">{item.ket}</p>
+                      <MdAccessTimeFilled className={`${getIconTheme()}`} />
+                      <p className="text-xs ">{item.ket}</p>
                     </div>
                     <div className="flex items-center w-full mt-3 mb-2 relative h-6">
                       <div
@@ -354,7 +355,7 @@ const Beranda = () => {
             {/* LAPORAN DUKUNGAN */}
             <div className="px-4 py-3 mb-5 w-full flex flex-col">
               <div className="flex gap-2">
-                <h2 className="mb-5 font-[500] text-md ">Laporan Dukungan</h2>
+                <h2 className="mb-5 font-semibold text-lg ">Laporan Dukungan</h2>
                 <MdOutlineError className={`${getIconColorAlert()}`} />
                 <Link to={"/laporan-dukungan"} className="no-underline ml-auto">
                   <h5 className="text-sm font-medium mt-2 items-center text-[#F59D09]">
@@ -374,7 +375,7 @@ const Beranda = () => {
                     key={item.id}
                     className={`px-3 border-2 py-2 rounded-xl flex-shrink-0 transition-opacity duration-700 ease-in-out ${borderColor()}`}
                   >
-                    <h5 className="font-normal text-sm p-1">{item.name}</h5>
+                    <h5 className="font-medium text-sm p-1">{item.name}</h5>
                   </Link>
                 ))}
               </div>
@@ -384,10 +385,10 @@ const Beranda = () => {
             {/* Materi terbaru */}
             <div className="px-4 py-3 -mt-2 mb-5 w-full flex flex-col">
               <div className="flex gap-2 mb-5">
-                <h2 className="mb-5 font-[500] text-md ">Materi Terbaru</h2>
+                <h2 className="mb-5 font-semibold text-lg ">Materi Terbaru</h2>
                 <MdOutlineError className={`${getIconColorAlert()}`} />
                 <Link to={"/materi-terbaru"} className="ml-auto">
-                  <h5 className="text-sm font-medium mt-2 items-center text-[#F59D09]">
+                  <h5 className="text-sm font-semibold mt-2 items-center text-[#F59D09]">
                     Selengkapnya
                   </h5>
                 </Link>
@@ -396,7 +397,7 @@ const Beranda = () => {
                 {materiTerbaru.map((item) => (
                   <div
                     key={item.id}
-                    className={`flex flex-col flex-shrink-0 transition-opacity duration-700 ease-in-out w-auto rounded-xl gap-2 ${borderColor()} shadow-xl shadow-gray-300 border-t-0`}
+                    className={`flex flex-col flex-shrink-0 transition-opacity duration-700 ease-in-out w-auto rounded-xl gap-2 ${borderColor()} shadow-lg border-t-0`}
                   >
                     <h5 className="w-full rounded-xl">{item.image}</h5>
 
@@ -404,10 +405,10 @@ const Beranda = () => {
                       <h1 className="text-green-600 text-xs font-semibold -mt-3 mb-2">
                         {item.name}
                       </h1>
-                      <p className="text-gray-800 font-medium mb-2">
+                      <p className="text-gray-800 font-medium mb-2 text-xs ">
                         {item.title}
                       </p>
-                      <p className="text-xs text-gray-500">{item.ket}</p>
+                      <p className="text-xs font-regular text-gray-500">{item.ket}</p>
                     </div>
                   </div>
                 ))}

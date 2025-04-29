@@ -5,20 +5,64 @@ export const fetchQuizzes = createAsyncThunk(
     async () => {
         try {
             const response = await fetch(
-                "https://arabiya-syari-fiber-production.up.railway.app/api/quizzes",
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-                        "Content-Type": "application/json",
-                    },
-                }
+              "https://quiz-fiber-production.up.railway.app/api/quizzes",
+              {
+                method: "GET",
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem(
+                    "token"
+                  )}`,
+                  "Content-Type": "application/json",
+                },
+              }
             );
             if (!response.ok) {
                 throw new Error("Gagal mengambil data quizzes");
             }
-            const data = await response.json();
-            return data;
+             const responseData = await response.json();
+
+             // Validate that responseData has a data property that is an array
+             if (!responseData.data || !Array.isArray(responseData.data)) {
+               throw new Error("Format data tidak valid");
+             }
+
+             // Return the whole response object
+             return responseData;
+        } catch (error) {
+            throw error;
+        }
+    }
+);
+
+// quizbyId
+export const fetchQuizById = createAsyncThunk(
+    "quizzes/fetchQuizById",
+    async (id) => {
+        try {
+            const response = await fetch(
+              `https://quiz-fiber-production.up.railway.app/api/quizzes/${id}`,
+              {
+                method: "GET",
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem(
+                    "token"
+                  )}`,
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+            if (!response.ok) {
+                throw new Error("Gagal mengambil data quizzes");
+            }
+             const responseData = await response.json();
+
+             // Validate that responseData has a data property that is an array
+             if (!responseData.data || !Array.isArray(responseData.data)) {
+               throw new Error("Format data tidak valid");
+             }
+
+             // Return the whole response object
+             return responseData;
         } catch (error) {
             throw error;
         }
@@ -45,6 +89,19 @@ extraReducers: (builder) => {
         state.data = action.payload.data;
       })
       .addCase(fetchQuizzes.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+
+      // fetch units berdasarka id
+      .addCase(fetchQuizById.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchQuizById.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.detail = action.payload.data;
+      })
+      .addCase(fetchQuizById.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });

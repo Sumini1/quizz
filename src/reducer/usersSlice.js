@@ -4,12 +4,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   try {
     const response = await fetch(
-      "https://arabiya-syari-fiber-production.up.railway.app/api/users",
+      "https://quiz-fiber-production.up.railway.app/api/users",
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }
     );
@@ -31,14 +31,14 @@ export const fetchUsersById = createAsyncThunk(
   "usersById/fetch",
   async (id, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("token");
 
       if (!token) {
         throw new Error("Token tidak tersedia");
       }
 
       const response = await fetch(
-        `https://arabiya-syari-fiber-production.up.railway.app/api/users/${id}`,
+        `https://quiz-fiber-production.up.railway.app/api/users/${id}`,
         {
           method: "GET",
           headers: {
@@ -89,7 +89,7 @@ const usersSlice = createSlice({
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.data = action.payload || [];
+        state.data = action.payload.data || [];
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.status = "failed";
@@ -101,7 +101,7 @@ const usersSlice = createSlice({
       })
       .addCase(fetchUsersById.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.detail = action.payload; // Store user detail
+        state.detail = action.payload.data; // Store user detail
       })
       .addCase(fetchUsersById.rejected, (state, action) => {
         state.status = "failed";

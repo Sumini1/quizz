@@ -29,7 +29,7 @@ export const authRoutes = [
         element: <NewPassword />,
     },
     {
-        path: "/pertanyaan-keamanan",
+        path: "/pertanyaan-keamanan/forgot-password",
         element: <PertanyaanKeamanan />,
     },
     {
@@ -39,7 +39,7 @@ export const authRoutes = [
   
 
     {
-        path: "/security-question",
+        path: "/security-question/register-email",
         element: <SecurityQuestion />,
     },
 

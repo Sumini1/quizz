@@ -81,169 +81,175 @@ const Pembelajaran = () => {
 
   return (
     <>
-      <div
-        className={`flex flex-col p-0 flex-grow ${getLatarBeranda()} h-[235px]`}
-      >
-        <div className="mb-5 flex flex-col w-full p-5">
-          <h1 className="text-xl font-semibold mb-4">Pembelajaran</h1>
-          <div
-            className={`flex  flex-col  gap-3 px-1 ${getButtonClass()} border-none`}
-          >
-            <div className="p-3">
-              <Link to={"/pilih-category"}>
-                <h3 className="text-lg  mb-3 font-medium">
-                  Tersedia Pilihan Pembelajaran
-                </h3>
-              </Link>
-              <h5 className="text-sm mb-5 font-medium">
-                Terdapat 4 tingkat, 20 kategori , 100 level / tema dan 1000
-                topik pembahasan.
-              </h5>
-              <div className="bg-white  flex gap-2 rounded-xl p-1 w-[200px] justify-center items-center ml-32 m-1 ">
-                <img src="/Vector.png" alt="" />
-                <h5 className="text-center text-[#222] text-sm font-semibold">
-                  Jelajahi Pembelajaran
+      <div className="flex flex-col min-h-screen w-full h-full">
+        <div
+          className={` flex flex-col text-xl flex-grow max-w-md mx-auto w-full bg-white `}
+        >
+          <div className="mb-5 flex flex-col w-full p-5">
+            <h1 className="text-xl font-semibold mb-4">Pembelajaran</h1>
+            <div
+              className={`flex  flex-col  gap-3 px-1 ${getButtonClass()} border-none`}
+            >
+              <div className="p-3">
+                <Link to={"/pilih-category"}>
+                  <h3 className="text-lg  mb-3 font-medium">
+                    Tersedia Pilihan Pembelajaran
+                  </h3>
+                </Link>
+                <h5 className="text-sm mb-5 font-medium">
+                  Terdapat 4 tingkat, 20 kategori , 100 level / tema dan 1000
+                  topik pembahasan.
                 </h5>
+                <div className="bg-white  flex gap-2 rounded-xl p-1 w-[200px] justify-center items-center ml-32 m-1 ">
+                  <img src="/Vector.png" alt="" />
+                  <h5 className="text-center text-[#222] text-sm font-semibold">
+                    Jelajahi Pembelajaran
+                  </h5>
+                </div>
               </div>
             </div>
-          </div>
-          {/* Content */}
+            {/* Content */}
 
-          <div className="grid grid-cols-2 mt-8  w-full h-[180px] gap-y-3 gap-x-3 justify-center">
-            {category.map((category) => (
-              <Link to={category.link}>
-                <div
-                  key={category.id}
-                  className={`flex flex-col w-full h-[110px]   gap-2  px-3 ${
-                    category.id === 1
-                      ? "bg-[#DCFFD9] rounded-xl p-2 "
-                      : category.id === 2
-                      ? "bg-[#DCE6F8] rounded-xl p-2 "
-                      : category.id === 3
-                      ? "bg-[#FFEF96] rounded-xl p-2 text-[#555555] "
-                      : category.id === 4
-                      ? "bg-[#FFD9D9] rounded-xl p-2 "
-                      : ""
-                  }`}
-                >
-                  <h3
-                    className={`text-lg  font-medium ${
+            <div className="grid grid-cols-2 mt-8  w-full h-[180px] gap-y-3 gap-x-3 justify-center">
+              {category.map((category) => (
+                <Link to={category.link}>
+                  <div
+                    key={category.id}
+                    className={`flex flex-col w-full h-[110px]   gap-2  px-3 ${
                       category.id === 1
-                        ? "text-[#28A745]"
+                        ? "bg-[#DCFFD9] rounded-xl p-2 "
                         : category.id === 2
-                        ? "text-[#0961F5]"
+                        ? "bg-[#DCE6F8] rounded-xl p-2 "
                         : category.id === 3
-                        ? "text-[#B39700]"
+                        ? "bg-[#FFEF96] rounded-xl p-2 text-[#555555] "
                         : category.id === 4
-                        ? "text-[#C15E42]"
+                        ? "bg-[#FFD9D9] rounded-xl p-2 "
                         : ""
                     }`}
                   >
-                    {category.name}
-                  </h3>
-
-                  <h5 className="text-sm -mt-1  font-normal">
-                    {category.description}
-                  </h5>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-        <hr className="w-full text-[#EEEEEE] font-bold  border-8 m-0 mb-5 mt-8" />
-        {/* tantangan */}
-        <div className="flex flex-col p-5 ">
-          <div className="flex  justify-between -mt-8">
-            <h2 className="text-lg font-[500] ">Ikuti Tantangan</h2>
-            <p className="flex items-center ">
-              <MdTimer className="text-[#F59D09]" />
-              <span className="text-xs text-[#F59D09]">4 hari tersisa</span>
-            </p>
-          </div>
-          <p className="text-sm mt-2 ">
-            Selesaikan tantangan dan dapatkan berbagai macam hadiah dan
-            lencananya.
-          </p>
-          <div className="grid grid-cols-1  gap-y-0">
-            <div className="grid grid-cols-1 mt-5 gap-y-0 ">
-              {tantangan.map((item, index) => {
-                const itemTheme = lencanaIndex[index % lencanaIndex.length];
-                const isSpecialId = item.id === 5;
-                const commonClasses = `flex flex-col w-full p-2 rounded-xl`;
-                const heightClass = isSpecialId
-                  ? "h-[40px] justify-center"
-                  : "h-[70px]";
-                const themeClasses =
-                  itemTheme === "satu"
-                    ? `  rounded-b-none border-[1px] ${getBorderColor()}`
-                    : itemTheme === "dua"
-                    ? ` rounded-t-none rounded-b-none border-[1px]  ${getBorderColor()}`
-                    : itemTheme === "tiga"
-                    ? ` rounded-t-none rounded-b-none border-[1px]  ${getBorderColor()}`
-                    : itemTheme === "empat"
-                    ? `bg-white text-[#4B4B4B] rounded-t-none rounded-b-none border-[1px]    ${getBorderColor()}`
-                    : itemTheme === "lima"
-                    ? `bg-white text-[#4B4B4B] rounded-t-none  border-[1px] rounded-b-xl    ${getBorderColor()}`
-                    : // : itemTheme === "emerald"
-                      // ? " rounded-t-none rounded-b-none border-gray-400 "
-                      ` rounded-t-none rounded-b-none border-[1px]  ${getBorderColor()}`;
-
-                return (
-                  <Link to={item.link}>
-                    <div
-                      key={item.id}
-                      // onClick={() => handleSelectMidnightTheme(item.id - 1)}
-                      className={`${commonClasses} ${heightClass} ${themeClasses}`}
+                    <h3
+                      className={`text-lg  font-medium ${
+                        category.id === 1
+                          ? "text-[#28A745]"
+                          : category.id === 2
+                          ? "text-[#0961F5]"
+                          : category.id === 3
+                          ? "text-[#B39700]"
+                          : category.id === 4
+                          ? "text-[#C15E42]"
+                          : ""
+                      }`}
                     >
-                      <div className="flex items-center gap-x-2">
-                        <h5
-                          className={`border-none p-1 w-[30px] mx-2 flex items-center justify-center text-sm h-[30px] font-[500] rounded-full ${
-                            isSpecialId
-                              ? "bg-transparent text-[#222]"
-                              : "bg-blue-500 text-white"
-                          }`}
-                        >
-                          {!isSpecialId && item.id}
-                        </h5>
+                      {category.name}
+                    </h3>
 
-                        <div className="flex flex-col">
+                    <h5 className="text-sm -mt-1  font-normal">
+                      {category.description}
+                    </h5>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+          <hr className="w-full text-[#EEEEEE] font-bold  border-8 m-0 mb-5 mt-8" />
+          {/* tantangan */}
+          <div className="flex flex-col p-5 ">
+            <div className="flex  justify-between -mt-8 md:-mt-0">
+              <h2 className="text-lg font-[500] ">Ikuti Tantangan</h2>
+              <p className="flex items-center ">
+                <MdTimer className="text-[#F59D09]" />
+                <span className="text-xs text-[#F59D09]">4 hari tersisa</span>
+              </p>
+            </div>
+            <p className="text-sm mt-2 ">
+              Selesaikan tantangan dan dapatkan berbagai macam hadiah dan
+              lencananya.
+            </p>
+            <div className="grid grid-cols-1  gap-y-0">
+              <div className="grid grid-cols-1 mt-5 gap-y-0 ">
+                {tantangan.map((item, index) => {
+                  const itemTheme = lencanaIndex[index % lencanaIndex.length];
+                  const isSpecialId = item.id === 5;
+                  const commonClasses = `flex flex-col w-full p-2 rounded-xl`;
+                  const heightClass = isSpecialId
+                    ? "h-[40px] justify-center"
+                    : "h-[70px]";
+                  const themeClasses =
+                    itemTheme === "satu"
+                      ? `  rounded-b-none border-[1px] ${getBorderColor()}`
+                      : itemTheme === "dua"
+                      ? ` rounded-t-none rounded-b-none border-[1px]  ${getBorderColor()}`
+                      : itemTheme === "tiga"
+                      ? ` rounded-t-none rounded-b-none border-[1px]  ${getBorderColor()}`
+                      : itemTheme === "empat"
+                      ? `bg-white text-[#4B4B4B] rounded-t-none rounded-b-none border-[1px]    ${getBorderColor()}`
+                      : itemTheme === "lima"
+                      ? `bg-white text-[#4B4B4B] rounded-t-none  border-[1px] rounded-b-xl    ${getBorderColor()}`
+                      : // : itemTheme === "emerald"
+                        // ? " rounded-t-none rounded-b-none border-gray-400 "
+                        ` rounded-t-none rounded-b-none border-[1px]  ${getBorderColor()}`;
+
+                  return (
+                    <Link to={item.link}>
+                      <div
+                        key={item.id}
+                        // onClick={() => handleSelectMidnightTheme(item.id - 1)}
+                        className={`${commonClasses} ${heightClass} ${themeClasses}`}
+                      >
+                        <div className="flex items-center gap-x-2">
                           <h5
-                            className={`font-medium ${
-                              item.id === 5 ? "text-left flex  -ml-16 px-5" : ""
+                            className={`border-none p-1 w-[30px] mx-2 flex items-center justify-center text-sm h-[30px] font-[500] rounded-full ${
+                              isSpecialId
+                                ? "bg-transparent text-[#222]"
+                                : "bg-blue-500 text-white"
                             }`}
                           >
-                            {item.name}
+                            {!isSpecialId && item.id}
                           </h5>
-                          <h5 className=" text-xs">{item.type}</h5>
-                        </div>
 
-                        <div
-                          className={`ml-auto flex mx-3 gap-1 justify-center items-center font-bold ${getIconTheme()} ${
-                            item.id === 5 && "text-[#4B4B4B] "
-                          }`}
-                        >
-                          <h5
-                            className={`font-medium ${
-                              item.id === 4 && "text-3xl"
-                            } ${isSpecialId && "text-xl"}`}
+                          <div className="flex flex-col">
+                            <h5
+                              className={`font-medium ${
+                                item.id === 5
+                                  ? "text-left flex  -ml-16 px-5"
+                                  : ""
+                              }`}
+                            >
+                              {item.name}
+                            </h5>
+                            <h5 className=" text-xs">{item.type}</h5>
+                          </div>
+
+                          <div
+                            className={`ml-auto flex mx-3 gap-1 justify-center items-center font-bold ${getIconTheme()} ${
+                              item.id === 5 && "text-[#4B4B4B] "
+                            }`}
                           >
-                            {item.icon}
-                          </h5>
-                          <p className={`text-sm ${getIconTheme()}`}>
-                            {item.progress}
-                          </p>
+                            <h5
+                              className={`font-medium ${
+                                item.id === 4 && "text-3xl"
+                              } ${isSpecialId && "text-xl"}`}
+                            >
+                              {item.icon}
+                            </h5>
+                            <p className={`text-sm ${getIconTheme()}`}>
+                              {item.progress}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                );
-              })}
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
         {/* Sticky Button */}
-        <div className="fixed bottom-0 w-full">
-          <ButtonMobileKotak className="p-0 m-0 bg-blue-500 text-white flex justify-center items-center h-12" />
+        <div className="flex justify-center w-full sticky bottom-0 mt-0">
+          <div className="w-full md:max-w-md">
+            <ButtonMobileKotak />
+          </div>
         </div>
       </div>
     </>

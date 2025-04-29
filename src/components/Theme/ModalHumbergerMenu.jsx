@@ -7,8 +7,11 @@ import { VscColorMode } from "react-icons/vsc";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { MdLiveHelp } from "react-icons/md";
 import { IoDiamond } from "react-icons/io5";
+import PilihanTema from "./PilihanTema";
 
 const ModalHumbergerMenu = ({ isOpen, onClose }) => {
+  const [showThemeModal, setShowThemeModal] = useState(false);
+
   if (!isOpen) {
     return null;
   }
@@ -18,7 +21,9 @@ const ModalHumbergerMenu = ({ isOpen, onClose }) => {
       onClose();
     }
   };
+
   const { theme, getButtonClass, getIconTheme } = useTheme();
+
   const getThemeClass = () => {
     return theme === "dark"
       ? "bg-gray-800 text-white"
@@ -31,6 +36,14 @@ const ModalHumbergerMenu = ({ isOpen, onClose }) => {
       : "bg-[#DCE6F8] text-[#333]";
   };
 
+  const openThemeModal = () => {
+    setShowThemeModal(true);
+  };
+
+  const closeThemeModal = () => {
+    setShowThemeModal(false);
+  };
+
   const settings = [
     {
       id: 1,
@@ -38,6 +51,7 @@ const ModalHumbergerMenu = ({ isOpen, onClose }) => {
       link: "#",
       icon: <IoDiamond />,
       symbol: <MdKeyboardArrowRight />,
+      onClick: null,
     },
     {
       id: 2,
@@ -45,13 +59,15 @@ const ModalHumbergerMenu = ({ isOpen, onClose }) => {
       link: "#",
       icon: <BiSolidColor />,
       symbol: <MdKeyboardArrowRight />,
+      onClick: null,
     },
     {
       id: 3,
       name: "Tema",
-      link: "#",
+      link: "",
       icon: <VscColorMode />,
       symbol: <MdKeyboardArrowRight />,
+      onClick: openThemeModal,
     },
     {
       id: 4,
@@ -59,6 +75,7 @@ const ModalHumbergerMenu = ({ isOpen, onClose }) => {
       link: "laporan",
       icon: <BsFillTelephoneFill />,
       symbol: <MdKeyboardArrowRight />,
+      onClick: null,
     },
     {
       id: 5,
@@ -66,6 +83,7 @@ const ModalHumbergerMenu = ({ isOpen, onClose }) => {
       link: "#",
       icon: <MdLiveHelp />,
       symbol: <MdKeyboardArrowRight />,
+      onClick: null,
     },
   ];
 
@@ -75,40 +93,53 @@ const ModalHumbergerMenu = ({ isOpen, onClose }) => {
       onClick={handleOverlayClick}
     >
       {/* Kontainer Modal */}
-      <div
-        className={`p-5 rounded-lg shadow-lg  w-full relative  ${getThemeClass()}`}
-      >
-        {/* Header Modal */}
-        <h2 className="text-xl  font-[500] mb-3">Pengaturan</h2>
-        <div>
-          {settings.map((item) => (
-            <div
-              key={item.id}
-              className="flex flex-col  rounded-md hover:bg-gray-100"
-            >
-              <a
-                href={item.link}
-                className="flex items-center p-2 rounded-md hover:bg-gray-100"
-              >
-                <span className="mr-3 text-xl">{item.icon}</span>
-                <span className="text-[16px]">{item.name}</span>
-                <span className="ml-auto text-2xl">{item.symbol}</span>
-              </a>
-              <hr
-                className={`mb-1 mt-2 border-t-1 ${
-                  theme === "dark" ? "border-white" : "border-[#7A7A7A]"
-                } ${item.id === 5 ? "hidden" : ""}`}
-              />
-            </div>
-          ))}
-        </div>
-        <button
-          onClick={onClose}
-          className={`mt-4 w-full font-medium p-2 rounded-xl f ${getButtonClass()}`}
+      <div className="bg-gray-100 rounded-lg shadow-xl w-full  max-w-md mx-auto">
+        <div
+          className={`p-5 rounded-lg shadow-lg w-full relative ${getThemeClass()}`}
         >
-          Tutup
-        </button>
+          {/* Header Modal */}
+          <h2 className="text-xl font-[500] mb-3">Pengaturan</h2>
+          <div>
+            {settings.map((item) => (
+              <div
+                key={item.id}
+                className="flex flex-col rounded-md hover:bg-gray-100"
+              >
+                <a
+                  href={item.link}
+                  className="flex items-center p-2 rounded-md hover:bg-gray-100"
+                  onClick={(e) => {
+                    if (item.onClick) {
+                      e.preventDefault();
+                      item.onClick();
+                    }
+                  }}
+                >
+                  <span className="mr-3 text-xl">{item.icon}</span>
+                  <span className="text-[16px]">{item.name}</span>
+                  <span className="ml-auto text-2xl">{item.symbol}</span>
+                </a>
+                <hr
+                  className={`mb-1 mt-2 border-t-1 ${
+                    theme === "dark" ? "border-white" : "border-[#7A7A7A]"
+                  } ${item.id === 5 ? "hidden" : ""}`}
+                />
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={onClose}
+            className={`mt-4 w-full font-medium p-2 rounded-xl ${getButtonClass()}`}
+          >
+            Tutup
+          </button>
+        </div>
       </div>
+
+      {/* Modal Pilihan Tema */}
+      {showThemeModal && (
+        <PilihanTema isOpen={showThemeModal} onClose={closeThemeModal} />
+      )}
     </div>
   );
 };

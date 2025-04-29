@@ -5,11 +5,11 @@ export const fetchListCategories = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        " https://arabiya-syari-fiber-production.up.railway.app/api/categories",
+        " https://quiz-fiber-production.up.railway.app/api/categories",
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
         }
@@ -21,8 +21,8 @@ export const fetchListCategories = createAsyncThunk(
 
       const data = await response.json();
 
-      // Data langsung berupa array, tidak perlu mengakses .data
-      if (!Array.isArray(data)) {
+      // Validate that responseData has a data property that is an array
+      if (!data.data || !Array.isArray(data.data)) {
         throw new Error("Format data tidak valid");
       }
 
@@ -56,7 +56,7 @@ const listCategoriesSlice = createSlice({
       .addCase(fetchListCategories.fulfilled, (state, action) => {
         state.status = "succeeded";
         // Langsung assign action.payload karena sudah berupa array
-        state.data = action.payload;
+        state.data = action.payload.data;
         state.error = null;
       })
       .addCase(fetchListCategories.rejected, (state, action) => {

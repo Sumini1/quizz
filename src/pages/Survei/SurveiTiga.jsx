@@ -11,7 +11,6 @@ const SurveiTiga = () => {
     getButtonClass,
     getDotClassSurvey,
     middleTheme,
-    getIconTheme,
     getBorder,
     getThemeClass,
   } = useTheme();
@@ -38,13 +37,13 @@ const SurveiTiga = () => {
   return (
     <div className="w-full mx-auto h-screen overflow-hidden md:p-0 flex flex-col">
       <div
-        className={`w-full max-w-md mx-auto h-screen overflow-hidden flex flex-col justify-between md:${middleTheme()} p-5 relative`}
+        className={`w-full max-w-md mx-auto h-screen overflow-hidden flex flex-col justify-between ${middleTheme()} p-5 relative`}
       >
         <div className="flex-1 flex flex-col">
-          <h2 className="text-xl font-medium mb-3 mt-10 tracking-wide leading-[1.6]">
+          <h2 className="text-xl font-semibold mb-3 mt-10 tracking-wide leading-[1.6]">
             Motivasi Belajar
           </h2>
-          <h1 className="text-md mb-5 tracking-wide leading-[1.6]">
+          <h1 className="text-lg font-medium mb-5 tracking-wide leading-[1.6]">
             Mohon partisipasinya untuk pengembangan aplikasi
           </h1>
 
@@ -73,7 +72,7 @@ const SurveiTiga = () => {
           <button
             onClick={handleOpenModal}
             type="submit"
-            className={`text-white flex p-3 border-none rounded-xl w-full items-center justify-center ${getButtonClass()}`}
+            className={`text-white flex p-3 border-none rounded-xl w-full items-center justify-center ${getButtonClass()} text-base font-medium`}
           >
             Lanjut
           </button>
@@ -85,9 +84,9 @@ const SurveiTiga = () => {
             style={{ zIndex: 50 }}
           >
             <div
-              className={`p-5 rounded-xl flex flex-col items-center border-none gap-4 bg-white`}
+              className={`p-5 rounded-xl flex flex-col items-center border-none gap-4 bg-[#DCFFD9]`}
             >
-              <HiBadgeCheck className={`text-8xl p-2 ${getIconTheme()}`} />
+              <HiBadgeCheck className={`text-8xl p-2 text-[#28A745]`} />
               {/* Ikon sukses */}
               <p className="text-lg font-semibold">Survei berhasil dikirim</p>
               <div className="text-center mb-2">
@@ -97,7 +96,7 @@ const SurveiTiga = () => {
               </div>
               <button
                 onClick={handleSurvey}
-                className={`p-3 w-full border-none rounded-xl ${getButtonClass()}`}
+                className={`p-3 w-full border-none rounded-xl bg-[#28A745] text-[#DCFFD9]`}
               >
                 Lanjut
               </button>

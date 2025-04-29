@@ -7,7 +7,7 @@ import registerReducer from "../Features/Auth/Reducer/registerSlice";
 import loginReducer from "../Features/Auth/Reducer/loginSlice";
 import difficultiesReducer from "../Features/Difficulties/Reducer/difficultiesSlice";
 import usersReducer from "../reducer/usersSlice";
-import listCategoriesReducer from "../Features/ListCategories/Reducer/listCategories";
+// import listCategoriesReducer from "../Features/Subcategory/Users/Components/ListCategories";
 import themesOrLevelsReducer from "../Features/ThemesOrLevels/Reducer/themesOrLevelsSlice";
 import unitsReducer from "../Features/Units/Reducer/unitsSlice";
 import readingsReducer from "../Features/Units/Reducer/readingsSlice";
@@ -15,9 +15,21 @@ import quizzesReducer from "../Features/Units/Reducer/quizzesSlice";
 import quizQuestionsReducer from "../Features/Units/Reducer/quizQuestionsSlice";
 import forgotPasswordReducer from "../Features/Auth/Reducer/forgotPasswordSlice";
 // import googleReducer from "../pages/Features/Auth/Reducer/googleSlice";
-import evaluationsReducer from "../Features/Units/Reducer/evaluationsSlice";
-import userQuizzesReducer from "../Features/QuizQuestions/Pemula/SirrahNabawiyyah/User/Reducer/userQuizzesSlice";
+import evaluationReducer from "../Features/Units/Reducer/evaluationsSlice";
+// import userQuizzesReducer from "../Features/QuizQuestions/Pemula/SirrahNabawiyyah/User/Reducer/userQuizzesSlice";
 import saveUserQuizProgressReducer from "../Features/QuizQuestions/Pemula/SirrahNabawiyyah/User/Reducer/userQuizzesSave";
+import evaluationQuestionsReducer from "../Features/Evaluations/Reducer/evaluationsQuestion";
+import examsReducer from "../Features/Units/Reducer/examSlice";
+import saveUserEvaluationProgressReducer, { saveUserEvaluationProgress } from "../Features/Evaluations/Reducer/userEvaluations";
+import examQuestionsReducer from "../Features/Exams/Reducer/examQuestions"
+import saveUserExamProgressReducer, { saveUserExamProgress } from "../Features/Exams/Reducer/userExams"
+import subcategoryReducer from "../Features/Subcategory/Reducer/subcategory"
+import userUnitsReducer from "../Features/Units/Reducer/userUnitsSlice"
+import allQuestionReducer from "../Features/AllQuestions/Questions"
+import userQuizzesReducer from "../Features/AllQuestions/userQuizzes"
+import userEvaluationsReducer from "../Features/AllQuestions/userEvaluations"
+import userExamsReducer from "../Features/AllQuestions/userExams"
+
 
 const store = configureStore({
   reducer: {
@@ -29,7 +41,7 @@ const store = configureStore({
     login: loginReducer,
     difficulties: difficultiesReducer,
     users: usersReducer,
-    listCategories: listCategoriesReducer,
+    // listCategories: listCategoriesReducer,
     themesOrLevels: themesOrLevelsReducer,
     units: unitsReducer,
     readings: readingsReducer,
@@ -37,9 +49,20 @@ const store = configureStore({
     quizQuestions: quizQuestionsReducer,
     forgotPassword: forgotPasswordReducer,
     // google: googleReducer,
-    evaluations: evaluationsReducer,
-    userQuizzes: userQuizzesReducer,
+    evaluations: evaluationReducer,
+    // userQuizzes: userQuizzesReducer,
     saveUserQuizProgress: saveUserQuizProgressReducer,
+    evaluationQuestions: evaluationQuestionsReducer,
+    exams: examsReducer,
+    saveUserEvaluationProgress: saveUserEvaluationProgressReducer,
+    examQuestions: examQuestionsReducer,
+    saveUserExamProgress: saveUserExamProgressReducer,
+    subcategory: subcategoryReducer,
+    userUnits : userUnitsReducer,
+   allQuestion: allQuestionReducer,
+   userQuizzes: userQuizzesReducer,
+   userEvaluations: userEvaluationsReducer,
+   userExams: userExamsReducer
   },
 });
 

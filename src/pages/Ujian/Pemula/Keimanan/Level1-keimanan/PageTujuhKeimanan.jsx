@@ -161,7 +161,7 @@ const PageTujuhKeimanan = () => {
       </div>
 
       {/* Button Cek */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white px-5 py-3 shadow-md flex justify-between gap-2">
+      <div className="fixed bottom-0 left-0 right-0 px-5 py-3 shadow-md flex justify-between gap-2">
         <img
           src={"/lamp.png"}
           onClick={handleModalRefensi}

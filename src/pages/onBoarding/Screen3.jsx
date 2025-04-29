@@ -19,7 +19,7 @@ const Screen3 = () => {
   return (
     <div className=" w-full  mx-auto h-screen overflow-hidden  md:p-0 flex flex-col">
       <div
-        className={`w-full max-w-md mx-auto h-screen overflow-hidden  flex flex-col   md:${middleTheme()}`}
+        className={`w-full max-w-md mx-auto h-screen overflow-hidden  flex flex-col ${middleTheme()}`}
       >
         <div className="flex flex-col flex-grow items-center justify-center">
           {/* Gambar di Atas */}
@@ -30,11 +30,11 @@ const Screen3 = () => {
           />
 
           {/* Teks di Tengah */}
-          <div className="mt-20 w-full px-5">
-            <h2 className="text-xl font-medium mb-5">
+          <div className="mt-16 w-full px-5">
+            <h2 className="text-xl font-semibold  mb-5">
               Belajar Islam dan Bahasa Arab Sesuai Keinginanmu
             </h2>
-            <p className="text-md text-gray-600">
+            <p className="text-lg font-medium">
               Mau belajar dari dasar ? Ingin memperdalam berbagai cabang ilmu
               islam seperti Fiqh Syafi’i ? atau mau memilih belajar tingkat
               lanjut ?

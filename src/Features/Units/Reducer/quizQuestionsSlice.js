@@ -7,11 +7,11 @@ export const fetchQuizQuestions = createAsyncThunk(
     // Menghilangkan quizId dari parameter
     try {
       const response = await fetch(
-        `https://arabiya-syari-fiber-production.up.railway.app/api/quizzes-questions`,
+        `https://quiz-fiber-production.up.railway.app/api/question`,
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
         }
@@ -20,8 +20,15 @@ export const fetchQuizQuestions = createAsyncThunk(
       if (!response.ok) {
         throw new Error("Gagal mengambil pertanyaan kuis");
       }
-      const data = await response.json();
-      return data;
+      const responseData = await response.json();
+
+      // Validate that responseData has a data property that is an array
+      if (!responseData.data || !Array.isArray(responseData.data)) {
+        throw new Error("Format data tidak valid");
+      }
+
+      // Return the whole response object
+      return responseData;
     } catch (error) {
       return rejectWithValue(error.message);
     }

@@ -19,6 +19,7 @@ const ModalNomorSatu = React.memo(({ isOpen, onClose, unitId, quizId }) => {
   const { data: units } = useSelector((state) => state.units);
   const { data: quizzes } = useSelector((state) => state.quizzes);
   const { data: quizQuestions } = useSelector((state) => state.quizQuestions);
+  console.log("quizzez", quizzes)
 
   useEffect(() => {
     dispatch(fetchUnits());
@@ -34,7 +35,9 @@ const ModalNomorSatu = React.memo(({ isOpen, onClose, unitId, quizId }) => {
 
   const unitQuizzes = useMemo(() => {
     if (!quizzes?.length || !unitId) return [];
-    return quizzes.filter((quiz) => quiz.unit_id === parseInt(unitId));
+    return quizzes.filter(
+      (quiz) => quiz.section_quizzes_id === parseInt(unitId)
+    );
   }, [quizzes, unitId]);
 
   const quizBoxes = useMemo(() => {

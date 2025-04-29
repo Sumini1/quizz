@@ -5,11 +5,11 @@ export const fetchThemesOrLevels = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        "https://arabiya-syari-fiber-production.up.railway.app/api/themes-or-levels",
+        "https://quiz-fiber-production.up.railway.app/api/themes-or-levels",
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
         }
@@ -19,13 +19,14 @@ export const fetchThemesOrLevels = createAsyncThunk(
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
+      const responseData = await response.json();
 
-      if (!Array.isArray(data)) {
+      // Validate that responseData has a data property that is an array
+      if (!responseData.data || !Array.isArray(responseData.data)) {
         throw new Error("Format data tidak valid");
       }
 
-      return data;
+      return responseData;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -38,11 +39,11 @@ export const fetchThemesOrLevelsById = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `https://arabiya-syari-fiber-production.up.railway.app/api/themes-or-levels/${id}`,
+        `https://quiz-fiber-production.up.railway.app/api/themes-or-levels/${id}`,
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
         }
@@ -52,12 +53,18 @@ export const fetchThemesOrLevelsById = createAsyncThunk(
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
-      if (typeof data !== "object" || data === null) {
+      const responseData = await response.json();
+
+      // Cek apakah responseData adalah objek dan memiliki property data
+      if (
+        typeof responseData !== "object" ||
+        responseData === null ||
+        responseData.data === undefined
+      ) {
         throw new Error("Format data tidak valid");
       }
 
-      return data;
+      return responseData;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -88,7 +95,7 @@ const themesOrLevelsSlice = createSlice({
       })
       .addCase(fetchThemesOrLevels.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.data = action.payload;
+        state.data = action.payload.data;
         state.error = null;
       })
       .addCase(fetchThemesOrLevels.rejected, (state, action) => {
@@ -102,7 +109,7 @@ const themesOrLevelsSlice = createSlice({
       })
       .addCase(fetchThemesOrLevelsById.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.detail = action.payload; // Simpan detail kategori
+        state.detail = action.payload.data; // Simpan detail kategori
         state.error = null;
       })
       .addCase(fetchThemesOrLevelsById.rejected, (state, action) => {

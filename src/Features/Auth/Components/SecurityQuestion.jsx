@@ -14,9 +14,9 @@ const SecurityQuestion = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const {
     getThemeModalCategory,
-    getBorderColor,
-    getButtonClass,
     getBorderClass,
+    getButtonClass,
+    middleTheme,
     getIconTheme,
   } = useTheme();
   const { registerData, isLoading } = useSelector((state) => state.register);
@@ -147,142 +147,150 @@ const SecurityQuestion = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="flex items-center justify-between p-5">
-        <div className="flex items-center gap-3">
-          <FaArrowLeft
-            onClick={() => navigate("/register")}
-            className="cursor-pointer"
-          />
-          <h1 className="font-semibold text-xl">Pertanyaan Keamanan</h1>
-        </div>
-      </div>
-
-      <div className="flex flex-col p-5 -mt-3">
-        <div className="bg-white rounded-lg mb-5 p-3 shadow-sm">
-          <p className="text-md font-medium">
-            Mohon diisi karena jawaban akan digunakan apabila lupa password
-          </p>
+    <div className="flex flex-col min-h-screen w-full h-full">
+      <div
+        className={`py-2 flex flex-col text-xl  flex-grow max-w-md mx-auto w-full ${middleTheme()} md:text-base`}
+      >
+        <div className="flex  justify-between p-5">
+          <div className="flex flex-col gap-3">
+            <FaArrowLeft
+              onClick={() => navigate(-1)}
+              className="cursor-pointer"
+            />
+            <h1 className="font-semibold text-2xl md:text-lg">
+              Pertanyaan Keamanan
+            </h1>
+          </div>
         </div>
 
-        {/* Selected question display */}
-        <div
-          className={`bg-white rounded-xl overflow-hidden border ${
-            error && !securityData.security_question
-              ? "border-red-500"
-              : "border-gray-300"
-          }`}
-        >
-          <div
-            className="flex justify-between items-center p-4 cursor-pointer"
-            onClick={() => toggleAccordion(0)}
-          >
-            <span
-              className={`${
-                !securityData.security_question && error
-                  ? "text-red-500"
-                  : "text-gray-700"
-              }`}
-            >
-              {securityData.security_question || "Pilih pertanyaan keamanan"}
-            </span>
-            <span className="text-gray-400 flex items-center">
-              {activeIndex === 0 ? (
-                <FaChevronUp className="text-gray-500" />
-              ) : (
-                <FaChevronDown className="text-gray-500" />
-              )}
-            </span>
+        <div className="flex flex-col p-5 ">
+          <div className="bg-white rounded-lg mb-5 p-3 ">
+            <p className="text-lg font-medium md:text-base -mt-5">
+              Mohon diisi karena jawaban akan digunakan apabila lupa password
+            </p>
           </div>
 
-          {/* Dropdown list of questions */}
-          {activeIndex === 0 && (
-            <div className="border-t max-h-60 overflow-y-auto">
-              {questions.map((question, index) => (
-                <div
-                  key={index}
-                  className="p-4 border-b last:border-b-0 cursor-pointer hover:bg-gray-50"
-                  onClick={() => handleQuestionSelect(question)}
-                >
-                  <p>{question}</p>
-                </div>
-              ))}
+          {/* Selected question display */}
+          <div
+            className={`bg-white -mt-5 rounded-xl overflow-hidden border ${
+              error && !securityData.security_question
+                ? "border-red-500"
+                : "border-gray-300"
+            }`}
+          >
+            <div
+              className="flex justify-between text-base font-medium items-center p-3 cursor-pointer"
+              onClick={() => toggleAccordion(0)}
+            >
+              <span
+                className={`${
+                  !securityData.security_question && error
+                    ? "text-red-500"
+                    : "text-gray-700"
+                }`}
+              >
+                {securityData.security_question || "Pilih pertanyaan keamanan"}
+              </span>
+              <span className="text-gray-400 flex text-base font-medium items-center">
+                {activeIndex === 0 ? (
+                  <FaChevronUp className="text-gray-500" />
+                ) : (
+                  <FaChevronDown className="text-gray-500" />
+                )}
+              </span>
             </div>
-          )}
-        </div>
 
-        {/* Answer input field */}
-        <div
-          className={`mt-4 p-4 rounded-xl border ${
-            error &&
-            securityData.security_question &&
-            !securityData.security_answer.trim()
-              ? "border-red-500"
-              : "border-gray-300"
-          }`}
-        >
-          <input
-            type="text"
-            className={`w-full p-3 border rounded-md outline-none ${
+            {/* Dropdown list of questions */}
+            {activeIndex === 0 && (
+              <div className="border-t max-h-60 overflow-y-auto">
+                {questions.map((question, index) => (
+                  <div
+                    key={index}
+                    className="p-4 border-b last:border-b-0 cursor-pointer hover:bg-gray-50 text-base font-medium"
+                    onClick={() => handleQuestionSelect(question)}
+                  >
+                    <p>{question}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Answer input field */}
+          <div
+            className={`mt-4 p-3 rounded-xl border ${
               error &&
               securityData.security_question &&
               !securityData.security_answer.trim()
                 ? "border-red-500"
                 : "border-gray-300"
             }`}
-            placeholder="Jawaban Saya"
-            value={securityData.security_answer}
-            onChange={handleAnswerChange}
-          />
-        </div>
-
-        {/* Error message */}
-        {error && <div className="mt-2 text-red-500 text-sm">{error}</div>}
-
-        <div className="flex flex-col fixed bottom-5 left-5 right-5">
-          <button
-            className={`p-3 rounded-xl border-none w-full ${
-              securityData.security_question &&
-              securityData.security_answer.trim()
-                ? getButtonClass()
-                : "bg-gray-300 text-gray-600"
-            }`}
-            onClick={handleSubmit}
-            disabled={
-              isLoading ||
-              isSubmitting ||
-              !securityData.security_question ||
-              !securityData.security_answer.trim()
-            }
           >
-            {isLoading || isSubmitting ? (
-              <>
-                <FiLoader className="animate-spin inline-block mr-2" />
-                Memproses...
-              </>
-            ) : (
-              "Daftar"
-            )}
-          </button>
-        </div>
-      </div>
-
-      {/* Loading Modal */}
-      {isLoading && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center gap-4">
-            <HiBadgeCheck
-              className={`${getIconTheme()} text-5xl border-none rounded-full`}
-            />
-            <p className="text-lg font-semibold">Mohon tunggu...</p>
-            <p className="text-sm text-gray-500">Sedang memproses registrasi</p>
-            <FiLoader
-              style={{ animation: "spin 2s linear infinite" }}
-              className={`text-4xl ${getIconTheme()}`}
+            <input
+              type="text"
+              className={`w-full text-base font-medium p-2 border rounded-md outline-none ${
+                error &&
+                securityData.security_question &&
+                !securityData.security_answer.trim()
+                  ? "border-red-500"
+                  : "border-gray-300"
+              }`}
+              placeholder="Jawaban Saya"
+              value={securityData.security_answer}
+              onChange={handleAnswerChange}
             />
           </div>
+
+          {/* Error message */}
+          {error && <div className="mt-2 text-red-500 text-sm">{error}</div>}
+
+          <div className="flex flex-col fixed bottom-3 left-5 right-5">
+            <button
+              className={`p-3 text-base font-medium rounded-xl border-none w-full ${
+                securityData.security_question &&
+                securityData.security_answer.trim()
+                  ? `${getButtonClass()}`
+                  : `${getBorderClass()}`
+              }`}
+              onClick={handleSubmit}
+              disabled={
+                isLoading ||
+                isSubmitting ||
+                !securityData.security_question ||
+                !securityData.security_answer.trim()
+              }
+            >
+              {isLoading || isSubmitting ? (
+                <>
+                  <FiLoader className="animate-spin inline-block mr-2" />
+                  Memproses...
+                </>
+              ) : (
+                "Daftar"
+              )}
+            </button>
+          </div>
         </div>
-      )}
+
+        {/* Loading Modal */}
+        {isLoading && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center gap-4">
+              <HiBadgeCheck
+                className={`${getIconTheme()} text-5xl border-none rounded-full`}
+              />
+              <p className="text-lg font-semibold">Mohon tunggu...</p>
+              <p className="text-sm text-gray-500">
+                Sedang memproses registrasi
+              </p>
+              <FiLoader
+                style={{ animation: "spin 2s linear infinite" }}
+                className={`text-4xl ${getIconTheme()}`}
+              />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

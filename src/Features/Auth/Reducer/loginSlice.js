@@ -14,7 +14,7 @@ export const fetchLogin = createAsyncThunk(
 
       // Send login request to API
       const response = await axios.post(
-        "https://arabiya-syari-fiber-production.up.railway.app/auth/login",
+        "https://quiz-fiber-production.up.railway.app/auth/login",
         {
           identifier: userData.identifier,
           password: userData.password,
@@ -31,7 +31,7 @@ export const fetchLogin = createAsyncThunk(
       }
 
       // Store token and user details in localStorage
-      localStorage.setItem("accessToken", data.token);
+      localStorage.setItem("token", data.token);
       if (data.id) localStorage.setItem("userId", data.id); // Store user ID if available
       if (data.role) localStorage.setItem("role", data.role); // Store user role if available
 
@@ -63,17 +63,17 @@ export const fetchLogout = createAsyncThunk("login/fetchLogout", async () => {
   try {
     // Send logout request to API
     await axios.post(
-      "https://arabiya-syari-fiber-production.up.railway.app/api/auth/logout",
+      "https://quiz-fiber-production.up.railway.app/api/auth/logout",
       {},
       {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }
     );
 
     // Remove token from localStorage
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem("token");
     localStorage.removeItem("id");
     localStorage.removeItem("role");
 

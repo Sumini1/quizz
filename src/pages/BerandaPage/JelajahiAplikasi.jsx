@@ -10,7 +10,7 @@ import { MdArrowForwardIos } from "react-icons/md";
 import ButtonMobileKotak from "../../components/ListButton/ButtonMobileKotak";
 
 const JelajahiAplikasi = () => {
-  const { getTextTitle, borderColor, theme, getIconColorAlert, getTextTitle1 } =
+  const { getTextTitle, borderColor, theme, getIconColorAlert, getTextTitle1, middleTheme } =
     useTheme();
   const navigate = useNavigate();
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -263,312 +263,316 @@ const JelajahiAplikasi = () => {
   ];
   return (
     <>
-      <div className="flex flex-col min-h-screen ">
-        {/* Header */}
-        <div className="flex justify-between items-center m-5 mb-4">
-          <div className="flex items-center gap-2">
-            <FaArrowLeft
-              className="text-xl cursor-pointer"
-              onClick={() => navigate(-1)}
+      <div className="flex flex-col min-h-screen w-full h-full">
+        <div
+          className={`flex mx-auto flex-col flex-grow max-w-md w-full ${middleTheme()}`}
+        >
+          {/* Header */}
+          <div className="flex justify-between items-center m-5 mb-4">
+            <div className="flex items-center gap-2">
+              <FaArrowLeft
+                className="text-xl cursor-pointer"
+                onClick={() => navigate(-1)}
+              />
+              <h1 className="font-semibold text-2xl">Jelajahi Aplikasi</h1>
+            </div>
+            <IoSearch
+              className="text-2xl cursor-pointer mr-14 -mt-1 md:-mt-0 md:mr-0"
+              onClick={() => setIsSearchActive((prev) => !prev)} // Toggle input search
             />
-            <h1 className="font-semibold text-xl">Jelajahi Aplikasi</h1>
-          </div>
-          <IoSearch
-            className="text-2xl cursor-pointer mr-14"
-            onClick={() => setIsSearchActive((prev) => !prev)} // Toggle input search
-          />
-        </div>
-
-        {/* Main Content */}
-        <div className="flex flex-col mt-3">
-          <div className="flex text-sm font-normal gap-1 m-5 -mt-1">
-            {tabs.map((tab, index) => (
-              <div
-                key={index}
-                onClick={() => setActiveTab(tab.label)}
-                className={`flex  items-center gap-1   p-2 rounded-lg  cursor-pointer ${
-                  activeTab === tab.label
-                    ? "bg-[#0961F5] text-white w-[60px] items-center"
-                    : "bg-transparent w-[70px] items-center"
-                }`}
-              >
-                {tab.icon}
-                <span className=" items-center flex text-md font-semibold">
-                  {tab.label}
-                </span>
-              </div>
-            ))}
           </div>
 
-          {/* Bagian Grid Tab */}
-          <>
-            {activeTab === "Grid" && (
-              <div className="flex flex-col -mt-5">
-                <div className="flex flex-col p-5 ">
+          {/* Main Content */}
+          <div className="flex flex-col mt-3">
+            <div className="flex text-sm font-normal gap-1 m-5 -mt-1">
+              {tabs.map((tab, index) => (
+                <div
+                  key={index}
+                  onClick={() => setActiveTab(tab.label)}
+                  className={`flex  items-center gap-1   p-2 rounded-lg  cursor-pointer ${
+                    activeTab === tab.label
+                      ? "bg-[#0961F5] text-white w-[60px] items-center"
+                      : "bg-transparent w-[70px] items-center text-base font-medium"
+                  }`}
+                >
+                  {tab.icon}
+                  <span className=" items-center flex text-md font-semibold">
+                    {tab.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Bagian Grid Tab */}
+            <>
+              {activeTab === "Grid" && (
+                <div className="flex flex-col -mt-5">
+                  <div className="flex flex-col p-5 ">
+                    {isSearchActive && (
+                      <div className="relative flex items-center w-full bg-[#EEEEEE] border mb-3 border-gray-300 rounded-xl p-2  ">
+                        <input
+                          type="text"
+                          placeholder="Cari warna belajar..."
+                          className="bg-transparent w-full pl-10 rounded-xl outline-none m"
+                        />
+                        <IoSearch className="absolute left-3 text-xl text-gray-500" />
+                      </div>
+                    )}
+                    <div className="flex flex-col ">
+                      <div className="flex ">
+                        <h2 className="text-lg font-semibold">Navigasi Utama</h2>
+                        <MdOutlineError className={`${getIconColorAlert()}`} />
+                      </div>
+                      <div className="grid grid-cols-4 gap-3  mt-3 text-center ">
+                        {navigasiUtama.map((item) => (
+                          <div
+                            key={item.id}
+                            className="flex flex-col items-center   gap-3 "
+                          >
+                            <div
+                              className={`flex items-center justify-center w-[70px] h-[70px] text-3xl p-2 rounded-xl border-4 ${borderColor()} ${
+                                theme === "dark" ? "text-white" : ""
+                              }`}
+                            >
+                              {item.icon}
+                            </div>
+                            <p
+                              className={`text-center text-sm  -mt-2  font-medium  w-full ${getTextTitle()}`}
+                            >
+                              {item.name}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <hr className="w-full text-[#EEEEEE] font-bold  border-[6px] m-0 mb-5  " />
+
+                  {/* dukungan */}
+                  <div className="flex flex-col p-5 bg-[#F8FFF6] pt-10 -mt-5 ">
+                    <div className="flex flex-col -mt-5">
+                      <div className={`flex  ${getTextTitle1()}`}>
+                        <h1 className="text-lg font-semibold">Dukungan</h1>
+                        <MdOutlineError />
+                      </div>
+                      <div className="grid grid-cols-4 gap-3  mt-3 text-center ">
+                        {dukungan.map((item) => (
+                          <div
+                            key={item.id}
+                            className="flex flex-col items-center   gap-3 "
+                          >
+                            <div
+                              className={`flex items-center justify-center w-[70px] h-[70px] text-3xl p-2 rounded-xl border-4 ${borderColor()} ${
+                                theme === "dark" ? "text-white" : ""
+                              }`}
+                            >
+                              {item.icon}
+                            </div>
+                            <p
+                              className={`text-center text-sm -mt-2  font-medium  w-full ${getTextTitle()}`}
+                            >
+                              {item.name}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <hr className="w-full text-[#EEEEEE] font-bold  border-[6px] m-0 mb-5  " />
+
+                  {/* Menu Utama */}
+                  <div className="flex flex-col p-5">
+                    <div className="flex flex-col -mt-5">
+                      <div className={`flex `}>
+                        <h2 className="text-lg font-semibold">Menu Utama</h2>
+                        <MdOutlineError className={`${getIconColorAlert()}`} />
+                      </div>
+                      <div className="grid grid-cols-4 gap-3  mt-3 text-center ">
+                        {menuUtama.map((item) => (
+                          <div
+                            key={item.id}
+                            className="flex flex-col items-center   gap-3 "
+                          >
+                            <div
+                              className={`flex items-center justify-center w-[70px] h-[70px] text-3xl p-2 rounded-xl border-4 ${borderColor()} ${
+                                theme === "dark" ? "text-white" : ""
+                              }`}
+                            >
+                              {item.icon}
+                            </div>
+                            <p
+                              className={`text-center text-sm -mt-2  font-medium  w-full ${getTextTitle()}`}
+                            >
+                              {item.name}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <hr className="w-full text-[#EEEEEE] font-bold  border-[6px] m-0 mb-5  " />
+
+                  {/* Mode Belajar */}
+                  <div className="flex flex-col p-5">
+                    <div className="flex flex-col -mt-5">
+                      <div className={`flex `}>
+                        <h2 className="text-lg font-semibold">Mode Belajar</h2>
+                        <MdOutlineError className={`${getIconColorAlert()}`} />
+                      </div>
+                      <div className="grid grid-cols-4 gap-3  mt-3 text-center ">
+                        {modeBelajar.map((item) => (
+                          <div
+                            key={item.id}
+                            className="flex flex-col items-center   gap-3 "
+                          >
+                            <div
+                              className={`flex items-center justify-center w-[70px] h-[70px] text-3xl p-2 rounded-xl border-4 ${borderColor()} ${
+                                theme === "dark" ? "text-white" : ""
+                              }`}
+                            >
+                              {item.icon}
+                            </div>
+                            <p
+                              className={`text-center text-sm -mt-2  font-medium  w-full ${getTextTitle()}`}
+                            >
+                              {item.name}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <hr className="w-full text-[#EEEEEE] font-bold  border-[6px] m-0 mb-5  " />
+
+                  {/* Progress */}
+                  <div className="flex flex-col p-5">
+                    <div className="flex flex-col -mt-5">
+                      <div className={`flex ${getTextTitle1()}`}>
+                        <h1 className="text-lg font-semibold">Progress</h1>
+                        <MdOutlineError />
+                      </div>
+                      <div className="grid grid-cols-4 gap-3  mt-3 text-center ">
+                        {progress.map((item) => (
+                          <div
+                            key={item.id}
+                            className="flex flex-col items-center   gap-3 "
+                          >
+                            <div
+                              className={`flex items-center justify-center w-[70px] h-[70px] text-3xl p-2 rounded-xl border-4 ${borderColor()} ${
+                                theme === "dark" ? "text-white" : ""
+                              }`}
+                            >
+                              {item.icon}
+                            </div>
+                            <p
+                              className={`text-center text-sm -mt-2  font-medium  w-full ${getTextTitle()}`}
+                            >
+                              {item.name}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <hr className="w-full text-[#EEEEEE] font-bold  border-[6px] m-0 mb-5  " />
+
+                  {/* Lainnya */}
+                  <div className="flex flex-col p-5">
+                    <div className="flex flex-col -mt-5">
+                      <div className={`flex ${getTextTitle1()}`}>
+                        <h5 className="text-lg font-semibold">Lainnya</h5>
+                        <MdOutlineError />
+                      </div>
+                      <div className="grid grid-cols-4 gap-3  mt-3 text-center ">
+                        {lainnya.map((item) => (
+                          <div
+                            key={item.id}
+                            className="flex flex-col items-center   gap-3 "
+                          >
+                            <div
+                              className={`flex items-center justify-center w-[70px] h-[70px] text-3xl p-2 rounded-xl border-4 ${borderColor()} ${
+                                theme === "dark" ? "text-white" : ""
+                              }`}
+                            >
+                              {item.icon}
+                            </div>
+                            <p
+                              className={`text-center text-sm -mt-2  font-medium w-full ${getTextTitle()}`}
+                            >
+                              {item.name}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <hr className="w-full text-[#EEEEEE] font-bold  border-[6px] m-0 mb-5  " />
+                </div>
+              )}
+            </>
+
+            {/* Bagian List Tab */}
+            {activeTab === "List" && (
+              <div>
+                <div className="flex flex-col p-5">
                   {isSearchActive && (
-                    <div className="relative flex items-center w-full bg-[#EEEEEE] border mb-3 border-gray-300 rounded-xl p-2  ">
+                    <div className="relative mb-10 flex items-center w-full bg-[#EEEEEE] border border-gray-300 rounded-xl p-2 -mt-7 ">
                       <input
                         type="text"
                         placeholder="Cari warna belajar..."
                         className="bg-transparent w-full pl-10 rounded-xl outline-none m"
                       />
-                      <IoSearch className="absolute left-3 text-xl text-gray-500" />
+                      <IoSearch className="absolute left-3 text-xl text-gray-500 -mt-1 md:-mt-0" />
                     </div>
                   )}
-                  <div className="flex flex-col ">
-                    <div className="flex ">
-                      <h2 className="text-lg font-[500]">Navigasi Utama</h2>
-                      <MdOutlineError className={`${getIconColorAlert()}`} />
-                    </div>
-                    <div className="grid grid-cols-4 gap-3  mt-3 text-center ">
-                      {navigasiUtama.map((item) => (
-                        <div
-                          key={item.id}
-                          className="flex flex-col items-center   gap-3 "
-                        >
-                          <div
-                            className={`flex items-center justify-center w-[70px] h-[70px] text-3xl p-2 rounded-xl border-4 ${borderColor()} ${
-                              theme === "dark" ? "text-white" : ""
-                            }`}
-                          >
-                            {item.icon}
-                          </div>
-                          <p
-                            className={`text-center text-xs -mt-2  font-normal  w-full ${getTextTitle()}`}
-                          >
-                            {item.name}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
                 </div>
-                <hr className="w-full text-[#EEEEEE] font-bold  border-[6px] m-0 mb-5  " />
+                <>
+                  <div className="flex flex-col">
+                    <div className="flex flex-col  p-5">
+                      <div className="flex -mt-16">
+                        <h2 className="text-lg font-semibold">Navigasi Utama</h2>
+                        <MdOutlineError className={`${getIconColorAlert()}`} />
+                      </div>
+                      <div className="flex flex-col ">
+                        {navigasiUtamaList.map((item) => (
+                          <div
+                            key={item.id}
+                            className="flex items-center justify-between py-2"
+                          >
+                            {/* Bagian Kiri: Ikon dan Teks */}
+                            <div className="flex items-center gap-3 flex-1 min-w-0">
+                              {/* Ikon */}
+                              <span className="flex items-center w-[40px] h-[50px]">
+                                {item.icon}
+                              </span>
 
-                {/* dukungan */}
-                <div className="flex flex-col p-5 bg-[#F8FFF6] pt-10 -mt-5 ">
-                  <div className="flex flex-col -mt-5">
-                    <div className={`flex  ${getTextTitle1()}`}>
-                      <h1 className="text-lg font-[500]">Dukungan</h1>
-                      <MdOutlineError />
-                    </div>
-                    <div className="grid grid-cols-4 gap-3  mt-3 text-center ">
-                      {dukungan.map((item) => (
-                        <div
-                          key={item.id}
-                          className="flex flex-col items-center   gap-3 "
-                        >
-                          <div
-                            className={`flex items-center justify-center w-[70px] h-[70px] text-3xl p-2 rounded-xl border-4 ${borderColor()} ${
-                              theme === "dark" ? "text-white" : ""
-                            }`}
-                          >
-                            {item.icon}
-                          </div>
-                          <p
-                            className={`text-center text-xs -mt-2  font-normal  w-full ${getTextTitle()}`}
-                          >
-                            {item.name}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <hr className="w-full text-[#EEEEEE] font-bold  border-[6px] m-0 mb-5  " />
+                              {/* Teks Name & Title */}
+                              <div className="flex flex-col flex-1 min-w-0 text-start">
+                                <h1 className="font-medium text-sm">
+                                  {item.name}
+                                </h1>
+                                <p className="text-xs font-normal  ">
+                                  {item.title}
+                                </p>
+                              </div>
+                            </div>
 
-                {/* Menu Utama */}
-                <div className="flex flex-col p-5">
-                  <div className="flex flex-col -mt-5">
-                    <div className={`flex `}>
-                      <h2 className="text-lg font-[500]">Menu Utama</h2>
-                      <MdOutlineError className={`${getIconColorAlert()}`} />
-                    </div>
-                    <div className="grid grid-cols-4 gap-3  mt-3 text-center ">
-                      {menuUtama.map((item) => (
-                        <div
-                          key={item.id}
-                          className="flex flex-col items-center   gap-3 "
-                        >
-                          <div
-                            className={`flex items-center justify-center w-[70px] h-[70px] text-3xl p-2 rounded-xl border-4 ${borderColor()} ${
-                              theme === "dark" ? "text-white" : ""
-                            }`}
-                          >
-                            {item.icon}
+                            {/* Panah Navigasi (Tidak akan terdorong keluar) */}
+                            <MdArrowForwardIos className="text-lg shrink-0  items-center  flex mt-3" />
                           </div>
-                          <p
-                            className={`text-center text-xs -mt-2  font-normal  w-full ${getTextTitle()}`}
-                          >
-                            {item.name}
-                          </p>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
+                    <hr className="w-full text-[#EEEEEE] font-bold  border-[6px] m-0 mb-5 " />
                   </div>
-                </div>
-                <hr className="w-full text-[#EEEEEE] font-bold  border-[6px] m-0 mb-5  " />
-
-                {/* Mode Belajar */}
-                <div className="flex flex-col p-5">
-                  <div className="flex flex-col -mt-5">
-                    <div className={`flex `}>
-                      <h2 className="text-lg font-[500]">Mode Belajar</h2>
-                      <MdOutlineError className={`${getIconColorAlert()}`} />
-                    </div>
-                    <div className="grid grid-cols-4 gap-3  mt-3 text-center ">
-                      {modeBelajar.map((item) => (
-                        <div
-                          key={item.id}
-                          className="flex flex-col items-center   gap-3 "
-                        >
-                          <div
-                            className={`flex items-center justify-center w-[70px] h-[70px] text-3xl p-2 rounded-xl border-4 ${borderColor()} ${
-                              theme === "dark" ? "text-white" : ""
-                            }`}
-                          >
-                            {item.icon}
-                          </div>
-                          <p
-                            className={`text-center text-xs -mt-2  font-normal  w-full ${getTextTitle()}`}
-                          >
-                            {item.name}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <hr className="w-full text-[#EEEEEE] font-bold  border-[6px] m-0 mb-5  " />
-
-                {/* Progress */}
-                <div className="flex flex-col p-5">
-                  <div className="flex flex-col -mt-5">
-                    <div className={`flex ${getTextTitle1()}`}>
-                      <h1 className="text-lg font-[500]">Progress</h1>
-                      <MdOutlineError />
-                    </div>
-                    <div className="grid grid-cols-4 gap-3  mt-3 text-center ">
-                      {progress.map((item) => (
-                        <div
-                          key={item.id}
-                          className="flex flex-col items-center   gap-3 "
-                        >
-                          <div
-                            className={`flex items-center justify-center w-[70px] h-[70px] text-3xl p-2 rounded-xl border-4 ${borderColor()} ${
-                              theme === "dark" ? "text-white" : ""
-                            }`}
-                          >
-                            {item.icon}
-                          </div>
-                          <p
-                            className={`text-center text-xs -mt-2  font-normal  w-full ${getTextTitle()}`}
-                          >
-                            {item.name}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <hr className="w-full text-[#EEEEEE] font-bold  border-[6px] m-0 mb-5  " />
-
-                {/* Lainnya */}
-                <div className="flex flex-col p-5">
-                  <div className="flex flex-col -mt-5">
-                    <div className={`flex ${getTextTitle1()}`}>
-                      <h5 className="text-lg font-[500]">Lainnya</h5>
-                      <MdOutlineError />
-                    </div>
-                    <div className="grid grid-cols-4 gap-3  mt-3 text-center ">
-                      {lainnya.map((item) => (
-                        <div
-                          key={item.id}
-                          className="flex flex-col items-center   gap-3 "
-                        >
-                          <div
-                            className={`flex items-center justify-center w-[70px] h-[70px] text-3xl p-2 rounded-xl border-4 ${borderColor()} ${
-                              theme === "dark" ? "text-white" : ""
-                            }`}
-                          >
-                            {item.icon}
-                          </div>
-                          <p
-                            className={`text-center text-xs -mt-2  font-normal  w-full ${getTextTitle()}`}
-                          >
-                            {item.name}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <hr className="w-full text-[#EEEEEE] font-bold  border-[6px] m-0 mb-5  " />
+                </>
               </div>
             )}
-          </>
-
-          {/* Bagian List Tab */}
-          {activeTab === "List" && (
-            <div>
-              <div className="flex flex-col p-5">
-                {isSearchActive && (
-                  <div className="relative mb-10 flex items-center w-full bg-[#EEEEEE] border border-gray-300 rounded-xl p-2 -mt-7 ">
-                    <input
-                      type="text"
-                      placeholder="Cari warna belajar..."
-                      className="bg-transparent w-full pl-10 rounded-xl outline-none m"
-                    />
-                    <IoSearch className="absolute left-3 text-xl text-gray-500" />
-                  </div>
-                )}
-              </div>
-              <>
-                <div className="flex flex-col">
-                  <div className="flex flex-col  p-5">
-                    <div className="flex -mt-16">
-                      <h2 className="text-lg font-[500]">Navigasi Utama</h2>
-                      <MdOutlineError className={`${getIconColorAlert()}`} />
-                    </div>
-                    <div className="flex flex-col ">
-                      {navigasiUtamaList.map((item) => (
-                        <div
-                          key={item.id}
-                          className="flex items-center justify-between py-2"
-                        >
-                          {/* Bagian Kiri: Ikon dan Teks */}
-                          <div className="flex items-center gap-3 flex-1 min-w-0">
-                            {/* Ikon */}
-                            <span className="flex items-center w-[40px] h-[50px]">
-                              {item.icon}
-                            </span>
-
-                            {/* Teks Name & Title */}
-                            <div className="flex flex-col flex-1 min-w-0 text-start">
-                              <h1 className="font-medium text-sm">
-                                {item.name}
-                              </h1>
-                              <p className="text-xs font-normal  ">
-                                {item.title}
-                              </p>
-                            </div>
-                          </div>
-
-                          {/* Panah Navigasi (Tidak akan terdorong keluar) */}
-                          <MdArrowForwardIos className="text-lg shrink-0  items-center  flex mt-3" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <hr className="w-full text-[#EEEEEE] font-bold  border-[6px] m-0 mb-5 " />
-                </div>
-              </>
-            </div>
-          )}
-        </div>
-        {/* Sticky Button */}
-        <div className="sticky bottom-0 w-full h-full">
-          <ButtonMobileKotak className="p-0 m-0  text-white flex justify-center items-center h-12" />
+          </div>
+          {/* Sticky Button */}
+          <div className="sticky bottom-0 w-full h-full">
+            <ButtonMobileKotak className="p-0 m-0  text-white flex justify-center items-center h-12" />
+          </div>
         </div>
       </div>
     </>

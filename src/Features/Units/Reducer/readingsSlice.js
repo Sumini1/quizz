@@ -5,11 +5,11 @@ export const fetchReadings = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        "https://arabiya-syari-fiber-production.up.railway.app/api/readings",
+        "https://quiz-fiber-production.up.railway.app/api/readings",
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
         }
@@ -39,11 +39,11 @@ export const fetchReadingsByIdConverTooltips = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `https://arabiya-syari-fiber-production.up.railway.app/api/readings/${id}/convertTooltips`,
+        `https://quiz-fiber-production.up.railway.app/api/readings/${id}/convertTooltips`,
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
         }

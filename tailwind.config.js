@@ -8,9 +8,9 @@ export default {
         scrollbarTrack: "#f1f5f9", // Warna untuk scrollbar track
       },
       fontFamily: {
-        jakarta: ['"Plus Jakarta Sans"', "sans-serif"], // Tambahkan konfigurasi font di sini
+        jakarta: ['"Plus Jakarta Sans"', "sans-serif"], 
       },
     },
   },
-  plugins: [require("tailwind-scrollbar")], // Pastikan hanya ada satu deklarasi plugins
+  plugins: [require("tailwind-scrollbar")], // Menggunakan tailwind-scrollbar
 };

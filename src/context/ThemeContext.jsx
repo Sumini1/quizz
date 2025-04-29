@@ -415,14 +415,14 @@ export const ThemeProvider = ({ children }) => {
 
   const middleTheme  = () => {
     return theme === "dark"
-      ? "bg-[#c0cee8]"
+      ? "bg-white"
       : theme === "cupcake"
       ? "bg-[#FFCEFC] "
       : theme === "bumblebee"
       ? "bg-yellow-300 text-black"
       : theme === "lemonade"
       ? "bg-[#A7B968] text-white"
-      : "bg-[#c0cee8]";
+      : "bg-white";
   }
   return (
     <ThemeContext.Provider

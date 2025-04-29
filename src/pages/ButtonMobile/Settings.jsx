@@ -17,7 +17,7 @@ import { fetchLogout } from "../../Features/Auth/Reducer/loginSlice";
 
 const Settings = () => {
   const navigate = useNavigate();
-  const { theme } = useTheme();
+  const { theme, middleTheme } = useTheme();
   const dispatch = useDispatch();
   const handleLogout = async () => {
     try {
@@ -149,9 +149,11 @@ const Settings = () => {
     },
   ];
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="py-2 flex flex-col text-xl mx-5 mt-3 flex-grow">
-        <h1 className="text-xl font-[500] mb-5">Lainnya</h1>
+    <div className="flex flex-col min-h-screen w-full h-full">
+      <div
+        className={`py-2 flex flex-col text-xl  px-5 flex-grow max-w-md mx-auto w-full ${middleTheme()} `}
+      >
+        <h1 className="text-2xl font-semibold mb-5 mt-3">Lainnya</h1>
 
         <div className="mb-5">
           <h2 className="text-lg font-medium mb-3">Akun</h2>
@@ -160,13 +162,13 @@ const Settings = () => {
               <div
                 key={item.id}
                 onClick={() => navigate(item.link)}
-                className="flex items-center justify-between gap-4   py-3 "
+                className="flex items-center justify-between gap-4 py-3"
               >
                 <div className="flex items-center gap-4 mx-1">
                   <span className="text-xl">{item.icon}</span>
                   <span className="text-base font-base">{item.name}</span>
                 </div>
-                <span className="text-3xl ">{item.symbol}</span>
+                <span className="text-3xl">{item.symbol}</span>
               </div>
             ))}
           </div>
@@ -179,13 +181,13 @@ const Settings = () => {
               <Link
                 to={item.link}
                 key={item.id}
-                className="flex items-center justify-between gap-4   py-3"
+                className="flex items-center justify-between gap-4 py-3"
               >
                 <div className="flex items-center gap-4 mx-1">
                   <span className="text-xl">{item.icon}</span>
                   <span className="text-base font-base">{item.name}</span>
                 </div>
-                <span className="text-3xl ">{item.symbol}</span>
+                <span className="text-3xl">{item.symbol}</span>
               </Link>
             ))}
           </div>
@@ -198,13 +200,13 @@ const Settings = () => {
               <Link
                 to={item.link}
                 key={item.id}
-                className="flex items-center justify-between gap-4  py-3"
+                className="flex items-center justify-between gap-4 py-3"
               >
                 <div className="flex items-center gap-4 mx-1">
                   <span className="text-xl">{item.icon}</span>
                   <span className="text-base font-base">{item.name}</span>
                 </div>
-                <span className="text-3xl ">{item.symbol}</span>
+                <span className="text-3xl">{item.symbol}</span>
               </Link>
             ))}
           </div>
@@ -226,14 +228,16 @@ const Settings = () => {
             </Link>
           ))}
         </div>
-        <div className=" mt-10">
-          <h1 className="text-lg font-semibold ">Quizz App</h1>
+        <div className="mt-10">
+          <h1 className="text-lg font-semibold">Quizz App</h1>
           <p className="text-sm">Version 1.00</p>
         </div>
       </div>
 
-      <div className="sticky bottom-0 w-full">
-        <ButtonMobileKotak />
+      <div className="flex justify-center w-full sticky bottom-0">
+        <div className="w-full md:max-w-md">
+          <ButtonMobileKotak />
+        </div>
       </div>
     </div>
   );

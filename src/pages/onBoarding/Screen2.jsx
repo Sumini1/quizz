@@ -19,22 +19,22 @@ const Screen2 = () => {
   return (
     <div className=" w-full  mx-auto h-screen overflow-hidden  md:p-0 flex flex-col">
       <div
-        className={`w-full max-w-md mx-auto h-screen overflow-hidden  flex flex-col   md:${middleTheme()}`}
+        className={`w-full max-w-md mx-auto h-screen overflow-hidden  flex flex-col ${middleTheme()}`}
       >
         <div className="flex flex-col flex-grow items-center justify-center">
           {/* Gambar di Atas */}
           <img
             src="/quiz2.png"
             alt="Quiz 2"
-            className="w-[300px] h-[200px] object-contain -mt-28 md:-mt-40"
+            className="w-[300px] h-[200px] object-contain -mt-20  md:-mt-40"
           />
 
           {/* Teks di Tengah */}
-          <div className="mt-36 w-full px-5">
-            <h2 className="text-xl font-medium mb-2">
+          <div className="mt-20 w-full px-5">
+            <h2 className="text-xl font-semibold mb-2">
               Perjalanan Akan Terasa Menyenangkan
             </h2>
-            <p className="text-md text-gray-600">
+            <p className="text-lg font-medium">
               Kami menyediakan sistem belajar yang menarik agar peserta merasa
               senang.
             </p>

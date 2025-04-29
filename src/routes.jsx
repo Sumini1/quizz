@@ -19,7 +19,7 @@ import Screen3 from "./pages/onBoarding/Screen3";
 import { authRoutes } from "./Features/Auth/routes";
 import ListLevels from "./pages/Test/ListLevels";
 // import FinalScored from "./Features/QuizQuestions/Pemula/SirrahNabawiyyah/FinalScored";
-import { listCategoriesRoutes } from "./Features/ListCategories/routes";
+import { listCategoriesRoutes } from "./Features/Subcategory/routes";
 // import ListLevelKeimanan from "./pages/Category/ListLevelKeimanan";
 import ChooseThemeQuiz from "./pages/Category/ChooseThemeQuiz";
 // import AppearanceKotak from "./pages/Features/Units/Components/AppearanceKotak";
@@ -53,14 +53,6 @@ import HadiahPencapaian from "./pages/Settings/ProgressPage/HadiahPencapaianPage
 import Warna from "./pages/Settings/ProgressPage/TampilanPage/Warna";
 import KhususDonatur from "./pages/Settings/ProgressPage/TampilanPage/KhususDonatur";
 import Arsip from "./pages/PembelajaranPage/Arsip";
-// import KeteranganArtikel from "./pages/Features/Units/Components/Readings";
-import LaporanDukungan from "./pages/BerandaPage/LaporanDukungan";
-import SedangDipelajari from "./pages/BerandaPage/SedangDipelajari";
-import MateriTerbaru from "./pages/BerandaPage/MateriTerbaru";
-import DasarIslamKeimanan from "./pages/BerandaPage/MateriTerbaruPage/DasarIslamKeimanan";
-import JelajahiAplikasi from "./pages/BerandaPage/JelajahiAplikasi";
-import AiChatBox from "./pages/BerandaPage/AiChatBox";
-import LaporanDukunganMaret from "./pages/BerandaPage/LaporanDukunganPerBulan";
 import DukungKami from "./pages/Settings/SettingsPage/DukungKami";
 import Informasi from "./pages/Settings/ProgressPage/DukungKamiPage/Informasi";
 import Donatur from "./pages/Settings/ProgressPage/DukungKamiPage/Donatur";
@@ -110,6 +102,11 @@ import LaporanMateri from "./pages/Settings/ModalSettingsPage/LaporanMateri";
 import { difficultiesRoutes } from "./Features/Difficulties/routes";
 import { themesOrLevelsRoutes } from "./Features/ThemesOrLevels/routes";
 import { unitsRoutes } from "./Features/Units/routes";
+import { evaluationRoutes } from "./Features/Evaluations/routes";
+import { examRoutes } from "./Features/Exams/routes";
+import { berandaPageRoutes } from "./pages/BerandaPage/routes";
+import { midtransRoutes } from "./Features/PaymentMidtrans/routes";
+import { quizzesRoutes } from "./Features/Quizzes/routes";
 
 export const routes = [
   {
@@ -146,7 +143,7 @@ export const routes = [
     path: "/list-levels",
     element: <ListLevels />,
   },
- 
+
   {
     path: "/page-satu",
     element: <PageSatu />,
@@ -315,38 +312,6 @@ export const routes = [
   {
     path: "/arsip",
     element: <Arsip />,
-  },
-  // {
-  //   path: "/keterangan-artikel/:id",
-  //   element: <KeteranganArtikel />,
-  // },
-  {
-    path: "/laporan-dukungan",
-    element: <LaporanDukungan />,
-  },
-  {
-    path: "/sedang-dipelajari",
-    element: <SedangDipelajari />,
-  },
-  {
-    path: "/materi-terbaru",
-    element: <MateriTerbaru />,
-  },
-  {
-    path: "/dasar-islam-keimanan",
-    element: <DasarIslamKeimanan />,
-  },
-  {
-    path: "/jelajahi-aplikasi",
-    element: <JelajahiAplikasi />,
-  },
-  {
-    path: "/ai-chat-box",
-    element: <AiChatBox />,
-  },
-  {
-    path: "/laporan-dukungan-maret",
-    element: <LaporanDukunganMaret />,
   },
   {
     path: "/dukung-kami",
@@ -536,6 +501,11 @@ export const routes = [
   ...listCategoriesRoutes,
   ...themesOrLevelsRoutes,
   ...sirrahRoutes,
+  ...evaluationRoutes,
+  ...examRoutes,
+  ...berandaPageRoutes,
+  ...midtransRoutes,
+  ...quizzesRoutes,
 ];
 
 export default routes;
