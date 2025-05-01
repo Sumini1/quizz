@@ -18,16 +18,12 @@ import Screen2 from "./pages/onBoarding/Screen2";
 import Screen3 from "./pages/onBoarding/Screen3";
 import { authRoutes } from "./Features/Auth/routes";
 import ListLevels from "./pages/Test/ListLevels";
-// import FinalScored from "./Features/QuizQuestions/Pemula/SirrahNabawiyyah/FinalScored";
 import { listCategoriesRoutes } from "./Features/Subcategory/routes";
-// import ListLevelKeimanan from "./pages/Category/ListLevelKeimanan";
 import ChooseThemeQuiz from "./pages/Category/ChooseThemeQuiz";
-// import AppearanceKotak from "./pages/Features/Units/Components/AppearanceKotak";
 import Settings from "./pages/ButtonMobile/Settings";
-import Profil from "./pages/Settings/SettingsPage/Profil";
+// import Profil from "./pages/Settings/SettingsPage/Profil";
 import Beranda from "./pages/ButtonMobile/Beranda";
 import Pembelajaran from "./pages/ButtonMobile/Pembelajaran";
-import Progress from "./pages/ButtonMobile/Progress";
 import UlasanSoal from "./pages/Test/UlasanSoal";
 import AccordionTingkatBelajar from "./components/ModalAccordion/AccordionTingkatBelajar";
 import AccordionDasarIslam from "./components/ModalAccordion/AccordionDasarIslam";
@@ -107,6 +103,8 @@ import { examRoutes } from "./Features/Exams/routes";
 import { berandaPageRoutes } from "./pages/BerandaPage/routes";
 import { midtransRoutes } from "./Features/PaymentMidtrans/routes";
 import { quizzesRoutes } from "./Features/Quizzes/routes";
+import { progressRoutes } from "./Features/Progress/routes";
+import { settingRoutes } from "./Features/Settings/routes";
 
 export const routes = [
   {
@@ -202,10 +200,6 @@ export const routes = [
     element: <Settings />,
   },
   {
-    path: "/profil",
-    element: <Profil />,
-  },
-  {
     path: "/beranda",
     element: <Beranda />,
   },
@@ -213,10 +207,7 @@ export const routes = [
     path: "/pembelajaran",
     element: <Pembelajaran />,
   },
-  {
-    path: "/progress",
-    element: <Progress />,
-  },
+
   {
     path: "/ulasan-soal",
     element: <UlasanSoal />,
@@ -506,6 +497,8 @@ export const routes = [
   ...berandaPageRoutes,
   ...midtransRoutes,
   ...quizzesRoutes,
+  ...progressRoutes,
+  ...settingRoutes,
 ];
 
 export default routes;

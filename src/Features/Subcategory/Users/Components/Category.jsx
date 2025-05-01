@@ -33,26 +33,51 @@ const Category = () => {
   // Buat generate progress yang konsisten setelah data dimuat
   useEffect(() => {
     if (data && data.length > 0) {
-      const progressData = {};
+      // Cek apakah progress sudah ada di localStorage
+      const savedProgress = localStorage.getItem("subcategoryProgress");
 
-      data.forEach((category) => {
-        if (category.subcategories) {
-          category.subcategories.forEach((subcategory) => {
-            if (
-              subcategory.progress === undefined &&
-              subcategory.themes_or_levels?.length > 0
-            ) {
-              const total = subcategory.themes_or_levels.length;
-              const completed = Math.floor(Math.random() * (total + 1));
-              progressData[subcategory.id] = Math.round(
-                (completed / total) * 100
-              );
-            }
-          });
-        }
-      });
+      // Jika sudah ada, gunakan data yang tersimpan
+      if (savedProgress) {
+        setSubcategoryProgress(JSON.parse(savedProgress));
+      } else {
+        // Jika belum ada, buat data baru dan simpan di localStorage
+        const progressData = {};
 
-      setSubcategoryProgress(progressData);
+        data.forEach((category) => {
+          if (category.subcategories) {
+            category.subcategories.forEach((subcategory) => {
+              if (
+                subcategory.progress === undefined &&
+                subcategory.themes_or_levels?.length > 0
+              ) {
+                const total = subcategory.themes_or_levels.length;
+                // Gunakan id subcategory sebagai seed untuk deterministic random
+                const seed = parseInt(
+                  subcategory.id
+                    .toString()
+                    .split("")
+                    .map((char) => char.charCodeAt(0))
+                    .join("")
+                    .slice(0, 8)
+                );
+                const seedRandom = ((seed * 9301 + 49297) % 233280) / 233280;
+                const completed = Math.floor(seedRandom * (total + 1));
+
+                progressData[subcategory.id] = Math.round(
+                  (completed / total) * 100
+                );
+              }
+            });
+          }
+        });
+
+        // Simpan ke localStorage
+        localStorage.setItem(
+          "subcategoryProgress",
+          JSON.stringify(progressData)
+        );
+        setSubcategoryProgress(progressData);
+      }
     }
   }, [data]);
 
@@ -65,11 +90,11 @@ const Category = () => {
     setShowPopup(false);
   };
 
-  // Function to determine progress bar color based on percentage
+  // Function untuk menentukan warna progress bar berdasarkan persentase
   const getProgressColor = (percentage) => {
-    if (percentage >= 70) return "bg-blue-500"; // Blue for 70% and above
-    if (percentage >= 50) return "bg-green-500"; // Green for 50-69%
-    return "bg-yellow-500"; // Yellow for below 50%
+    if (percentage > 75) return "bg-green-500"; // Hijau untuk di atas 75%
+    if (percentage > 50) return "bg-blue-500"; // Biru untuk 50-75%
+    return "bg-yellow-500"; // Kuning untuk di bawah 50%
   };
 
   // Function to generate progress for subcategory
@@ -198,13 +223,17 @@ const Category = () => {
                                     <div className="mt-2">
                                       <div className="w-full bg-gray-200 rounded-full h-2.5">
                                         <div
-                                          className={`${progressColor} h-2.5 rounded-full`}
+                                          className={`${getProgressColor(
+                                            progress
+                                          )} h-2.5 rounded-full`}
                                           style={{ width: `${progress}%` }}
                                         ></div>
                                       </div>
                                       <div className="flex justify-end mt-1">
                                         <span className="text-xs text-gray-500">
-                                          {progress > 0 && progress < 100
+                                          {progress > 0 && progress < 25
+                                            ? "Baru memulai"
+                                            : progress >= 25 && progress < 100
                                             ? `${progress}%`
                                             : progress >= 100
                                             ? "Selesai dikerjakan"

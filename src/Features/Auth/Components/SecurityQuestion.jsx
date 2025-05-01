@@ -244,9 +244,9 @@ const SecurityQuestion = () => {
           {/* Error message */}
           {error && <div className="mt-2 text-red-500 text-sm">{error}</div>}
 
-          <div className="flex flex-col fixed bottom-3 left-5 right-5">
+          <div className="flex flex-col fixed bottom-3 left-5 right-5 p-5 max-w-md justify-center items-center mx-auto ">
             <button
-              className={`p-3 text-base font-medium rounded-xl border-none w-full ${
+              className={`p-3 text-base font-medium rounded-xl border-none w-full max-w-md flex flex-col  ${
                 securityData.security_question &&
                 securityData.security_answer.trim()
                   ? `${getButtonClass()}`

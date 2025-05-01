@@ -52,10 +52,10 @@ const Screen3 = () => {
         {/* Tombol Fixed di Bawah */}
         <div className="fixed bottom-0 left-0 right-0 px-5 py-3  max-w-md mx-auto">
           <button
-            onClick={() => navigate("/login-register")}
+            onClick={() => navigate("/login")}
             className={`w-full py-3 rounded-xl text-white border-none ${getButtonClass()}`}
           >
-            Lanjut
+            Mulai Belajar
           </button>
         </div>
       </div>

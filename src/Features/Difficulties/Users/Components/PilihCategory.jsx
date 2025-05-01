@@ -13,6 +13,8 @@ import { fetchCreateUserSubcategory } from "../../../Subcategory/Reducer/subcate
 const PilihCategory = () => {
   const {
     getLanjutkanClass,
+    getButtonClass,
+    getBorderClass,
     getButtonClassSelected,
     getIconColorAlert,
     middleTheme,
@@ -88,40 +90,40 @@ const PilihCategory = () => {
   };
 
   // Fungsi pembantu untuk menentukan modal mana yang ditampilkan berdasarkan ID kategori
- const renderModalBasedOnCategory = () => {
-   // Cari kategori aktif berdasarkan ID
-   const activeCategory = data.find((category) => category.id === activeModal);
+  const renderModalBasedOnCategory = () => {
+    // Cari kategori aktif berdasarkan ID
+    const activeCategory = data.find((category) => category.id === activeModal);
 
-   if (!activeCategory) return null;
+    if (!activeCategory) return null;
 
-   // Mengembalikan modal yang sesuai berdasarkan nama kategori
-   const categoryName = activeCategory.name.trim().toLowerCase();
+    // Mengembalikan modal yang sesuai berdasarkan nama kategori
+    const categoryName = activeCategory.name.trim().toLowerCase();
 
-   if (categoryName.includes("dasar islam")) {
-     return (
-       <ModalDasar
-         isOpen={true}
-         onClose={handleCloseModal}
-         categoryId={activeModal}
-       />
-     );
-   }
+    if (categoryName.includes("dasar islam")) {
+      return (
+        <ModalDasar
+          isOpen={true}
+          onClose={handleCloseModal}
+          categoryId={activeModal}
+        />
+      );
+    }
 
-   // Add other modal conditions if needed
-   // Example:
-   // if (categoryName.includes("umum")) {
-   //   return <ModalUmum isOpen={true} onClose={handleCloseModal} categoryId={activeModal} />;
-   // }
+    // Add other modal conditions if needed
+    // Example:
+    // if (categoryName.includes("umum")) {
+    //   return <ModalUmum isOpen={true} onClose={handleCloseModal} categoryId={activeModal} />;
+    // }
 
-   // Default case
-   return (
-     <ModalDasar
-       isOpen={true}
-       onClose={handleCloseModal}
-       categoryId={activeModal}
-     />
-   );
- };
+    // Default case
+    return (
+      <ModalDasar
+        isOpen={true}
+        onClose={handleCloseModal}
+        categoryId={activeModal}
+      />
+    );
+  };
 
   if (status === "loading") {
     return (
@@ -209,17 +211,19 @@ const PilihCategory = () => {
         {activeModal && renderModalBasedOnCategory()}
 
         {/* Tombol Lanjutkan */}
-        <button
-          onClick={handleContinue}
-          disabled={!selectedCategory || isLoading}
-          className={`flex p-3 md:p-2 md:text-base md:mb-5 rounded-xl w-full mt-6 md:mt-10 items-center justify-center ${
-            selectedCategory && !isLoading
-              ? getLanjutkanClass()
-              : "bg-[#DCE6F8] text-[#333]"
-          }`}
-        >
-          {isLoading ? "Sedang memproses..." : "Lanjutkan"}
-        </button>
+        <div className="relative bottom-0 md:sticky md:bottom-0 md:mt-20 left-0 right-0 flex flex-col justify-center items-center mx-auto w-full max-w-md">
+          <button
+            onClick={handleContinue}
+            disabled={!selectedCategory || isLoading}
+            className={`flex p-2 md:p-2 md:text-base md:mb-5 rounded-xl w-full mt-10  md:mt-10 items-center justify-center ${
+              selectedCategory && !isLoading
+                ? `${getLanjutkanClass()} `
+                : `${getBorderClass()} text-base font-medium`
+            }`}
+          >
+            {isLoading ? "Sedang memproses..." : "Lanjutkan"}
+          </button>
+        </div>
       </div>
     </div>
   );

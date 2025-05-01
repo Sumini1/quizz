@@ -35,31 +35,57 @@ const Aqidah = () => {
     }
   }, [dispatch, userId, difficultyId]);
 
-  useEffect(() => {
-    // Generate progress values once when data is loaded
-    if (data && data.length > 0) {
-      const currentCategory =
-        data.find((cat) => cat.id === categoryDetails?.id) || null;
-      if (currentCategory?.subcategories) {
-        const progressData = {};
+ useEffect(() => {
+   // Generate progress values once when data is loaded
+   if (data && data.length > 0) {
+     const currentCategory =
+       data.find((cat) => cat.id === categoryDetails?.id) || null;
+     if (currentCategory?.subcategories) {
+       const progressData = { ...subcategoryProgress }; // Pertahankan nilai yang sudah ada
 
-        currentCategory.subcategories.forEach((subcategory) => {
-          if (
-            subcategory.progress === undefined &&
-            subcategory.themes_or_levels?.length > 0
-          ) {
-            const total = subcategory.themes_or_levels.length;
-            const completed = Math.floor(Math.random() * (total + 1));
-            progressData[subcategory.id] = Math.round(
-              (completed / total) * 100
-            );
-          }
-        });
+       currentCategory.subcategories.forEach((subcategory) => {
+         // Hanya buat progress jika belum ada di state
+         if (
+           subcategory.progress === undefined &&
+           subcategory.themes_or_levels?.length > 0 &&
+           !progressData[subcategory.id] // Tambahkan pengecekan ini
+         ) {
+           const total = subcategory.themes_or_levels.length;
+           // Gunakan ID subcategory sebagai seed untuk random yang konsisten
+           const seed = parseInt(
+             subcategory.id.toString().replace(/[^0-9]/g, "") || "1"
+           );
+           const pseudoRandom = ((seed * 9301 + 49297) % 233280) / 233280;
+           const completed = Math.floor(pseudoRandom * (total + 1));
+           progressData[subcategory.id] = Math.round((completed / total) * 100);
+         } else if (subcategory.progress !== undefined) {
+           // Gunakan progress yang sudah ada dari data jika tersedia
+           progressData[subcategory.id] = subcategory.progress;
+         }
+       });
 
-        setSubcategoryProgress(progressData);
-      }
-    }
-  }, [data, categoryDetails]);
+       setSubcategoryProgress(progressData);
+
+       // Simpan ke localStorage untuk persistensi
+       localStorage.setItem(
+         "subcategoryProgress",
+         JSON.stringify(progressData)
+       );
+     }
+   }
+ }, [data, categoryDetails]);
+
+ // Tambahkan useEffect untuk memuat progress dari localStorage saat komponen mount
+ useEffect(() => {
+   const savedProgress = localStorage.getItem("subcategoryProgress");
+   if (savedProgress) {
+     try {
+       setSubcategoryProgress(JSON.parse(savedProgress));
+     } catch (error) {
+       console.error("Error parsing saved progress", error);
+     }
+   }
+ }, []);
 
   const handleBack = () => {
     if (viewingThemes) {
@@ -254,40 +280,49 @@ const Aqidah = () => {
                   </p>
                 </div>
               )
-              // function untuk menampilkan subkategori atau tema
-            ) : selectedSubcategory?.themes_or_levels?.length > 0 ? (
+            ) : // function untuk menampilkan subkategori atau tema
+            selectedSubcategory?.themes_or_levels?.length > 0 ? (
               <div className="flex flex-col gap-3 mt-3">
-                {selectedSubcategory.themes_or_levels.map((theme) => (
-                  <div
-                    key={theme.id}
-                    className="border-2 rounded-xl p-4 cursor-pointer hover:bg-gray-50 transition-colors"
-                    onClick={() => handleThemeClick(theme)}
-                  >
-                    <h3 className="font-medium">{theme.name}</h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                      {theme.description_short}
-                    </p>
-                    {theme.total_unit?.length > 0 && (
-                      <div className="mt-2 flex items-center">
-                        <span className="text-sm text-blue-600">
-                          {theme.total_unit.length} Unit
-                        </span>
-                        {theme.complete_unit && (
-                          <div className="ml-auto">
-                            <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
-                              {Math.round(
-                                (theme.complete_unit.length /
-                                  theme.total_unit.length) *
-                                  100
-                              )}
-                              %
+                {selectedSubcategory.themes_or_levels.map((theme) => {
+                  console.log("Theme ID:", theme.id);
+                  console.log("total_unit:", theme.total_unit);
+                  console.log("complete_unit:", theme.complete_unit);
+
+                  return (
+                    <div
+                      key={theme.id}
+                      className="border-2 rounded-xl p-4 cursor-pointer hover:bg-gray-50 transition-colors"
+                      onClick={() => handleThemeClick(theme)}
+                    >
+                      <h3 className="font-medium">{theme.name}</h3>
+                      <p className="text-sm text-gray-600 mt-1">
+                        {theme.description_short}
+                      </p>
+
+                      {Array.isArray(theme.total_unit) &&
+                        theme.total_unit.length > 0 && (
+                          <div className="mt-2 flex items-center">
+                            <span className="text-sm text-blue-600">
+                              {theme.total_unit.length} Unit
                             </span>
+
+                            {Array.isArray(theme.complete_unit) && (
+                              <div className="ml-auto">
+                                <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                                  {Math.round(
+                                    (theme.complete_unit.length /
+                                      theme.total_unit.length) *
+                                      100
+                                  )}
+                                  %
+                                </span>
+                              </div>
+                            )}
                           </div>
                         )}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                    </div>
+                  );
+                })}
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center mt-20">

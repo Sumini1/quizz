@@ -233,14 +233,20 @@ const EvaluationSatu = () => {
 
   if (!currentQuestionEvaluation) {
     return (
-      <div className="container mx-auto p-4 text-center">
-        <p>Tidak ada pertanyaan tersedia</p>
-        <button
-          onClick={() => navigate("/")}
-          className="mt-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+      <div className="flex flex-col w-full h-full min-h-screen">
+        <div
+          className={`mx-auto  text-center w-full h-full min-h-screen flex flex-col justify-center ${middleTheme()} max-w-md`}
         >
-          Kembali ke Beranda
-        </button>
+          <div className="flex flex-col items-center">
+            <p>Tidak ada pertanyaan tersedia</p>
+            <button
+              onClick={() => navigate("/")}
+              className="mt-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 p-5"
+            >
+              Kembali ke Beranda
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

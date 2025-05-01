@@ -10,7 +10,7 @@
 }
 
 [data-theme="light"] {
-  --bg-color: linear-gradient(to right, rgb(158, 234, 240), #9fbae9);
+  --bg-color: linear-gradient(to right, rgb(158, 234, 240), #f9fafb);
   --text-color: #222;
     background: var(--bg-color);
  h2 {
@@ -56,10 +56,10 @@ p {
 
 }
 
-body {
+/* body {
   background-color: var(--bg-color);
   color: var(--text-color);
-}
+} */
 
 
 .type {

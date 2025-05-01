@@ -14,6 +14,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [formErrors, setFormErrors] = useState({});
   const [formData, setFormData] = useState({
     identifier: "",
     password: "",
@@ -130,6 +131,23 @@ const Login = () => {
     }));
   };
 
+  // handleChange input
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    // Clear error when user types
+    if (formErrors[name]) {
+      setFormErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
+  };
+
   return (
     <div className=" w-full  mx-auto h-screen overflow-hidden  md:p-0 flex flex-col">
       <div
@@ -152,88 +170,76 @@ const Login = () => {
           >
             {/* Input Email / Username */}
             <div
-              className={`flex gap-2 items-center rounded-xl p-3 border-2 w-full ${getBorder()} bg-transparent relative`}
+              className={`relative w-full border-2 rounded-xl  ${getBorder()} ${
+                formErrors.email ? "border-red-500" : ""
+              }`}
             >
-              <MdPerson className="mx-1" />
-              <div className="flex-grow relative">
-                <label
-                  className={`absolute block text-sm transition-all duration-200 ${
-                    focusedFields.identifier
-                      ? `-top-6 left-0 text-sm text-blue-500 bg-white px-1`
-                      : "top-2 left-2 text-gray-500 text-sm"
-                  }`}
-                >
-                  Email atau Username
-                </label>
-                <input
-                  type="text"
-                  name="identifier"
-                  value={formData.identifier}
-                  onChange={handleChange}
-                  onFocus={() => handleFocus("identifier")}
-                  onBlur={() => handleBlur("identifier")}
-                  className="w-full text-sm p-1 bg-transparent rounded-xl outline-none"
-                  placeholder=""
-                  required
-                />
-              </div>
-            </div>
+              {/* Icon */}
+              <MdPerson className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
 
+              {/* Input */}
+              <input
+                type="identifier"
+                name="identifier"
+                value={formData.identifier}
+                onChange={handleChangeInput}
+                placeholder="Email / Username"
+                className="w-full text-sm py-4 pl-10 pr-3 rounded-xl outline-none bg-transparent "
+              />
+            </div>
+            {formErrors.identifier && (
+              <p className="text-red-500 text-xs -mt-4 ml-2">
+                {formErrors.identifier}
+              </p>
+            )}
             {/* Input Password */}
             <div
-              className={`flex gap-2 items-center rounded-xl p-3 relative border-2 w-full ${getBorder()} bg-transparent`}
+              className={`relative w-full border-2 rounded-xl ${getBorder()} ${
+                formErrors.password ? "border-red-500" : ""
+              }`}
             >
-              <RiLockPasswordFill className="mx-1" />
-              <div className="flex-grow relative">
-                <label
-                  className={`absolute text-sm transition-all duration-200 ${
-                    focusedFields.password
-                      ? `-top-6 left-0 text-sm text-blue-500 bg-white px-1`
-                      : "top-1 left-2 text-gray-500 text-sm"
-                  }`}
-                >
-                  Password
-                </label>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  onFocus={() => handleFocus("password")}
-                  onBlur={() => handleBlur("password")}
-                  className="w-full text-sm p-1 bg-transparent rounded-xl outline-none"
-                  placeholder=""
-                  required
-                />
-              </div>
+              {/* Icon */}
+              <RiLockPasswordFill className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+
+              {/* Input */}
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChangeInput}
+                placeholder="Konfirmasi Password"
+                className="w-full text-sm py-4 pl-10 pr-3 rounded-xl outline-none bg-transparent"
+              />
+
               <div
                 onClick={togglePasswordVisibility}
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
               >
                 {showPassword ? (
-                  <FiEyeOff className="text-xl" />
+                  <FiEyeOff className="text-lg" />
                 ) : (
-                  <FiEye className="text-xl" />
+                  <FiEye className="text-lg" />
                 )}
               </div>
             </div>
-
+            {formErrors.password && (
+              <p className="text-red-500 text-xs -mt-4 ml-2">
+                {formErrors.password}
+              </p>
+            )}
             <Link to="/forgot-password" className="self-end">
               <h5 className="text-sm underline text-[#0961F5]">
                 Lupa Password?
               </h5>
             </Link>
-
             <Button type="submit" className={`${getButtonClass()} text-base`}>
               Login dengan Email
             </Button>
-
             <div className="flex items-center gap-3 w-full">
               <hr className="flex-grow border-[1px] border-gray-500" />
               <span className="text-gray-500">Atau</span>
               <hr className="flex-grow border-[1px] border-gray-500" />
             </div>
-
             <div className="flex items-center w-full justify-end">
               <Button
                 onClick={handleLogin}
@@ -243,11 +249,10 @@ const Login = () => {
                 Login dengan Google
               </Button>
             </div>
-
             <p className="text-center mt-5 text-base font-medium">
               Belum Punya Akun?{" "}
               <Link
-                to="/login-register"
+                to="/register-email"
                 className="font-semibold text-[#2F80ED] underline"
               >
                 Daftar Disini

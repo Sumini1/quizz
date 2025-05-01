@@ -29,6 +29,8 @@ import allQuestionReducer from "../Features/AllQuestions/Questions"
 import userQuizzesReducer from "../Features/AllQuestions/userQuizzes"
 import userEvaluationsReducer from "../Features/AllQuestions/userEvaluations"
 import userExamsReducer from "../Features/AllQuestions/userExams"
+import userPointReducer from "../Features/Progress/Reducer/userPoints"
+import userProfileReducer from "../Features/Settings/Reducer/userProfile"
 
 
 const store = configureStore({
@@ -62,7 +64,9 @@ const store = configureStore({
    allQuestion: allQuestionReducer,
    userQuizzes: userQuizzesReducer,
    userEvaluations: userEvaluationsReducer,
-   userExams: userExamsReducer
+   userExams: userExamsReducer,
+   userPoint : userPointReducer,
+   userProfile : userProfileReducer
   },
 });
 

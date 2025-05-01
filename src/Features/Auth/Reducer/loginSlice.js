@@ -59,41 +59,43 @@ export const fetchLogin = createAsyncThunk(
 );
 
 // Thunk for logout
-export const fetchLogout = createAsyncThunk("login/fetchLogout", async () => {
-  try {
-    // Send logout request to API
-    await axios.post(
-      "https://quiz-fiber-production.up.railway.app/api/auth/logout",
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+export const fetchLogout = createAsyncThunk(
+  "login/fetchLogout",
+  async (_, { rejectWithValue }) => {
+    try {
+      await axios.post(
+        "https://quiz-fiber-production.up.railway.app/auth/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
-    // Remove token from localStorage
-    localStorage.removeItem("token");
-    localStorage.removeItem("id");
-    localStorage.removeItem("role");
+      localStorage.removeItem("token");
+      localStorage.removeItem("id");
+      localStorage.removeItem("role");
 
-    Swal.fire({
-      title: "Logout Berhasil",
-      icon: "success",
-      showConfirmButton: true,
-    });
+      Swal.fire({
+        title: "Logout Berhasil",
+        icon: "success",
+        showConfirmButton: true,
+      });
 
-    return null; // Return null to indicate successful logout
-  } catch (error) {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: error.response?.data?.error || "Terjadi kesalahan saat logout.",
-    });
+      return null;
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response?.data?.error || "Terjadi kesalahan saat logout.",
+      });
 
-    return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(error.response?.data || error.message);
+    }
   }
-});
+);
+
 
 // Slice for login
 const loginSlice = createSlice({

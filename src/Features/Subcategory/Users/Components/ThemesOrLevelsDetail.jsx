@@ -224,7 +224,7 @@ const ThemesOrLevelsDetails = () => {
                 type="submit"
                 onClick={navigateToTheme}
                 disabled={!selectedTheme}
-                className={`${getButtonClass()} mt-10 w-full ${
+                className={`${getButtonClass()} mt-10 w-full bottom-0 ${
                   !selectedTheme ? "opacity-50 cursor-not-allowed" : ""
                 }`}
               >
@@ -253,7 +253,7 @@ const ThemesOrLevelsDetails = () => {
               </div>
 
               {/* Button di luar grid, ditaruh di tengah */}
-              <div className="mt-10 flex justify-center">
+              <div className="mt-10 flex justify-center md:mt-20 bottom-0 w-full items-center mx-auto">
                 <Button
                   type="submit"
                   onClick={() => navigate("/belajar")}

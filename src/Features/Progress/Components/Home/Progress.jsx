@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { IoDiamond, IoColorPaletteSharp } from "react-icons/io5";
-import { useTheme } from "../../context/ThemeContext";
-import ButtonMobileKotak from "../../components/ListButton/ButtonMobileKotak";
+import { useTheme } from "../../../../context/ThemeContext";
+import ButtonMobileKotak from "../../../../components/ListButton/ButtonMobileKotak";
 import { FaArrowRightLong } from "react-icons/fa6";
-import ModalMidnight from "../../components/ModalProgress/ModalMidnight";
-import ModalSkyBlue from "../../components/ModalProgress/ModalSkyBlue"; // Impor modal khusus SkyBlue
+import ModalMidnight from "../../../../components/ModalProgress/ModalMidnight";
+import ModalSkyBlue from "../../../../components/ModalProgress/ModalSkyBlue"; // Impor modal khusus SkyBlue
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { fetchUserPointById } from "../../Reducer/userPoints";
+import { useDispatch, useSelector } from "react-redux";
 
 const Progress = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     theme,
     middleTheme,
@@ -20,6 +23,73 @@ const Progress = () => {
   } = useTheme();
   const [activeModal, setActiveModal] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState(null);
+  const { userPoints, isLoading, error } = useSelector(
+    (state) => state.userPoint
+  );
+  const [userId, setUserId] = useState("");
+
+  // Fungsi untuk menghitung total points dari data
+  const calculateTotalPoints = useMemo(() => {
+    if (!userPoints?.data || !Array.isArray(userPoints.data)) {
+      return 0;
+    }
+
+    return userPoints.data.reduce((total, pointItem) => {
+      return total + (pointItem.points || 0);
+    }, 0);
+  }, [userPoints]);
+
+  // Fungsi untuk menghitung streak
+  const getLearningStreak = useMemo(() => {
+    if (!userPoints?.data || !Array.isArray(userPoints.data)) {
+      return 0;
+    }
+
+    // Ambil semua tanggal belajar (format yyyy-mm-dd)
+    const dates = userPoints.data.map((item) => {
+      const date = new Date(item.created_at);
+      return date.toISOString().split("T")[0];
+    });
+
+    // Hapus duplikat & urutkan dari terbaru ke terlama
+    const uniqueDates = [...new Set(dates)].sort((a, b) => (a < b ? 1 : -1));
+
+    let streak = 0;
+    let currentDate = new Date(); // mulai dari hari ini
+
+    for (let i = 0; i < uniqueDates.length; i++) {
+      const expectedDate = currentDate.toISOString().split("T")[0];
+
+      if (uniqueDates[i] === expectedDate) {
+        streak++;
+        currentDate.setDate(currentDate.getDate() - 1); // mundur satu hari
+      } else {
+        break; // streak terputus
+      }
+    }
+
+    return streak;
+  }, [userPoints]);
+
+  useEffect(() => {
+    // Ambil userId dari localStorage dan langsung fetch data
+    const userId = localStorage.getItem("id");
+    if (userId) {
+      dispatch(fetchUserPointById(userId));
+    }
+  }, [dispatch]);
+
+  // Format tanggal ke format Indonesia
+  const formatDate = (dateString) => {
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    return new Date(dateString).toLocaleDateString("id-ID", options);
+  };
 
   const handleSelectMidnightTheme = (index) => {
     if (index === 1) {
@@ -71,7 +141,7 @@ const Progress = () => {
   const statistik = [
     {
       id: 1,
-      progress: 50,
+      progress: getLearningStreak + " hari",
       link: "/belajar",
       position: "Belajar berturut-turut",
       icon: <img src="/Fire.png" alt="" srcset="" />,
@@ -85,7 +155,7 @@ const Progress = () => {
     },
     {
       id: 3,
-      progress: 100,
+      progress: calculateTotalPoints,
       link: "/toko-berlian",
       position: "Total Berlian",
       icon: <img src="/Diamond.png" alt="" srcset="" />,
@@ -216,7 +286,9 @@ const Progress = () => {
                       >
                         {item.icon}
                       </div>
-                      <p className="text-center text-base font-semibold">{item.name}</p>
+                      <p className="text-center text-base font-semibold">
+                        {item.name}
+                      </p>
                     </div>
                     <p className="mt-3 text-sm font-semibold">{item.level}</p>
                   </div>
@@ -245,7 +317,9 @@ const Progress = () => {
                         {item.progress}
                       </p>
                     </div>
-                    <p className="mt-3 text-sm font-semibold">{item.position}</p>
+                    <p className="mt-3 text-sm font-semibold">
+                      {item.position}
+                    </p>
                   </div>
                 </Link>
               ))}
@@ -317,7 +391,9 @@ const Progress = () => {
                             >
                               {item.name}
                             </h5>
-                            <h5 className="mt-2 text-sm font-medium">{item.type}</h5>
+                            <h5 className="mt-2 text-sm font-medium">
+                              {item.type}
+                            </h5>
                           </div>
                           <Link to={"/hadiah-pencapaian"} className=" ml-auto">
                             <div
@@ -401,7 +477,9 @@ const Progress = () => {
                             >
                               {item.name}
                             </h5>
-                            <h5 className="mt-2 text-sm font-medium">{item.type}</h5>
+                            <h5 className="mt-2 text-sm font-medium">
+                              {item.type}
+                            </h5>
                           </div>
                           <div
                             className={` ml-auto flex mx-3 gap-3 justify-center items-center font-bold ${getIconTheme()} ${

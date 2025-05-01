@@ -159,7 +159,7 @@ const Subcategory = () => {
                         },
                       }}
                       className={`bg-[#EEE] px-3 py-2 rounded-full flex-shrink-0 transition-opacity duration-700 ease-in-out ${
-                        item.id === 1 && "bg-[hsl(218,93%,50%)] text-white"
+                        item.id === 2 && "bg-[hsl(218,93%,50%)] text-white"
                       }`}
                     >
                       <h5 className="font-normal text-sm ">{item.name}</h5>

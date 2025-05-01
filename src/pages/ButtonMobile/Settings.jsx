@@ -14,27 +14,40 @@ import { PiCertificateFill } from "react-icons/pi";
 import { IoColorPalette } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLogout } from "../../Features/Auth/Reducer/loginSlice";
+import Swal from "sweetalert2";
 
 const Settings = () => {
   const navigate = useNavigate();
   const { theme, middleTheme } = useTheme();
   const dispatch = useDispatch();
-  const handleLogout = async () => {
-    try {
-      // Panggil thunk untuk logout
-      await dispatch(fetchLogout()).unwrap();
-      // Redirect ke halaman login setelah logout berhasil
-      navigate("/");
-    } catch (error) {
-      console.error("Logout failed:", error);
-      // Tampilkan pesan error jika diperlukan
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Terjadi kesalahan saat logout.",
-      });
+const handleLogout = async () => {
+  try {
+    // Ambil ID user sebelum logout
+    const userId = localStorage.getItem("id");
+    if (userId) {
+      localStorage.removeItem(`loginCount_${userId}`);
     }
-  };
+
+    // Hapus semua data login (opsional, tapi disarankan)
+    localStorage.removeItem("id");
+    localStorage.removeItem("role");
+    localStorage.removeItem("token");
+
+    // Panggil thunk logout
+    await dispatch(fetchLogout()).unwrap();
+
+    // Arahkan ke halaman login
+    navigate("/");
+  } catch (error) {
+    console.error("Logout failed:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Terjadi kesalahan saat logout.",
+    });
+  }
+};
+
   const listSettings = [
     {
       id: 1,
