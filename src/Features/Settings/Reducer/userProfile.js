@@ -1,7 +1,6 @@
-// src/redux/userProfile.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// GET user profile by user_id
+// GET user profile
 export const fetchUserProfile = createAsyncThunk(
   "userProfile/fetchUserProfile",
   async (userId, { rejectWithValue }) => {
@@ -16,18 +15,15 @@ export const fetchUserProfile = createAsyncThunk(
           },
         }
       );
-      if (!response.ok) {
-        throw new Error("Gagal mengambil profil pengguna");
-      }
-      const data = await response.json();
-      return data;
+      if (!response.ok) throw new Error("Gagal mengambil profil pengguna");
+      return await response.json();
     } catch (error) {
       return rejectWithValue(error.message);
     }
   }
 );
 
-// POST create/update user profile
+// POST create or update user profile
 export const saveUserCreate = createAsyncThunk(
   "userProfile/saveUserCreate",
   async (profileData, { rejectWithValue }) => {
@@ -43,10 +39,9 @@ export const saveUserCreate = createAsyncThunk(
           body: JSON.stringify(profileData),
         }
       );
-      if (!response.ok) {
-        throw new Error("Gagal menyimpan profil pengguna");
-      }
+
       const data = await response.json();
+      if (!response.ok) return rejectWithValue(data);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -54,18 +49,20 @@ export const saveUserCreate = createAsyncThunk(
   }
 );
 
-// Slice
 const userProfileSlice = createSlice({
   name: "userProfile",
   initialState: {
-    user: null, // hanya satu profil
+    user: null,
     status: "idle",
     error: null,
   },
-  reducers: {},
+  reducers: {
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
-      // FETCH
       .addCase(fetchUserProfile.pending, (state) => {
         state.status = "loading";
       })
@@ -77,13 +74,12 @@ const userProfileSlice = createSlice({
         state.status = "failed";
         state.error = action.payload;
       })
-      // SAVE
       .addCase(saveUserCreate.pending, (state) => {
         state.status = "loading";
       })
       .addCase(saveUserCreate.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.user = action.payload; // langsung update state.user
+        state.user = action.payload;
       })
       .addCase(saveUserCreate.rejected, (state, action) => {
         state.status = "failed";
@@ -92,4 +88,5 @@ const userProfileSlice = createSlice({
   },
 });
 
+export const { setUser } = userProfileSlice.actions;
 export default userProfileSlice.reducer;

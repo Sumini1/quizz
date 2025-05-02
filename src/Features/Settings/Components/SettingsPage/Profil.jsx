@@ -2,18 +2,25 @@ import React, { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { AiFillEdit } from "react-icons/ai";
 import { useTheme } from "../../../../context/ThemeContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { saveUserCreate, fetchUserProfile } from "../../Reducer/userProfile";
+import { saveUserCreate, setUser } from "../../Reducer/userProfile";
 
 const Profil = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { theme, getBorder, getButtonClass, getBorderClass, middleTheme } =
     useTheme();
+  const userData = useSelector((state) => state.userProfile.user);
 
-  const userData = useSelector((state) => state.userProfile.user); // ambil dari redux
+  const saveUserToLocal = (user) => {
+    localStorage.setItem("userProfile", JSON.stringify(user));
+  };
+
+  const loadUserFromLocal = () => {
+    const data = localStorage.getItem("userProfile");
+    return data ? JSON.parse(data) : null;
+  };
 
   const [form, setForm] = useState({
     donation_name: "",
@@ -26,15 +33,6 @@ const Profil = () => {
     occupation: "",
   });
 
-  // Ambil user_id dari localStorage & fetch profile user
-  useEffect(() => {
-    const userId = localStorage.getItem("id");
-    if (userId) {
-      dispatch(fetchUserProfile(userId));
-    }
-  }, [dispatch]);
-
-  // Isi form kalau sudah ada data dari API
   useEffect(() => {
     if (userData) {
       setForm({
@@ -47,28 +45,56 @@ const Profil = () => {
         location: userData.location || "",
         occupation: userData.occupation || "",
       });
+      saveUserToLocal(userData);
+    } else {
+      const localUser = loadUserFromLocal();
+      if (localUser) {
+        setForm({
+          donation_name: localUser.donation_name || "",
+          full_name: localUser.full_name || "",
+          date_of_birth: localUser.date_of_birth?.split("T")[0] || "",
+          gender: localUser.gender || "",
+          phone_number: localUser.phone_number || "",
+          bio: localUser.bio || "",
+          location: localUser.location || "",
+          occupation: localUser.occupation || "",
+        });
+        dispatch(setUser(localUser));
+      }
     }
-  }, [userData]);
+  }, [userData, dispatch]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  console.log("Submitting form:", form); // ← tambahkan ini
-  const userId = localStorage.getItem("id");
-  if (!userId) return;
+    e.preventDefault();
+    const userId = localStorage.getItem("id");
+    if (!userId) return alert("User ID tidak ditemukan di localStorage");
 
-  const payload = {
-    user_id: userId,
-    ...form,
+    const payload = {
+      user_id: userId,
+      ...form,
+      date_of_birth: new Date(form.date_of_birth).toISOString(),
+    };
+
+    try {
+      const result = await dispatch(saveUserCreate(payload));
+      if (saveUserCreate.fulfilled.match(result)) {
+        alert("✅ Profil berhasil disimpan!");
+        const updatedUser = { ...form, user_id: userId };
+        dispatch(setUser(updatedUser));
+        saveUserToLocal(updatedUser);
+      } else {
+        alert(
+          `❌ Gagal menyimpan profil: ${result.payload || "Terjadi kesalahan"}`
+        );
+      }
+    } catch (err) {
+      alert(`❌ Error: ${err.message || "Terjadi kesalahan"}`);
+    }
   };
-
-  await dispatch(saveUserCreate(payload));
-  alert("Profil berhasil disimpan!");
-};
-
 
   return (
     <div className="flex flex-col gap-4 md:px-5 min-h-screen w-full h-full">
@@ -93,24 +119,28 @@ const Profil = () => {
             name="full_name"
             value={form.full_name}
             onChange={handleChange}
+            placeholder="Budi"
           />
           <InputField
             label="Nama Donatur"
             name="donation_name"
             value={form.donation_name}
             onChange={handleChange}
+            placeholder="Budi"
           />
           <InputField
             label="Nomor Telepon"
             name="phone_number"
             value={form.phone_number}
             onChange={handleChange}
+            placeholder="081234567890"
           />
           <InputField
             label="Domisili"
             name="location"
             value={form.location}
             onChange={handleChange}
+            placeholder="Jakarta"
           />
           <InputField
             label="Tanggal Lahir"
@@ -118,18 +148,21 @@ const Profil = () => {
             type="date"
             value={form.date_of_birth}
             onChange={handleChange}
+            placeholder="YYYY-MM-DD"
           />
           <InputField
             label="Pekerjaan"
             name="occupation"
             value={form.occupation}
             onChange={handleChange}
+            placeholder="Mahasiswa"
           />
           <InputField
             label="Bio"
             name="bio"
             value={form.bio}
             onChange={handleChange}
+            placeholder="Pencinta Ilmu"
           />
           <InputField
             label="Jenis Kelamin"

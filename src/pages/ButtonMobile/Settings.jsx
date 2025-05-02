@@ -20,33 +20,52 @@ const Settings = () => {
   const navigate = useNavigate();
   const { theme, middleTheme } = useTheme();
   const dispatch = useDispatch();
-const handleLogout = async () => {
-  try {
-    // Ambil ID user sebelum logout
+  // Handler logout pada komponen - Versi yang Diperbaiki
+  const handleLogout = async () => {
     const userId = localStorage.getItem("id");
-    if (userId) {
-      localStorage.removeItem(`loginCount_${userId}`);
+
+    try {
+      // Panggil API terlebih dahulu selama token masih valid
+      await dispatch(fetchLogout()).unwrap();
+
+      // Hapus localStorage hanya setelah API call berhasil
+      if (userId) {
+        localStorage.removeItem(`loginCount_${userId}`);
+      }
+      localStorage.removeItem("id");
+      localStorage.removeItem("role");
+      localStorage.removeItem("token");
+
+      Swal.fire({
+        icon: "success",
+        title: "Berhasil logout",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      navigate("/");
+    } catch (error) {
+      console.error("Logout API gagal:", error);
+
+      // Tampilkan pesan error yang spesifik
+      Swal.fire({
+        icon: "error",
+        title: "Gagal logout dari server",
+        text:
+          error?.message || "Token sudah tidak valid atau telah diblacklist",
+      });
+
+      // Jika API gagal, tetap hapus data di localStorage sebagai fallback
+      if (userId) {
+        localStorage.removeItem(`loginCount_${userId}`);
+      }
+      localStorage.removeItem("id");
+      localStorage.removeItem("role");
+      localStorage.removeItem("token");
+
+      navigate("/");
     }
-
-    // Hapus semua data login (opsional, tapi disarankan)
-    localStorage.removeItem("id");
-    localStorage.removeItem("role");
-    localStorage.removeItem("token");
-
-    // Panggil thunk logout
-    await dispatch(fetchLogout()).unwrap();
-
-    // Arahkan ke halaman login
-    navigate("/");
-  } catch (error) {
-    console.error("Logout failed:", error);
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Terjadi kesalahan saat logout.",
-    });
-  }
-};
+  };
 
   const listSettings = [
     {

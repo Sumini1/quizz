@@ -59,10 +59,13 @@ export const fetchLogin = createAsyncThunk(
 );
 
 // Thunk for logout
+
+// Thunk untuk logout - Versi yang Diperbaiki
 export const fetchLogout = createAsyncThunk(
   "login/fetchLogout",
   async (_, { rejectWithValue }) => {
     try {
+      // Pertama kirim request logout ke server dengan token yang masih ada
       await axios.post(
         "https://quiz-fiber-production.up.railway.app/auth/logout",
         {},
@@ -72,25 +75,10 @@ export const fetchLogout = createAsyncThunk(
           },
         }
       );
-
-      localStorage.removeItem("token");
-      localStorage.removeItem("id");
-      localStorage.removeItem("role");
-
-      Swal.fire({
-        title: "Logout Berhasil",
-        icon: "success",
-        showConfirmButton: true,
-      });
-
+      
+      // Tidak perlu menghapus token di sini, biarkan handleLogout yang melakukannya
       return null;
     } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: error.response?.data?.error || "Terjadi kesalahan saat logout.",
-      });
-
       return rejectWithValue(error.response?.data || error.message);
     }
   }
